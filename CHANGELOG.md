@@ -36,6 +36,8 @@ Ref: https://keepachangelog.com/en/1.0.0/
 
 ## [Unreleased]
 
+## [v0.26.0]
+
 ### Features
 - (precisebank) [#1906] Add new `x/precisebank` module with bank decimal extension for EVM usage.
 - (cli) [#1922] Add `iavlviewer` CLI command for low-level iavl db debugging.
