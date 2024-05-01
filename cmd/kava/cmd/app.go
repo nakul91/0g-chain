@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/Kava-Labs/opendb"
 	cometbftdb "github.com/cometbft/cometbft-db"
 	"github.com/cometbft/cometbft/libs/log"
 	tmtypes "github.com/cometbft/cometbft/types"
@@ -25,8 +26,6 @@ import (
 
 	"github.com/0glabs/0g-chain/app"
 	"github.com/0glabs/0g-chain/app/params"
-	metricstypes "github.com/0glabs/0g-chain/x/metrics/types"
-	"github.com/Kava-Labs/opendb"
 )
 
 const (
@@ -119,7 +118,6 @@ func (ac appCreator) newApp(
 			MempoolAuthAddresses:  mempoolAuthAddresses,
 			EVMTrace:              cast.ToString(appOpts.Get(ethermintflags.EVMTracer)),
 			EVMMaxGasWanted:       cast.ToUint64(appOpts.Get(ethermintflags.EVMMaxTxGasWanted)),
-			TelemetryOptions:      metricstypes.TelemetryOptionsFromAppOpts(appOpts),
 		},
 		baseapp.SetPruning(pruningOpts),
 		baseapp.SetMinGasPrices(strings.Replace(cast.ToString(appOpts.Get(server.FlagMinGasPrices)), ";", ",", -1)),
