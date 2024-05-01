@@ -8,6 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/config"
 	"github.com/cosmos/cosmos-sdk/client/debug"
 	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	"github.com/cosmos/cosmos-sdk/server"
 
 	tmcfg "github.com/cometbft/cometbft/config"
@@ -25,18 +26,21 @@ import (
 
 	"github.com/0glabs/0g-chain/app"
 	"github.com/0glabs/0g-chain/app/params"
+	"github.com/0glabs/0g-chain/chaincfg"
 	"github.com/0glabs/0g-chain/cmd/opendb"
+	"github.com/0glabs/0g-chain/crypto/vrf"
 )
 
-// EnvPrefix is the prefix environment variables must have to configure the app.
-const EnvPrefix = "KAVA"
+func customKeyringOptions() keyring.Option {
+	return func(options *keyring.Options) {
+		options.SupportedAlgos = append(hd.SupportedAlgorithms, vrf.VrfAlgo)
+		options.SupportedAlgosLedger = append(hd.SupportedAlgorithmsLedger, vrf.VrfAlgo)
+	}
+}
 
-// NewRootCmd creates a new root command for the kava blockchain.
+// NewRootCmd creates a new root command for the 0g-chain blockchain.
 func NewRootCmd() *cobra.Command {
-	app.SetSDKConfig().Seal()
-
 	encodingConfig := app.MakeEncodingConfig()
-
 	initClientCtx := client.Context{}.
 		WithCodec(encodingConfig.Marshaler).
 		WithInterfaceRegistry(encodingConfig.InterfaceRegistry).
@@ -44,14 +48,21 @@ func NewRootCmd() *cobra.Command {
 		WithLegacyAmino(encodingConfig.Amino).
 		WithInput(os.Stdin).
 		WithAccountRetriever(types.AccountRetriever{}).
+<<<<<<< HEAD
 		WithBroadcastMode(flags.FlagBroadcastMode).
 		WithHomeDir(app.DefaultNodeHome).
 		WithKeyringOptions(hd.EthSecp256k1Option()).
 		WithViper(EnvPrefix)
+=======
+		WithBroadcastMode(flags.BroadcastBlock).
+		WithHomeDir(chaincfg.DefaultNodeHome).
+		WithKeyringOptions(customKeyringOptions()).
+		WithViper(chaincfg.EnvPrefix)
+>>>>>>> be1cd76f (add vrf)
 
 	rootCmd := &cobra.Command{
-		Use:   "kava",
-		Short: "Daemon and CLI for the Kava blockchain.",
+		Use:   chaincfg.AppName,
+		Short: "Daemon and CLI for the 0g-chain blockchain.",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			cmd.SetOut(cmd.OutOrStdout())
 			cmd.SetErr(cmd.ErrOrStderr())
@@ -70,7 +81,7 @@ func NewRootCmd() *cobra.Command {
 				return err
 			}
 
-			customAppTemplate, customAppConfig := servercfg.AppConfig("ukava")
+			customAppTemplate, customAppConfig := servercfg.AppConfig(chaincfg.BaseDenom)
 
 			return server.InterceptConfigsPreRunHandler(
 				cmd,
@@ -81,12 +92,12 @@ func NewRootCmd() *cobra.Command {
 		},
 	}
 
-	addSubCmds(rootCmd, encodingConfig, app.DefaultNodeHome)
+	addSubCmds(rootCmd, encodingConfig, chaincfg.DefaultNodeHome)
 
 	return rootCmd
 }
 
-// addSubCmds registers all the sub commands used by kava.
+// addSubCmds registers all the sub commands used by 0g-chain.
 func addSubCmds(rootCmd *cobra.Command, encodingConfig params.EncodingConfig, defaultNodeHome string) {
 	gentxModule, ok := app.ModuleBasics[genutiltypes.ModuleName].(genutil.AppModuleBasic)
 	if !ok {
@@ -115,7 +126,7 @@ func addSubCmds(rootCmd *cobra.Command, encodingConfig params.EncodingConfig, de
 
 	opts := ethermintserver.StartOptions{
 		AppCreator:      ac.newApp,
-		DefaultNodeHome: app.DefaultNodeHome,
+		DefaultNodeHome: chaincfg.DefaultNodeHome,
 		DBOpener:        opendb.OpenDB,
 	}
 	// ethermintserver adds additional flags to start the JSON-RPC server for evm support
