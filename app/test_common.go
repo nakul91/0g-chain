@@ -41,6 +41,7 @@ import (
 	feemarketkeeper "github.com/evmos/ethermint/x/feemarket/keeper"
 	"github.com/stretchr/testify/require"
 
+	"github.com/0glabs/0g-chain/chaincfg"
 	bep3keeper "github.com/0glabs/0g-chain/x/bep3/keeper"
 	committeekeeper "github.com/0glabs/0g-chain/x/committee/keeper"
 	evmutilkeeper "github.com/0glabs/0g-chain/x/evmutil/keeper"
@@ -90,7 +91,7 @@ func NewTestAppFromSealed() TestApp {
 	encCfg := MakeEncodingConfig()
 
 	app := NewApp(
-		log.NewNopLogger(), db, DefaultNodeHome, nil,
+		log.NewNopLogger(), db, chaincfg.DefaultNodeHome, nil,
 		encCfg, DefaultOptions, baseapp.SetChainID(TestChainId),
 	)
 	return TestApp{App: *app}
@@ -152,7 +153,7 @@ func GenesisStateWithSingleValidator(
 	balances := []banktypes.Balance{
 		{
 			Address: acc.GetAddress().String(),
-			Coins:   sdk.NewCoins(sdk.NewCoin("ukava", sdkmath.NewInt(100000000000000))),
+			Coins:   sdk.NewCoins(sdk.NewCoin(chaincfg.DisplayDenom, sdkmath.NewInt(100000000000000))),
 		},
 	}
 
@@ -215,7 +216,7 @@ func genesisStateWithValSet(
 	}
 	// set validators and delegations
 	currentStakingGenesis := stakingtypes.GetGenesisStateFromAppState(app.appCodec, genesisState)
-	currentStakingGenesis.Params.BondDenom = "ukava"
+	currentStakingGenesis.Params.BondDenom = chaincfg.DisplayDenom
 
 	stakingGenesis := stakingtypes.NewGenesisState(
 		currentStakingGenesis.Params,
@@ -235,13 +236,13 @@ func genesisStateWithValSet(
 
 	for range delegations {
 		// add delegated tokens to total supply
-		totalSupply = totalSupply.Add(sdk.NewCoin("ukava", bondAmt))
+		totalSupply = totalSupply.Add(sdk.NewCoin(chaincfg.DisplayDenom, bondAmt))
 	}
 
 	// add bonded amount to bonded pool module account
 	balances = append(balances, banktypes.Balance{
 		Address: authtypes.NewModuleAddress(stakingtypes.BondedPoolName).String(),
-		Coins:   sdk.Coins{sdk.NewCoin("ukava", bondAmt)},
+		Coins:   sdk.Coins{sdk.NewCoin(chaincfg.DisplayDenom, bondAmt)},
 	})
 
 	bankGenesis := banktypes.NewGenesisState(
