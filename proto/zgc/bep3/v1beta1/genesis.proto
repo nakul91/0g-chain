@@ -1,9 +1,9 @@
 syntax = "proto3";
-package kava.bep3.v1beta1;
+package zgc.bep3.v1beta1;
 
 import "gogoproto/gogo.proto";
 import "google/protobuf/timestamp.proto";
-import "kava/bep3/v1beta1/bep3.proto";
+import "zgc/bep3/v1beta1/bep3.proto";
 
 option go_package = "github.com/0glabs/0g-chain/x/bep3/types";
 
