@@ -27,13 +27,8 @@ import (
 	kavaparams "github.com/0glabs/0g-chain/app/params"
 	"github.com/0glabs/0g-chain/tests/e2e/runner"
 	"github.com/0glabs/0g-chain/tests/util"
-	cdptypes "github.com/0glabs/0g-chain/x/cdp/types"
 	committeetypes "github.com/0glabs/0g-chain/x/committee/types"
-	communitytypes "github.com/0glabs/0g-chain/x/community/types"
-	earntypes "github.com/0glabs/0g-chain/x/earn/types"
 	evmutiltypes "github.com/0glabs/0g-chain/x/evmutil/types"
-	incentivetypes "github.com/0glabs/0g-chain/x/incentive/types"
-	kavadisttypes "github.com/0glabs/0g-chain/x/kavadist/types"
 )
 
 // Chain wraps query clients & accounts for a network
@@ -50,6 +45,20 @@ type Chain struct {
 	erc20s        map[common.Address]struct{}
 
 	EncodingConfig kavaparams.EncodingConfig
+
+	Auth         authtypes.QueryClient
+	Authz        authz.QueryClient
+	Bank         banktypes.QueryClient
+	Committee    committeetypes.QueryClient
+	Distribution distrtypes.QueryClient
+	Evm          evmtypes.QueryClient
+	Evmutil      evmutiltypes.QueryClient
+	Gov          govv1types.QueryClient
+	Mint         minttypes.QueryClient
+	Staking      stakingtypes.QueryClient
+	Tm           tmservice.ServiceClient
+	Tx           txtypes.ServiceClient
+	Upgrade      upgradetypes.QueryClient
 
 	TmSignClient tmclient.SignClient
 
@@ -98,6 +107,21 @@ func NewChain(t *testing.T, details *runner.ChainDetails, fundedAccountMnemonic 
 	if err != nil {
 		return chain, err
 	}
+
+	chain.Auth = authtypes.NewQueryClient(grpcConn)
+	chain.Authz = authz.NewQueryClient(grpcConn)
+	chain.Bank = banktypes.NewQueryClient(grpcConn)
+
+	chain.Committee = committeetypes.NewQueryClient(grpcConn)
+	chain.Distribution = distrtypes.NewQueryClient(grpcConn)
+	chain.Evm = evmtypes.NewQueryClient(grpcConn)
+	chain.Evmutil = evmutiltypes.NewQueryClient(grpcConn)
+	chain.Gov = govv1types.NewQueryClient(grpcConn)
+	chain.Mint = minttypes.NewQueryClient(grpcConn)
+	chain.Staking = stakingtypes.NewQueryClient(grpcConn)
+	chain.Tm = tmservice.NewServiceClient(grpcConn)
+	chain.Tx = txtypes.NewServiceClient(grpcConn)
+	chain.Upgrade = upgradetypes.NewQueryClient(grpcConn)
 
 	// initialize accounts map
 	chain.accounts = make(map[string]*SigningAccount)
