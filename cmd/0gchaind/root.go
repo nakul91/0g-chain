@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"fmt"
@@ -25,7 +25,7 @@ import (
 
 	"github.com/0glabs/0g-chain/app"
 	"github.com/0glabs/0g-chain/app/params"
-	"github.com/0glabs/0g-chain/cmd/kava/opendb"
+	"github.com/0glabs/0g-chain/cmd/opendb"
 )
 
 // EnvPrefix is the prefix environment variables must have to configure the app.
