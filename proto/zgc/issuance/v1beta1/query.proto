@@ -1,9 +1,9 @@
 syntax = "proto3";
-package kava.issuance.v1beta1;
+package zgc.issuance.v1beta1;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "kava/issuance/v1beta1/genesis.proto";
+import "zgc/issuance/v1beta1/genesis.proto";
 
 option go_package = "github.com/0glabs/0g-chain/x/issuance/types";
 
@@ -11,7 +11,7 @@ option go_package = "github.com/0glabs/0g-chain/x/issuance/types";
 service Query {
   // Params queries all parameters of the issuance module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/kava/issuance/v1beta1/params";
+    option (google.api.http).get = "/0g-chain/issuance/v1beta1/params";
   }
 }
 

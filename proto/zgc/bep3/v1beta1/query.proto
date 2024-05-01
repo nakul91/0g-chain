@@ -1,5 +1,5 @@
 syntax = "proto3";
-package kava.bep3.v1beta1;
+package zgc.bep3.v1beta1;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cosmos/base/v1beta1/coin.proto";
@@ -7,7 +7,7 @@ import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/duration.proto";
-import "kava/bep3/v1beta1/bep3.proto";
+import "zgc/bep3/v1beta1/bep3.proto";
 
 option go_package = "github.com/0glabs/0g-chain/x/bep3/types";
 
@@ -15,27 +15,27 @@ option go_package = "github.com/0glabs/0g-chain/x/bep3/types";
 service Query {
   // Params queries module params
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/kava/bep3/v1beta1/params";
+    option (google.api.http).get = "/0g-chain/bep3/v1beta1/params";
   }
 
   // AssetSupply queries info about an asset's supply
   rpc AssetSupply(QueryAssetSupplyRequest) returns (QueryAssetSupplyResponse) {
-    option (google.api.http).get = "/kava/bep3/v1beta1/assetsupply/{denom}";
+    option (google.api.http).get = "/0g-chain/bep3/v1beta1/assetsupply/{denom}";
   }
 
   // AssetSupplies queries a list of asset supplies
   rpc AssetSupplies(QueryAssetSuppliesRequest) returns (QueryAssetSuppliesResponse) {
-    option (google.api.http).get = "/kava/bep3/v1beta1/assetsupplies";
+    option (google.api.http).get = "/0g-chain/bep3/v1beta1/assetsupplies";
   }
 
   // AtomicSwap queries info about an atomic swap
   rpc AtomicSwap(QueryAtomicSwapRequest) returns (QueryAtomicSwapResponse) {
-    option (google.api.http).get = "/kava/bep3/v1beta1/atomicswap/{swap_id}";
+    option (google.api.http).get = "/0g-chain/bep3/v1beta1/atomicswap/{swap_id}";
   }
 
   // AtomicSwaps queries a list of atomic swaps
   rpc AtomicSwaps(QueryAtomicSwapsRequest) returns (QueryAtomicSwapsResponse) {
-    option (google.api.http).get = "/kava/bep3/v1beta1/atomicswaps";
+    option (google.api.http).get = "/0g-chain/bep3/v1beta1/atomicswaps";
   }
 }
 
@@ -121,9 +121,9 @@ message AtomicSwapResponse {
   uint64 expire_height = 4;
   // timestamp represents the timestamp of the swap
   int64 timestamp = 5;
-  // sender is the kava chain sender of the swap
+  // sender is the 0g-chain sender of the swap
   string sender = 6 [(cosmos_proto.scalar) = "cosmos.AddressString"];
-  // recipient is the kava chain recipient of the swap
+  // recipient is the 0g-chain recipient of the swap
   string recipient = 7 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   // sender_other_chain is the sender on the other chain
   string sender_other_chain = 8;

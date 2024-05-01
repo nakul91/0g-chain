@@ -1,5 +1,5 @@
 syntax = "proto3";
-package kava.bep3.v1beta1;
+package zgc.bep3.v1beta1;
 
 import "cosmos/base/v1beta1/coin.proto";
 import "cosmos_proto/cosmos.proto";
@@ -27,7 +27,7 @@ message AssetParam {
   SupplyLimit supply_limit = 3 [(gogoproto.nullable) = false];
   // active specifies if the asset is live or paused
   bool active = 4;
-  // deputy_address the kava address of the deputy
+  // deputy_address the 0g-chain address of the deputy
   bytes deputy_address = 5 [
     (cosmos_proto.scalar) = "cosmos.AddressBytes",
     (gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"
@@ -99,9 +99,9 @@ enum SwapDirection {
 
   // SWAP_DIRECTION_UNSPECIFIED represents unspecified or invalid swap direcation
   SWAP_DIRECTION_UNSPECIFIED = 0;
-  // SWAP_DIRECTION_INCOMING represents is incoming swap (to the kava chain)
+  // SWAP_DIRECTION_INCOMING represents is incoming swap (to the 0g-chain)
   SWAP_DIRECTION_INCOMING = 1;
-  // SWAP_DIRECTION_OUTGOING represents an outgoing swap (from the kava chain)
+  // SWAP_DIRECTION_OUTGOING represents an outgoing swap (from the 0g-chain)
   SWAP_DIRECTION_OUTGOING = 2;
 }
 
@@ -118,12 +118,12 @@ message AtomicSwap {
   uint64 expire_height = 3;
   // timestamp represents the timestamp of the swap
   int64 timestamp = 4;
-  // sender is the kava chain sender of the swap
+  // sender is the 0g-chain sender of the swap
   bytes sender = 5 [
     (cosmos_proto.scalar) = "cosmos.AddressBytes",
     (gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"
   ];
-  // recipient is the kava chain recipient of the swap
+  // recipient is the 0g-chain recipient of the swap
   bytes recipient = 6 [
     (cosmos_proto.scalar) = "cosmos.AddressBytes",
     (gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"

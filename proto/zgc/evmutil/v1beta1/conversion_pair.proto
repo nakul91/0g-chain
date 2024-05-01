@@ -1,5 +1,5 @@
 syntax = "proto3";
-package kava.evmutil.v1beta1;
+package zgc.evmutil.v1beta1;
 
 import "gogoproto/gogo.proto";
 
@@ -7,14 +7,14 @@ option go_package = "github.com/0glabs/0g-chain/x/evmutil/types";
 option (gogoproto.equal_all) = true;
 option (gogoproto.verbose_equal_all) = true;
 
-// ConversionPair defines a Kava ERC20 address and corresponding denom that is
+// ConversionPair defines a 0gChain ERC20 address and corresponding denom that is
 // allowed to be converted between ERC20 and sdk.Coin
 message ConversionPair {
   option (gogoproto.goproto_getters) = false;
 
-  // ERC20 address of the token on the Kava EVM
-  bytes kava_erc20_address = 1 [
-    (gogoproto.customname) = "KavaERC20Address",
+  // ERC20 address of the token on the 0gChain EVM
+  bytes zgChain_erc20_address = 1 [
+    (gogoproto.customname) = "ZgChainERC20Address",
     (gogoproto.casttype) = "HexBytes"
   ];
 
