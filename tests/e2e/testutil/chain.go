@@ -21,11 +21,19 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 
-	"github.com/kava-labs/kava/app"
-	kavaparams "github.com/kava-labs/kava/app/params"
-	"github.com/kava-labs/kava/client/grpc"
-	"github.com/kava-labs/kava/tests/e2e/runner"
-	"github.com/kava-labs/kava/tests/util"
+	evmtypes "github.com/evmos/ethermint/x/evm/types"
+
+	"github.com/0glabs/0g-chain/app"
+	kavaparams "github.com/0glabs/0g-chain/app/params"
+	"github.com/0glabs/0g-chain/tests/e2e/runner"
+	"github.com/0glabs/0g-chain/tests/util"
+	cdptypes "github.com/0glabs/0g-chain/x/cdp/types"
+	committeetypes "github.com/0glabs/0g-chain/x/committee/types"
+	communitytypes "github.com/0glabs/0g-chain/x/community/types"
+	earntypes "github.com/0glabs/0g-chain/x/earn/types"
+	evmutiltypes "github.com/0glabs/0g-chain/x/evmutil/types"
+	incentivetypes "github.com/0glabs/0g-chain/x/incentive/types"
+	kavadisttypes "github.com/0glabs/0g-chain/x/kavadist/types"
 )
 
 // Chain wraps query clients & accounts for a network

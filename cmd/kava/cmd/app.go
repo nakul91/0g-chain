@@ -23,10 +23,10 @@ import (
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 
+	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/app/params"
+	metricstypes "github.com/0glabs/0g-chain/x/metrics/types"
 	"github.com/Kava-Labs/opendb"
-	"github.com/kava-labs/kava/app"
-	"github.com/kava-labs/kava/app/params"
-	metricstypes "github.com/kava-labs/kava/x/metrics/types"
 )
 
 const (

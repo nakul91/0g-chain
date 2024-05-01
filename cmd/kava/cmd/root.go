@@ -25,11 +25,11 @@ import (
 	servercfg "github.com/evmos/ethermint/server/config"
 	"github.com/spf13/cobra"
 
+	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/app/params"
+	"github.com/0glabs/0g-chain/cmd/kava/cmd/iavlviewer"
+	"github.com/0glabs/0g-chain/cmd/kava/cmd/rocksdb"
 	"github.com/Kava-Labs/opendb"
-	"github.com/kava-labs/kava/app"
-	"github.com/kava-labs/kava/app/params"
-	"github.com/kava-labs/kava/cmd/kava/cmd/iavlviewer"
-	"github.com/kava-labs/kava/cmd/kava/cmd/rocksdb"
 )
 
 // EnvPrefix is the prefix environment variables must have to configure the app.
