@@ -79,7 +79,7 @@ type TestApp struct {
 //
 // Note, it also sets the sdk config with the app's address prefix, coin type, etc.
 func NewTestApp() TestApp {
-	SetSDKConfig()
+	chaincfg.SetSDKConfig()
 
 	return NewTestAppFromSealed()
 }
