@@ -12,6 +12,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/chaincfg"
 	"github.com/0glabs/0g-chain/x/evmutil/keeper"
 	"github.com/0glabs/0g-chain/x/evmutil/testutil"
 	"github.com/0glabs/0g-chain/x/evmutil/types"
@@ -46,10 +47,10 @@ func (suite *invariantTestSuite) SetupValidState() {
 			sdkmath.NewInt(10000000000),
 		))
 	}
-	suite.FundModuleAccountWithKava(
+	suite.FundModuleAccountWithZgChain(
 		types.ModuleName,
 		sdk.NewCoins(
-			sdk.NewCoin("ukava", sdkmath.NewInt(2)), // ( sum of all minor balances ) / conversion multiplier
+			sdk.NewCoin(chaincfg.DisplayDenom, sdkmath.NewInt(2)), // ( sum of all minor balances ) / conversion multiplier
 		),
 	)
 
@@ -151,7 +152,7 @@ func (suite *invariantTestSuite) TestSendToModuleAccountNotAllowed() {
 		ToAddress:   maccAddress.String(),
 		Amount:      coins,
 	})
-	suite.ErrorContains(err, "kava1w9vxuke5dz6hyza2j932qgmxltnfxwl78u920k is not allowed to receive funds: unauthorized")
+	suite.ErrorContains(err, "0g1w9vxuke5dz6hyza2j932qgmxltnfxwl78u920k is not allowed to receive funds: unauthorized")
 }
 
 func (suite *invariantTestSuite) TestCosmosCoinsFullyBackedInvariant() {
