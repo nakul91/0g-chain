@@ -81,7 +81,7 @@ func NewRootCmd() *cobra.Command {
 				return err
 			}
 
-			customAppTemplate, customAppConfig := servercfg.AppConfig(chaincfg.BaseDenom)
+			customAppTemplate, customAppConfig := servercfg.AppConfig("ua0gi")
 
 			return server.InterceptConfigsPreRunHandler(
 				cmd,
