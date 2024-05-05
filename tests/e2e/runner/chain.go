@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/0glabs/0g-chain/chaincfg"
 	rpchttpclient "github.com/cometbft/cometbft/rpc/client/http"
 	"github.com/ethereum/go-ethereum/ethclient"
 )
@@ -74,7 +73,7 @@ var (
 		EvmRpcUrl: "http://localhost:8545",
 
 		ChainId:      "0gchainlocalnet_8888-1",
-		StakingDenom: chaincfg.DisplayDenom,
+		StakingDenom: "ua0gi",
 	}
 	kvtoolIbcChain = ChainDetails{
 		RpcUrl:    "http://localhost:26658",
