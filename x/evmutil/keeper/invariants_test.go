@@ -12,6 +12,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/chaincfg"
 	"github.com/0glabs/0g-chain/x/evmutil/keeper"
 	"github.com/0glabs/0g-chain/x/evmutil/testutil"
 	"github.com/0glabs/0g-chain/x/evmutil/types"
@@ -49,7 +50,7 @@ func (suite *invariantTestSuite) SetupValidState() {
 	suite.FundModuleAccountWithZgChain(
 		types.ModuleName,
 		sdk.NewCoins(
-			sdk.NewCoin("ua0gi", sdkmath.NewInt(2)), // ( sum of all minor balances ) / conversion multiplier
+			sdk.NewCoin(chaincfg.AuxiliaryDenom, sdkmath.NewInt(2)), // ( sum of all minor balances ) / conversion multiplier
 		),
 	)
 
