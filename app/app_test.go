@@ -23,6 +23,9 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	abci "github.com/tendermint/tendermint/abci/types"
+	"github.com/tendermint/tendermint/libs/log"
+	db "github.com/tendermint/tm-db"
 )
 
 func TestNewApp(t *testing.T) {
