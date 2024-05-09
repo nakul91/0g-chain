@@ -111,6 +111,8 @@ import (
 	"github.com/0glabs/0g-chain/app/ante"
 	chainparams "github.com/0glabs/0g-chain/app/params"
 	"github.com/0glabs/0g-chain/chaincfg"
+	dasignersprecompile "github.com/0glabs/0g-chain/precompiles/dasigners"
+
 	"github.com/0glabs/0g-chain/x/bep3"
 	bep3keeper "github.com/0glabs/0g-chain/x/bep3/keeper"
 	bep3types "github.com/0glabs/0g-chain/x/bep3/types"
@@ -124,6 +126,9 @@ import (
 	das "github.com/0glabs/0g-chain/x/das/v1"
 	daskeeper "github.com/0glabs/0g-chain/x/das/v1/keeper"
 	dastypes "github.com/0glabs/0g-chain/x/das/v1/types"
+	dasigners "github.com/0glabs/0g-chain/x/dasigners/v1"
+	dasignerskeeper "github.com/0glabs/0g-chain/x/dasigners/v1/keeper"
+	dasignerstypes "github.com/0glabs/0g-chain/x/dasigners/v1/types"
 	evmutil "github.com/0glabs/0g-chain/x/evmutil"
 	evmutilkeeper "github.com/0glabs/0g-chain/x/evmutil/keeper"
 	evmutiltypes "github.com/0glabs/0g-chain/x/evmutil/types"
@@ -139,6 +144,8 @@ import (
 	validatorvesting "github.com/0glabs/0g-chain/x/validator-vesting"
 	validatorvestingrest "github.com/0glabs/0g-chain/x/validator-vesting/client/rest"
 	validatorvestingtypes "github.com/0glabs/0g-chain/x/validator-vesting/types"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/vm"
 )
 
 var (
@@ -183,6 +190,7 @@ var (
 		precisebank.AppModuleBasic{},
 		council.AppModuleBasic{},
 		das.AppModuleBasic{},
+		dasigners.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -495,7 +503,17 @@ func NewApp(
 		vm.NewEVM,
 		options.EVMTrace,
 		evmSubspace,
+		precompiles,
 	)
+	// dasigners keeper
+	app.dasignersKeeper = dasignerskeeper.NewKeeper(keys[dasignerstypes.StoreKey], appCodec, app.stakingKeeper)
+	// precopmiles
+	precompiles := make(map[common.Address]vm.PrecompiledContract)
+	daSignersPrecompile, err := dasignersprecompile.NewDASignersPrecompile(app.dasignersKeeper)
+	if err != nil {
+		panic("initialize precompile failed")
+	}
+	precompiles[daSignersPrecompile.Address()] = daSignersPrecompile
 
 	app.evmutilKeeper.SetEvmKeeper(app.evmKeeper)
 
