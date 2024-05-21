@@ -123,9 +123,6 @@ import (
 	council "github.com/0glabs/0g-chain/x/council/v1"
 	councilkeeper "github.com/0glabs/0g-chain/x/council/v1/keeper"
 	counciltypes "github.com/0glabs/0g-chain/x/council/v1/types"
-	das "github.com/0glabs/0g-chain/x/das/v1"
-	daskeeper "github.com/0glabs/0g-chain/x/das/v1/keeper"
-	dastypes "github.com/0glabs/0g-chain/x/das/v1/types"
 	dasigners "github.com/0glabs/0g-chain/x/dasigners/v1"
 	dasignerskeeper "github.com/0glabs/0g-chain/x/dasigners/v1/keeper"
 	dasignerstypes "github.com/0glabs/0g-chain/x/dasigners/v1/types"
@@ -189,7 +186,6 @@ var (
 		mint.AppModuleBasic{},
 		precisebank.AppModuleBasic{},
 		council.AppModuleBasic{},
-		das.AppModuleBasic{},
 		dasigners.AppModuleBasic{},
 	)
 
@@ -755,7 +751,6 @@ func NewApp(
 	app.CouncilKeeper = councilkeeper.NewKeeper(
 		keys[counciltypes.StoreKey], appCodec, app.stakingKeeper,
 	)
-	app.DasKeeper = daskeeper.NewKeeper(keys[dastypes.StoreKey], appCodec, app.stakingKeeper)
 
 	// create the module manager (Note: Any module instantiated in the module manager that is later modified
 	// must be passed by reference here.)
