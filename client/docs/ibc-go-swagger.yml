@@ -129,9 +129,9 @@ paths:
                         source of the fungible token.
                     base_denom:
                       type: string
-                      description: evm  denomination of the relayed fungible token.
+                      description: base denomination of the relayed fungible token.
                   description: >-
-                    DenomTrace contains the evm  denomination for ICS20 fungible
+                    DenomTrace contains the base denomination for ICS20 fungible
                     tokens and the
 
                     source tracing information path.
@@ -263,9 +263,9 @@ paths:
                       source of the fungible token.
                   base_denom:
                     type: string
-                    description: evm  denomination of the relayed fungible token.
+                    description: base denomination of the relayed fungible token.
                 description: >-
-                  DenomTrace contains the evm  denomination for ICS20 fungible
+                  DenomTrace contains the base denomination for ICS20 fungible
                   tokens and the
 
                   source tracing information path.
@@ -13640,9 +13640,9 @@ definitions:
           source of the fungible token.
       base_denom:
         type: string
-        description: evm  denomination of the relayed fungible token.
+        description: base denomination of the relayed fungible token.
     description: >-
-      DenomTrace contains the evm  denomination for ICS20 fungible tokens and
+      DenomTrace contains the base denomination for ICS20 fungible tokens and
       the
 
       source tracing information path.
@@ -13696,9 +13696,9 @@ definitions:
               source of the fungible token.
           base_denom:
             type: string
-            description: evm  denomination of the relayed fungible token.
+            description: base denomination of the relayed fungible token.
         description: >-
-          DenomTrace contains the evm  denomination for ICS20 fungible tokens
+          DenomTrace contains the base denomination for ICS20 fungible tokens
           and the
 
           source tracing information path.
@@ -13722,9 +13722,9 @@ definitions:
                 source of the fungible token.
             base_denom:
               type: string
-              description: evm  denomination of the relayed fungible token.
+              description: base denomination of the relayed fungible token.
           description: >-
-            DenomTrace contains the evm  denomination for ICS20 fungible tokens
+            DenomTrace contains the base denomination for ICS20 fungible tokens
             and the
 
             source tracing information path.
