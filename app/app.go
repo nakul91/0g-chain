@@ -29,6 +29,7 @@ import (
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/vesting"
+	vestingkeeper "github.com/cosmos/cosmos-sdk/x/auth/vesting/keeper"
 	vestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 	"github.com/cosmos/cosmos-sdk/x/authz"
 	authzkeeper "github.com/cosmos/cosmos-sdk/x/authz/keeper"
@@ -736,6 +737,8 @@ func NewApp(
 		keys[counciltypes.StoreKey], appCodec, app.stakingKeeper,
 	)
 
+	app.vestingKeeper = vestingkeeper.NewVestingKeeper(app.accountKeeper, app.bankKeeper, keys[vestingtypes.StoreKey])
+
 	// create the module manager (Note: Any module instantiated in the module manager that is later modified
 	// must be passed by reference here.)
 	app.mm = module.NewManager(
@@ -757,7 +760,7 @@ func NewApp(
 		upgrade.NewAppModule(&app.upgradeKeeper),
 		evidence.NewAppModule(app.evidenceKeeper),
 		transferModule,
-		vesting.NewAppModule(app.accountKeeper, app.bankKeeper),
+		vesting.NewAppModule(app.accountKeeper, app.vestingKeeper),
 		authzmodule.NewAppModule(appCodec, app.authzKeeper, app.accountKeeper, app.bankKeeper, app.interfaceRegistry),
 		issuance.NewAppModule(app.issuanceKeeper, app.accountKeeper, app.bankKeeper),
 		bep3.NewAppModule(app.bep3Keeper, app.accountKeeper, app.bankKeeper),
