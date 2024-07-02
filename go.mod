@@ -277,8 +277,8 @@ replace (
 	github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.9.0
 	// Downgraded to avoid bugs in following commits which causes "version does not exist" errors
 	github.com/syndtr/goleveldb => github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
-	// stick with compatible version or x/exp in v0.47.x line
-	golang.org/x/exp => golang.org/x/exp v0.0.0-20230711153332-06a737ee72cb
-	// stick with compatible version of rapid in v0.47.x line
-	pgregory.net/rapid => pgregory.net/rapid v0.5.5
+	// Use cometbft fork of tendermint
+	github.com/tendermint/tendermint => github.com/0glabs/cometbft v0.34.27-0glabs.0
+	// Indirect dependencies still use tendermint/tm-db
+	github.com/tendermint/tm-db => github.com/kava-labs/tm-db v0.6.7-kava.4
 )
