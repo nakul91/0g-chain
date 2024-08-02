@@ -6,9 +6,9 @@ import (
 	"sort"
 
 	"github.com/0glabs/0g-chain/x/dasigners/v1/types"
+	abci "github.com/cometbft/cometbft/abci/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	abci "github.com/tendermint/tendermint/abci/types"
 )
 
 type Ballot struct {

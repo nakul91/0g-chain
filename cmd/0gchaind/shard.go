@@ -1,10 +1,10 @@
-package cmd
+package main
 
 import (
 	"fmt"
 	"strings"
 
-	"github.com/kava-labs/kava/app"
+	"github.com/0glabs/0g-chain/app"
 	"github.com/spf13/cobra"
 
 	dbm "github.com/cometbft/cometbft-db"

@@ -540,17 +540,17 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_EpochNumber_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "epoch-number"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_EpochNumber_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "epoch-number"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QuorumCount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "quorum-count"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_QuorumCount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "quorum-count"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_EpochQuorum_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "epoch-quorum"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_EpochQuorum_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "epoch-quorum"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_EpochQuorumRow_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "epoch-quorum-row"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_EpochQuorumRow_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "epoch-quorum-row"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_AggregatePubkeyG1_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "aggregate-pubkey-g1"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AggregatePubkeyG1_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "aggregate-pubkey-g1"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Signer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "signer"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Signer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"0g", "dasigners", "v1", "signer"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

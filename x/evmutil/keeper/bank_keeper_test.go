@@ -23,7 +23,6 @@ import (
 	vesting "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	"github.com/stretchr/testify/suite"
-	tmtime "github.com/tendermint/tendermint/types/time"
 )
 
 type evmBankKeeperTestSuite struct {

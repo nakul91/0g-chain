@@ -3,7 +3,6 @@ package v2
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/kava-labs/kava/x/cdp/types"
 )
 
 // MigrateStore performs in-place store migrations for consensus version 2

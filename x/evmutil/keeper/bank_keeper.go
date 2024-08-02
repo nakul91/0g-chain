@@ -164,6 +164,16 @@ func (k EvmBankKeeper) BurnCoins(ctx sdk.Context, moduleName string, amt sdk.Coi
 	return k.evmDenomKeeper.RemoveBalance(ctx, moduleAddr, baseDemonCnt)
 }
 
+// IsSendEnabledCoins checks the coins provided and returns an ErrSendDisabled
+// if any of the coins are not configured for sending. Returns nil if sending is
+// enabled for all provided coins.
+func (k EvmBankKeeper) IsSendEnabledCoins(ctx sdk.Context, coins ...sdk.Coin) error {
+	// IsSendEnabledCoins method is not used by the evm module, but is required by the
+	// evmtypes.BankKeeper interface. This must be updated if the evm module
+	// is updated to use IsSendEnabledCoins.
+	panic("not implemented")
+}
+
 // ConvertOnegasDenomToEvmDenomIfNeeded converts 1 gas denom to evm denom for an address if
 // its evm denom balance is smaller than the evmDenomCnt amount.
 func (k EvmBankKeeper) ConvertOneGasDenomToEvmDenomIfNeeded(ctx sdk.Context, addr sdk.AccAddress, evmDenomCnt sdkmath.Int) error {

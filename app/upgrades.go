@@ -128,13 +128,6 @@ func upgradeHandler(
 		// run migrations for all modules and return new consensus version map
 		versionMap, err := app.mm.RunMigrations(ctx, app.configurator, fromVM)
 
-		// Set risky CDP's to sync interest and liquidate every 100 blocks instead
-		// of every block.  This significantly improves performance as this cdp
-		// process is a signification porition of time spent during block execution.
-		cdpParams := app.cdpKeeper.GetParams(ctx)
-		cdpParams.LiquidationBlockInterval = CDPLiquidationBlockInterval
-		app.cdpKeeper.SetParams(ctx, cdpParams)
-
 		return versionMap, err
 	}
 }
