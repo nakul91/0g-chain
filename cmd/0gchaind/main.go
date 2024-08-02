@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/cosmos/cosmos-sdk/server"
@@ -11,12 +12,11 @@ import (
 
 func main() {
 	chaincfg.SetSDKConfig().Seal()
-
 	rootCmd := NewRootCmd()
-
 	if err := svrcmd.Execute(rootCmd, chaincfg.EnvPrefix, chaincfg.DefaultNodeHome); err != nil {
 		switch e := err.(type) {
 		case server.ErrorCode:
+			fmt.Println("error")
 			os.Exit(e.Code)
 
 		default:

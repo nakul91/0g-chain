@@ -6,12 +6,12 @@ import (
 	"fmt"
 
 	errorsmod "cosmossdk.io/errors"
+	tmcrypto "github.com/cometbft/cometbft/crypto"
 	vrfalgo "github.com/coniks-sys/coniks-go/crypto/vrf"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	errortypes "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/common"
-	tmcrypto "github.com/tendermint/tendermint/crypto"
 )
 
 const (

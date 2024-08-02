@@ -28,8 +28,11 @@ import (
 
 	"github.com/0glabs/0g-chain/app"
 	"github.com/0glabs/0g-chain/app/params"
-	"github.com/0glabs/0g-chain/cmd/kava/cmd/iavlviewer"
-	"github.com/0glabs/0g-chain/cmd/kava/cmd/rocksdb"
+	"github.com/0glabs/0g-chain/chaincfg"
+	"github.com/0glabs/0g-chain/cmd/0gchaind/iavlviewer"
+	"github.com/0glabs/0g-chain/cmd/0gchaind/rocksdb"
+	"github.com/0glabs/0g-chain/cmd/opendb"
+	"github.com/0glabs/0g-chain/crypto/vrf"
 	"github.com/Kava-Labs/opendb"
 )
 
@@ -54,7 +57,6 @@ func NewRootCmd() *cobra.Command {
 		WithHomeDir(chaincfg.DefaultNodeHome).
 		WithKeyringOptions(hd.EthSecp256k1Option()).
 		WithViper(chaincfg.EnvPrefix)
-
 	rootCmd := &cobra.Command{
 		Use:   chaincfg.AppName,
 		Short: "Daemon and CLI for the 0g-chain blockchain.",
@@ -88,7 +90,6 @@ func NewRootCmd() *cobra.Command {
 	}
 
 	addSubCmds(rootCmd, encodingConfig, chaincfg.DefaultNodeHome)
-
 	return rootCmd
 }
 
@@ -139,11 +140,11 @@ func addSubCmds(rootCmd *cobra.Command, encodingConfig params.EncodingConfig, de
 		ac.addStartCmdFlags,
 	)
 
-	// add keybase, gas RPC, query, and tx child commands
+	// add keybase, auxiliary RPC, query, and tx child commands
 	rootCmd.AddCommand(
 		newQueryCmd(),
 		newTxCmd(),
-		keyCommands(app.DefaultNodeHome),
+		keyCommands(chaincfg.DefaultNodeHome),
 		rocksdb.RocksDBCmd,
 		newShardCmd(opts),
 		iavlviewer.NewCmd(opts),

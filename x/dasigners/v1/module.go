@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
@@ -15,7 +16,6 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
-	abci "github.com/tendermint/tendermint/abci/types"
 
 	"github.com/0glabs/0g-chain/x/dasigners/v1/client/cli"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/keeper"
@@ -116,16 +116,8 @@ func (AppModule) Name() string {
 	return types.ModuleName
 }
 
-// Route returns dasigners module's message route.
-func (am AppModule) Route() sdk.Route { return sdk.Route{} }
-
 // QuerierRoute returns dasigners module's query routing key.
 func (AppModule) QuerierRoute() string { return types.QuerierRoute }
-
-// LegacyQuerierHandler returns dasigners module's Querier.
-func (am AppModule) LegacyQuerierHandler(legacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
-	return nil
-}
 
 // RegisterInvariants registers the inflation module invariants.
 func (am AppModule) RegisterInvariants(_ sdk.InvariantRegistry) {}

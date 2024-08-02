@@ -616,101 +616,41 @@
 
 
 
-<a name="kava/auction/v1beta1/auction.proto"></a>
+<a name="crypto/vrf/keys.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/auction/v1beta1/auction.proto
+## crypto/vrf/keys.proto
+Copyright Tharsis Labs Ltd.(Evmos)
+SPDX-License-Identifier:ENCL-1.0(https://github.com/evmos/evmos/blob/main/LICENSE)
 
 
+<a name="crypto.vrf.PrivKey"></a>
 
-<a name="kava.auction.v1beta1.BaseAuction"></a>
-
-### BaseAuction
-BaseAuction defines common attributes of all auctions
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `id` | [uint64](#uint64) |  |  |
-| `initiator` | [string](#string) |  |  |
-| `lot` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-| `bidder` | [bytes](#bytes) |  |  |
-| `bid` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-| `has_received_bids` | [bool](#bool) |  |  |
-| `end_time` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| `max_end_time` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.CollateralAuction"></a>
-
-### CollateralAuction
-CollateralAuction is a two phase auction.
-Initially, in forward auction phase, bids can be placed up to a max bid.
-Then it switches to a reverse auction phase, where the initial amount up for auction is bid down.
-Unsold Lot is sent to LotReturns, being divided among the addresses by weight.
-Collateral auctions are normally used to sell off collateral seized from CDPs.
+### PrivKey
+PrivKey defines a type alias for an vrf.PrivateKey that implements
+Vrf's PrivateKey interface.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `base_auction` | [BaseAuction](#kava.auction.v1beta1.BaseAuction) |  |  |
-| `corresponding_debt` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-| `max_bid` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-| `lot_returns` | [WeightedAddresses](#kava.auction.v1beta1.WeightedAddresses) |  |  |
+| `key` | [bytes](#bytes) |  | key is the private key in byte form |
 
 
 
 
 
 
-<a name="kava.auction.v1beta1.DebtAuction"></a>
+<a name="crypto.vrf.PubKey"></a>
 
-### DebtAuction
-DebtAuction is a reverse auction that mints what it pays out.
-It is normally used to acquire pegged asset to cover the CDP system's debts that were not covered by selling
-collateral.
+### PubKey
+PubKey defines a type alias for an vrf.PublicKey that implements
+Vrf's PubKey interface. It represents the 32-byte compressed public
+key format.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `base_auction` | [BaseAuction](#kava.auction.v1beta1.BaseAuction) |  |  |
-| `corresponding_debt` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.SurplusAuction"></a>
-
-### SurplusAuction
-SurplusAuction is a forward auction that burns what it receives from bids.
-It is normally used to sell off excess pegged asset acquired by the CDP system.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `base_auction` | [BaseAuction](#kava.auction.v1beta1.BaseAuction) |  |  |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.WeightedAddresses"></a>
-
-### WeightedAddresses
-WeightedAddresses is a type for storing some addresses and associated weights.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `addresses` | [bytes](#bytes) | repeated |  |
-| `weights` | [bytes](#bytes) | repeated |  |
+| `key` | [bytes](#bytes) |  | key is the public key in byte form |
 
 
 
@@ -726,264 +666,14 @@ WeightedAddresses is a type for storing some addresses and associated weights.
 
 
 
-<a name="kava/auction/v1beta1/genesis.proto"></a>
+<a name="zgc/bep3/v1beta1/bep3.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/auction/v1beta1/genesis.proto
+## zgc/bep3/v1beta1/bep3.proto
 
 
 
-<a name="kava.auction.v1beta1.GenesisState"></a>
-
-### GenesisState
-GenesisState defines the auction module's genesis state.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `next_auction_id` | [uint64](#uint64) |  |  |
-| `params` | [Params](#kava.auction.v1beta1.Params) |  |  |
-| `auctions` | [google.protobuf.Any](#google.protobuf.Any) | repeated | Genesis auctions |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.Params"></a>
-
-### Params
-Params defines the parameters for the issuance module.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `max_auction_duration` | [google.protobuf.Duration](#google.protobuf.Duration) |  |  |
-| `forward_bid_duration` | [google.protobuf.Duration](#google.protobuf.Duration) |  |  |
-| `reverse_bid_duration` | [google.protobuf.Duration](#google.protobuf.Duration) |  |  |
-| `increment_surplus` | [bytes](#bytes) |  |  |
-| `increment_debt` | [bytes](#bytes) |  |  |
-| `increment_collateral` | [bytes](#bytes) |  |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/auction/v1beta1/query.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/auction/v1beta1/query.proto
-
-
-
-<a name="kava.auction.v1beta1.QueryAuctionRequest"></a>
-
-### QueryAuctionRequest
-QueryAuctionRequest is the request type for the Query/Auction RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `auction_id` | [uint64](#uint64) |  |  |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.QueryAuctionResponse"></a>
-
-### QueryAuctionResponse
-QueryAuctionResponse is the response type for the Query/Auction RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `auction` | [google.protobuf.Any](#google.protobuf.Any) |  |  |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.QueryAuctionsRequest"></a>
-
-### QueryAuctionsRequest
-QueryAuctionsRequest is the request type for the Query/Auctions RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `type` | [string](#string) |  |  |
-| `owner` | [string](#string) |  |  |
-| `denom` | [string](#string) |  |  |
-| `phase` | [string](#string) |  |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  | pagination defines an optional pagination for the request. |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.QueryAuctionsResponse"></a>
-
-### QueryAuctionsResponse
-QueryAuctionsResponse is the response type for the Query/Auctions RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `auctions` | [google.protobuf.Any](#google.protobuf.Any) | repeated |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  | pagination defines the pagination in the response. |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.QueryNextAuctionIDRequest"></a>
-
-### QueryNextAuctionIDRequest
-QueryNextAuctionIDRequest defines the request type for querying x/auction next auction ID.
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.QueryNextAuctionIDResponse"></a>
-
-### QueryNextAuctionIDResponse
-QueryNextAuctionIDResponse defines the response type for querying x/auction next auction ID.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `id` | [uint64](#uint64) |  |  |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.QueryParamsRequest"></a>
-
-### QueryParamsRequest
-QueryParamsRequest defines the request type for querying x/auction parameters.
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.QueryParamsResponse"></a>
-
-### QueryParamsResponse
-QueryParamsResponse defines the response type for querying x/auction parameters.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.auction.v1beta1.Params) |  |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
-
-<a name="kava.auction.v1beta1.Query"></a>
-
-### Query
-Query defines the gRPC querier service for auction module
-
-| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
-| ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#kava.auction.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#kava.auction.v1beta1.QueryParamsResponse) | Params queries all parameters of the auction module. | GET|/kava/auction/v1beta1/params|
-| `Auction` | [QueryAuctionRequest](#kava.auction.v1beta1.QueryAuctionRequest) | [QueryAuctionResponse](#kava.auction.v1beta1.QueryAuctionResponse) | Auction queries an individual Auction by auction ID | GET|/kava/auction/v1beta1/auctions/{auction_id}|
-| `Auctions` | [QueryAuctionsRequest](#kava.auction.v1beta1.QueryAuctionsRequest) | [QueryAuctionsResponse](#kava.auction.v1beta1.QueryAuctionsResponse) | Auctions queries auctions filtered by asset denom, owner address, phase, and auction type | GET|/kava/auction/v1beta1/auctions|
-| `NextAuctionID` | [QueryNextAuctionIDRequest](#kava.auction.v1beta1.QueryNextAuctionIDRequest) | [QueryNextAuctionIDResponse](#kava.auction.v1beta1.QueryNextAuctionIDResponse) | NextAuctionID queries the next auction ID | GET|/kava/auction/v1beta1/next-auction-id|
-
- <!-- end services -->
-
-
-
-<a name="kava/auction/v1beta1/tx.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/auction/v1beta1/tx.proto
-
-
-
-<a name="kava.auction.v1beta1.MsgPlaceBid"></a>
-
-### MsgPlaceBid
-MsgPlaceBid represents a message used by bidders to place bids on auctions
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `auction_id` | [uint64](#uint64) |  |  |
-| `bidder` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-
-
-
-
-
-
-<a name="kava.auction.v1beta1.MsgPlaceBidResponse"></a>
-
-### MsgPlaceBidResponse
-MsgPlaceBidResponse defines the Msg/PlaceBid response type.
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
-
-<a name="kava.auction.v1beta1.Msg"></a>
-
-### Msg
-Msg defines the auction Msg service.
-
-| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
-| ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `PlaceBid` | [MsgPlaceBid](#kava.auction.v1beta1.MsgPlaceBid) | [MsgPlaceBidResponse](#kava.auction.v1beta1.MsgPlaceBidResponse) | PlaceBid message type used by bidders to place bids on auctions | |
-
- <!-- end services -->
-
-
-
-<a name="kava/bep3/v1beta1/bep3.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/bep3/v1beta1/bep3.proto
-
-
-
-<a name="kava.bep3.v1beta1.AssetParam"></a>
+<a name="zgc.bep3.v1beta1.AssetParam"></a>
 
 ### AssetParam
 AssetParam defines parameters for each bep3 asset.
@@ -993,9 +683,9 @@ AssetParam defines parameters for each bep3 asset.
 | ----- | ---- | ----- | ----------- |
 | `denom` | [string](#string) |  | denom represents the denominatin for this asset |
 | `coin_id` | [int64](#int64) |  | coin_id represents the registered coin type to use (https://github.com/satoshilabs/slips/blob/master/slip-0044.md) |
-| `supply_limit` | [SupplyLimit](#kava.bep3.v1beta1.SupplyLimit) |  | supply_limit defines the maximum supply allowed for the asset - a total or time based rate limit |
+| `supply_limit` | [SupplyLimit](#zgc.bep3.v1beta1.SupplyLimit) |  | supply_limit defines the maximum supply allowed for the asset - a total or time based rate limit |
 | `active` | [bool](#bool) |  | active specifies if the asset is live or paused |
-| `deputy_address` | [bytes](#bytes) |  | deputy_address the kava address of the deputy |
+| `deputy_address` | [bytes](#bytes) |  | deputy_address the 0g-chain address of the deputy |
 | `fixed_fee` | [string](#string) |  | fixed_fee defines the fee for incoming swaps |
 | `min_swap_amount` | [string](#string) |  | min_swap_amount defines the minimum amount able to be swapped in a single message |
 | `max_swap_amount` | [string](#string) |  | max_swap_amount defines the maximum amount able to be swapped in a single message |
@@ -1007,7 +697,7 @@ AssetParam defines parameters for each bep3 asset.
 
 
 
-<a name="kava.bep3.v1beta1.AssetSupply"></a>
+<a name="zgc.bep3.v1beta1.AssetSupply"></a>
 
 ### AssetSupply
 AssetSupply defines information about an asset's supply.
@@ -1026,7 +716,7 @@ AssetSupply defines information about an asset's supply.
 
 
 
-<a name="kava.bep3.v1beta1.AtomicSwap"></a>
+<a name="zgc.bep3.v1beta1.AtomicSwap"></a>
 
 ### AtomicSwap
 AtomicSwap defines an atomic swap between chains for the pricefeed module.
@@ -1038,21 +728,21 @@ AtomicSwap defines an atomic swap between chains for the pricefeed module.
 | `random_number_hash` | [bytes](#bytes) |  | random_number_hash represents the hash of the random number |
 | `expire_height` | [uint64](#uint64) |  | expire_height represents the height when the swap expires |
 | `timestamp` | [int64](#int64) |  | timestamp represents the timestamp of the swap |
-| `sender` | [bytes](#bytes) |  | sender is the kava chain sender of the swap |
-| `recipient` | [bytes](#bytes) |  | recipient is the kava chain recipient of the swap |
+| `sender` | [bytes](#bytes) |  | sender is the 0g-chain sender of the swap |
+| `recipient` | [bytes](#bytes) |  | recipient is the 0g-chain recipient of the swap |
 | `sender_other_chain` | [string](#string) |  | sender_other_chain is the sender on the other chain |
 | `recipient_other_chain` | [string](#string) |  | recipient_other_chain is the recipient on the other chain |
 | `closed_block` | [int64](#int64) |  | closed_block is the block when the swap is closed |
-| `status` | [SwapStatus](#kava.bep3.v1beta1.SwapStatus) |  | status represents the current status of the swap |
+| `status` | [SwapStatus](#zgc.bep3.v1beta1.SwapStatus) |  | status represents the current status of the swap |
 | `cross_chain` | [bool](#bool) |  | cross_chain identifies whether the atomic swap is cross chain |
-| `direction` | [SwapDirection](#kava.bep3.v1beta1.SwapDirection) |  | direction identifies if the swap is incoming or outgoing |
+| `direction` | [SwapDirection](#zgc.bep3.v1beta1.SwapDirection) |  | direction identifies if the swap is incoming or outgoing |
 
 
 
 
 
 
-<a name="kava.bep3.v1beta1.Params"></a>
+<a name="zgc.bep3.v1beta1.Params"></a>
 
 ### Params
 Params defines the parameters for the bep3 module.
@@ -1060,14 +750,14 @@ Params defines the parameters for the bep3 module.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `asset_params` | [AssetParam](#kava.bep3.v1beta1.AssetParam) | repeated | asset_params define the parameters for each bep3 asset |
+| `asset_params` | [AssetParam](#zgc.bep3.v1beta1.AssetParam) | repeated | asset_params define the parameters for each bep3 asset |
 
 
 
 
 
 
-<a name="kava.bep3.v1beta1.SupplyLimit"></a>
+<a name="zgc.bep3.v1beta1.SupplyLimit"></a>
 
 ### SupplyLimit
 SupplyLimit define the absolute and time-based limits for an assets's supply.
@@ -1087,7 +777,7 @@ SupplyLimit define the absolute and time-based limits for an assets's supply.
  <!-- end messages -->
 
 
-<a name="kava.bep3.v1beta1.SwapDirection"></a>
+<a name="zgc.bep3.v1beta1.SwapDirection"></a>
 
 ### SwapDirection
 SwapDirection is the direction of an AtomicSwap
@@ -1095,12 +785,12 @@ SwapDirection is the direction of an AtomicSwap
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | SWAP_DIRECTION_UNSPECIFIED | 0 | SWAP_DIRECTION_UNSPECIFIED represents unspecified or invalid swap direcation |
-| SWAP_DIRECTION_INCOMING | 1 | SWAP_DIRECTION_INCOMING represents is incoming swap (to the kava chain) |
-| SWAP_DIRECTION_OUTGOING | 2 | SWAP_DIRECTION_OUTGOING represents an outgoing swap (from the kava chain) |
+| SWAP_DIRECTION_INCOMING | 1 | SWAP_DIRECTION_INCOMING represents is incoming swap (to the 0g-chain) |
+| SWAP_DIRECTION_OUTGOING | 2 | SWAP_DIRECTION_OUTGOING represents an outgoing swap (from the 0g-chain) |
 
 
 
-<a name="kava.bep3.v1beta1.SwapStatus"></a>
+<a name="zgc.bep3.v1beta1.SwapStatus"></a>
 
 ### SwapStatus
 SwapStatus is the status of an AtomicSwap
@@ -1121,14 +811,14 @@ SwapStatus is the status of an AtomicSwap
 
 
 
-<a name="kava/bep3/v1beta1/genesis.proto"></a>
+<a name="zgc/bep3/v1beta1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/bep3/v1beta1/genesis.proto
+## zgc/bep3/v1beta1/genesis.proto
 
 
 
-<a name="kava.bep3.v1beta1.GenesisState"></a>
+<a name="zgc.bep3.v1beta1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the pricefeed module's genesis state.
@@ -1155,14 +845,14 @@ GenesisState defines the pricefeed module's genesis state.
 
 
 
-<a name="kava/bep3/v1beta1/query.proto"></a>
+<a name="zgc/bep3/v1beta1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/bep3/v1beta1/query.proto
+## zgc/bep3/v1beta1/query.proto
 
 
 
-<a name="kava.bep3.v1beta1.AssetSupplyResponse"></a>
+<a name="zgc.bep3.v1beta1.AssetSupplyResponse"></a>
 
 ### AssetSupplyResponse
 AssetSupplyResponse defines information about an asset's supply.
@@ -1181,7 +871,7 @@ AssetSupplyResponse defines information about an asset's supply.
 
 
 
-<a name="kava.bep3.v1beta1.AtomicSwapResponse"></a>
+<a name="zgc.bep3.v1beta1.AtomicSwapResponse"></a>
 
 ### AtomicSwapResponse
 AtomicSwapResponse represents the returned atomic swap properties
@@ -1194,21 +884,21 @@ AtomicSwapResponse represents the returned atomic swap properties
 | `random_number_hash` | [string](#string) |  | random_number_hash represents the hash of the random number |
 | `expire_height` | [uint64](#uint64) |  | expire_height represents the height when the swap expires |
 | `timestamp` | [int64](#int64) |  | timestamp represents the timestamp of the swap |
-| `sender` | [string](#string) |  | sender is the kava chain sender of the swap |
-| `recipient` | [string](#string) |  | recipient is the kava chain recipient of the swap |
+| `sender` | [string](#string) |  | sender is the 0g-chain sender of the swap |
+| `recipient` | [string](#string) |  | recipient is the 0g-chain recipient of the swap |
 | `sender_other_chain` | [string](#string) |  | sender_other_chain is the sender on the other chain |
 | `recipient_other_chain` | [string](#string) |  | recipient_other_chain is the recipient on the other chain |
 | `closed_block` | [int64](#int64) |  | closed_block is the block when the swap is closed |
-| `status` | [SwapStatus](#kava.bep3.v1beta1.SwapStatus) |  | status represents the current status of the swap |
+| `status` | [SwapStatus](#zgc.bep3.v1beta1.SwapStatus) |  | status represents the current status of the swap |
 | `cross_chain` | [bool](#bool) |  | cross_chain identifies whether the atomic swap is cross chain |
-| `direction` | [SwapDirection](#kava.bep3.v1beta1.SwapDirection) |  | direction identifies if the swap is incoming or outgoing |
+| `direction` | [SwapDirection](#zgc.bep3.v1beta1.SwapDirection) |  | direction identifies if the swap is incoming or outgoing |
 
 
 
 
 
 
-<a name="kava.bep3.v1beta1.QueryAssetSuppliesRequest"></a>
+<a name="zgc.bep3.v1beta1.QueryAssetSuppliesRequest"></a>
 
 ### QueryAssetSuppliesRequest
 QueryAssetSuppliesRequest is the request type for the Query/AssetSupplies RPC method.
@@ -1218,7 +908,7 @@ QueryAssetSuppliesRequest is the request type for the Query/AssetSupplies RPC me
 
 
 
-<a name="kava.bep3.v1beta1.QueryAssetSuppliesResponse"></a>
+<a name="zgc.bep3.v1beta1.QueryAssetSuppliesResponse"></a>
 
 ### QueryAssetSuppliesResponse
 QueryAssetSuppliesResponse is the response type for the Query/AssetSupplies RPC method.
@@ -1226,14 +916,14 @@ QueryAssetSuppliesResponse is the response type for the Query/AssetSupplies RPC 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `asset_supplies` | [AssetSupplyResponse](#kava.bep3.v1beta1.AssetSupplyResponse) | repeated | asset_supplies represents the supplies of returned assets |
+| `asset_supplies` | [AssetSupplyResponse](#zgc.bep3.v1beta1.AssetSupplyResponse) | repeated | asset_supplies represents the supplies of returned assets |
 
 
 
 
 
 
-<a name="kava.bep3.v1beta1.QueryAssetSupplyRequest"></a>
+<a name="zgc.bep3.v1beta1.QueryAssetSupplyRequest"></a>
 
 ### QueryAssetSupplyRequest
 QueryAssetSupplyRequest is the request type for the Query/AssetSupply RPC method.
@@ -1248,7 +938,7 @@ QueryAssetSupplyRequest is the request type for the Query/AssetSupply RPC method
 
 
 
-<a name="kava.bep3.v1beta1.QueryAssetSupplyResponse"></a>
+<a name="zgc.bep3.v1beta1.QueryAssetSupplyResponse"></a>
 
 ### QueryAssetSupplyResponse
 QueryAssetSupplyResponse is the response type for the Query/AssetSupply RPC method.
@@ -1256,14 +946,14 @@ QueryAssetSupplyResponse is the response type for the Query/AssetSupply RPC meth
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `asset_supply` | [AssetSupplyResponse](#kava.bep3.v1beta1.AssetSupplyResponse) |  | asset_supply represents the supply of the asset |
+| `asset_supply` | [AssetSupplyResponse](#zgc.bep3.v1beta1.AssetSupplyResponse) |  | asset_supply represents the supply of the asset |
 
 
 
 
 
 
-<a name="kava.bep3.v1beta1.QueryAtomicSwapRequest"></a>
+<a name="zgc.bep3.v1beta1.QueryAtomicSwapRequest"></a>
 
 ### QueryAtomicSwapRequest
 QueryAtomicSwapRequest is the request type for the Query/AtomicSwap RPC method.
@@ -1278,7 +968,7 @@ QueryAtomicSwapRequest is the request type for the Query/AtomicSwap RPC method.
 
 
 
-<a name="kava.bep3.v1beta1.QueryAtomicSwapResponse"></a>
+<a name="zgc.bep3.v1beta1.QueryAtomicSwapResponse"></a>
 
 ### QueryAtomicSwapResponse
 QueryAtomicSwapResponse is the response type for the Query/AtomicSwap RPC method.
@@ -1286,14 +976,14 @@ QueryAtomicSwapResponse is the response type for the Query/AtomicSwap RPC method
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `atomic_swap` | [AtomicSwapResponse](#kava.bep3.v1beta1.AtomicSwapResponse) |  |  |
+| `atomic_swap` | [AtomicSwapResponse](#zgc.bep3.v1beta1.AtomicSwapResponse) |  |  |
 
 
 
 
 
 
-<a name="kava.bep3.v1beta1.QueryAtomicSwapsRequest"></a>
+<a name="zgc.bep3.v1beta1.QueryAtomicSwapsRequest"></a>
 
 ### QueryAtomicSwapsRequest
 QueryAtomicSwapsRequest is the request type for the Query/AtomicSwaps RPC method.
@@ -1303,8 +993,8 @@ QueryAtomicSwapsRequest is the request type for the Query/AtomicSwaps RPC method
 | ----- | ---- | ----- | ----------- |
 | `involve` | [string](#string) |  | involve filters by address |
 | `expiration` | [uint64](#uint64) |  | expiration filters by expiration block height |
-| `status` | [SwapStatus](#kava.bep3.v1beta1.SwapStatus) |  | status filters by swap status |
-| `direction` | [SwapDirection](#kava.bep3.v1beta1.SwapDirection) |  | direction fitlers by swap direction |
+| `status` | [SwapStatus](#zgc.bep3.v1beta1.SwapStatus) |  | status filters by swap status |
+| `direction` | [SwapDirection](#zgc.bep3.v1beta1.SwapDirection) |  | direction fitlers by swap direction |
 | `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  |  |
 
 
@@ -1312,7 +1002,7 @@ QueryAtomicSwapsRequest is the request type for the Query/AtomicSwaps RPC method
 
 
 
-<a name="kava.bep3.v1beta1.QueryAtomicSwapsResponse"></a>
+<a name="zgc.bep3.v1beta1.QueryAtomicSwapsResponse"></a>
 
 ### QueryAtomicSwapsResponse
 QueryAtomicSwapsResponse is the response type for the Query/AtomicSwaps RPC method.
@@ -1320,7 +1010,7 @@ QueryAtomicSwapsResponse is the response type for the Query/AtomicSwaps RPC meth
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `atomic_swaps` | [AtomicSwapResponse](#kava.bep3.v1beta1.AtomicSwapResponse) | repeated | atomic_swap represents the returned atomic swaps for the request |
+| `atomic_swaps` | [AtomicSwapResponse](#zgc.bep3.v1beta1.AtomicSwapResponse) | repeated | atomic_swap represents the returned atomic swaps for the request |
 | `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  |  |
 
 
@@ -1328,7 +1018,7 @@ QueryAtomicSwapsResponse is the response type for the Query/AtomicSwaps RPC meth
 
 
 
-<a name="kava.bep3.v1beta1.QueryParamsRequest"></a>
+<a name="zgc.bep3.v1beta1.QueryParamsRequest"></a>
 
 ### QueryParamsRequest
 QueryParamsRequest defines the request type for querying x/bep3 parameters.
@@ -1338,7 +1028,7 @@ QueryParamsRequest defines the request type for querying x/bep3 parameters.
 
 
 
-<a name="kava.bep3.v1beta1.QueryParamsResponse"></a>
+<a name="zgc.bep3.v1beta1.QueryParamsResponse"></a>
 
 ### QueryParamsResponse
 QueryParamsResponse defines the response type for querying x/bep3 parameters.
@@ -1346,7 +1036,7 @@ QueryParamsResponse defines the response type for querying x/bep3 parameters.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.bep3.v1beta1.Params) |  | params represents the parameters of the module |
+| `params` | [Params](#zgc.bep3.v1beta1.Params) |  | params represents the parameters of the module |
 
 
 
@@ -1359,31 +1049,31 @@ QueryParamsResponse defines the response type for querying x/bep3 parameters.
  <!-- end HasExtensions -->
 
 
-<a name="kava.bep3.v1beta1.Query"></a>
+<a name="zgc.bep3.v1beta1.Query"></a>
 
 ### Query
 Query defines the gRPC querier service for bep3 module
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#kava.bep3.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#kava.bep3.v1beta1.QueryParamsResponse) | Params queries module params | GET|/kava/bep3/v1beta1/params|
-| `AssetSupply` | [QueryAssetSupplyRequest](#kava.bep3.v1beta1.QueryAssetSupplyRequest) | [QueryAssetSupplyResponse](#kava.bep3.v1beta1.QueryAssetSupplyResponse) | AssetSupply queries info about an asset's supply | GET|/kava/bep3/v1beta1/assetsupply/{denom}|
-| `AssetSupplies` | [QueryAssetSuppliesRequest](#kava.bep3.v1beta1.QueryAssetSuppliesRequest) | [QueryAssetSuppliesResponse](#kava.bep3.v1beta1.QueryAssetSuppliesResponse) | AssetSupplies queries a list of asset supplies | GET|/kava/bep3/v1beta1/assetsupplies|
-| `AtomicSwap` | [QueryAtomicSwapRequest](#kava.bep3.v1beta1.QueryAtomicSwapRequest) | [QueryAtomicSwapResponse](#kava.bep3.v1beta1.QueryAtomicSwapResponse) | AtomicSwap queries info about an atomic swap | GET|/kava/bep3/v1beta1/atomicswap/{swap_id}|
-| `AtomicSwaps` | [QueryAtomicSwapsRequest](#kava.bep3.v1beta1.QueryAtomicSwapsRequest) | [QueryAtomicSwapsResponse](#kava.bep3.v1beta1.QueryAtomicSwapsResponse) | AtomicSwaps queries a list of atomic swaps | GET|/kava/bep3/v1beta1/atomicswaps|
+| `Params` | [QueryParamsRequest](#zgc.bep3.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#zgc.bep3.v1beta1.QueryParamsResponse) | Params queries module params | GET|/0g/bep3/v1beta1/params|
+| `AssetSupply` | [QueryAssetSupplyRequest](#zgc.bep3.v1beta1.QueryAssetSupplyRequest) | [QueryAssetSupplyResponse](#zgc.bep3.v1beta1.QueryAssetSupplyResponse) | AssetSupply queries info about an asset's supply | GET|/0g/bep3/v1beta1/assetsupply/{denom}|
+| `AssetSupplies` | [QueryAssetSuppliesRequest](#zgc.bep3.v1beta1.QueryAssetSuppliesRequest) | [QueryAssetSuppliesResponse](#zgc.bep3.v1beta1.QueryAssetSuppliesResponse) | AssetSupplies queries a list of asset supplies | GET|/0g/bep3/v1beta1/assetsupplies|
+| `AtomicSwap` | [QueryAtomicSwapRequest](#zgc.bep3.v1beta1.QueryAtomicSwapRequest) | [QueryAtomicSwapResponse](#zgc.bep3.v1beta1.QueryAtomicSwapResponse) | AtomicSwap queries info about an atomic swap | GET|/0g/bep3/v1beta1/atomicswap/{swap_id}|
+| `AtomicSwaps` | [QueryAtomicSwapsRequest](#zgc.bep3.v1beta1.QueryAtomicSwapsRequest) | [QueryAtomicSwapsResponse](#zgc.bep3.v1beta1.QueryAtomicSwapsResponse) | AtomicSwaps queries a list of atomic swaps | GET|/0g/bep3/v1beta1/atomicswaps|
 
  <!-- end services -->
 
 
 
-<a name="kava/bep3/v1beta1/tx.proto"></a>
+<a name="zgc/bep3/v1beta1/tx.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/bep3/v1beta1/tx.proto
+## zgc/bep3/v1beta1/tx.proto
 
 
 
-<a name="kava.bep3.v1beta1.MsgClaimAtomicSwap"></a>
+<a name="zgc.bep3.v1beta1.MsgClaimAtomicSwap"></a>
 
 ### MsgClaimAtomicSwap
 MsgClaimAtomicSwap defines the Msg/ClaimAtomicSwap request type.
@@ -1400,7 +1090,7 @@ MsgClaimAtomicSwap defines the Msg/ClaimAtomicSwap request type.
 
 
 
-<a name="kava.bep3.v1beta1.MsgClaimAtomicSwapResponse"></a>
+<a name="zgc.bep3.v1beta1.MsgClaimAtomicSwapResponse"></a>
 
 ### MsgClaimAtomicSwapResponse
 MsgClaimAtomicSwapResponse defines the Msg/ClaimAtomicSwap response type.
@@ -1410,7 +1100,7 @@ MsgClaimAtomicSwapResponse defines the Msg/ClaimAtomicSwap response type.
 
 
 
-<a name="kava.bep3.v1beta1.MsgCreateAtomicSwap"></a>
+<a name="zgc.bep3.v1beta1.MsgCreateAtomicSwap"></a>
 
 ### MsgCreateAtomicSwap
 MsgCreateAtomicSwap defines the Msg/CreateAtomicSwap request type.
@@ -1432,7 +1122,7 @@ MsgCreateAtomicSwap defines the Msg/CreateAtomicSwap request type.
 
 
 
-<a name="kava.bep3.v1beta1.MsgCreateAtomicSwapResponse"></a>
+<a name="zgc.bep3.v1beta1.MsgCreateAtomicSwapResponse"></a>
 
 ### MsgCreateAtomicSwapResponse
 MsgCreateAtomicSwapResponse defines the Msg/CreateAtomicSwap response type.
@@ -1442,7 +1132,7 @@ MsgCreateAtomicSwapResponse defines the Msg/CreateAtomicSwap response type.
 
 
 
-<a name="kava.bep3.v1beta1.MsgRefundAtomicSwap"></a>
+<a name="zgc.bep3.v1beta1.MsgRefundAtomicSwap"></a>
 
 ### MsgRefundAtomicSwap
 MsgRefundAtomicSwap defines the Msg/RefundAtomicSwap request type.
@@ -1458,7 +1148,7 @@ MsgRefundAtomicSwap defines the Msg/RefundAtomicSwap request type.
 
 
 
-<a name="kava.bep3.v1beta1.MsgRefundAtomicSwapResponse"></a>
+<a name="zgc.bep3.v1beta1.MsgRefundAtomicSwapResponse"></a>
 
 ### MsgRefundAtomicSwapResponse
 MsgRefundAtomicSwapResponse defines the Msg/RefundAtomicSwap response type.
@@ -1474,25 +1164,25 @@ MsgRefundAtomicSwapResponse defines the Msg/RefundAtomicSwap response type.
  <!-- end HasExtensions -->
 
 
-<a name="kava.bep3.v1beta1.Msg"></a>
+<a name="zgc.bep3.v1beta1.Msg"></a>
 
 ### Msg
 Msg defines the bep3 Msg service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `CreateAtomicSwap` | [MsgCreateAtomicSwap](#kava.bep3.v1beta1.MsgCreateAtomicSwap) | [MsgCreateAtomicSwapResponse](#kava.bep3.v1beta1.MsgCreateAtomicSwapResponse) | CreateAtomicSwap defines a method for creating an atomic swap | |
-| `ClaimAtomicSwap` | [MsgClaimAtomicSwap](#kava.bep3.v1beta1.MsgClaimAtomicSwap) | [MsgClaimAtomicSwapResponse](#kava.bep3.v1beta1.MsgClaimAtomicSwapResponse) | ClaimAtomicSwap defines a method for claiming an atomic swap | |
-| `RefundAtomicSwap` | [MsgRefundAtomicSwap](#kava.bep3.v1beta1.MsgRefundAtomicSwap) | [MsgRefundAtomicSwapResponse](#kava.bep3.v1beta1.MsgRefundAtomicSwapResponse) | RefundAtomicSwap defines a method for refunding an atomic swap | |
+| `CreateAtomicSwap` | [MsgCreateAtomicSwap](#zgc.bep3.v1beta1.MsgCreateAtomicSwap) | [MsgCreateAtomicSwapResponse](#zgc.bep3.v1beta1.MsgCreateAtomicSwapResponse) | CreateAtomicSwap defines a method for creating an atomic swap | |
+| `ClaimAtomicSwap` | [MsgClaimAtomicSwap](#zgc.bep3.v1beta1.MsgClaimAtomicSwap) | [MsgClaimAtomicSwapResponse](#zgc.bep3.v1beta1.MsgClaimAtomicSwapResponse) | ClaimAtomicSwap defines a method for claiming an atomic swap | |
+| `RefundAtomicSwap` | [MsgRefundAtomicSwap](#zgc.bep3.v1beta1.MsgRefundAtomicSwap) | [MsgRefundAtomicSwapResponse](#zgc.bep3.v1beta1.MsgRefundAtomicSwapResponse) | RefundAtomicSwap defines a method for refunding an atomic swap | |
 
  <!-- end services -->
 
 
 
-<a name="kava/cdp/v1beta1/cdp.proto"></a>
+<a name="zgc/committee/v1beta1/committee.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/cdp/v1beta1/cdp.proto
+## zgc/committee/v1beta1/committee.proto
 
 
 
@@ -2215,14 +1905,14 @@ BaseCommittee is a common type shared by all Committees
 | `permissions` | [google.protobuf.Any](#google.protobuf.Any) | repeated |  |
 | `vote_threshold` | [string](#string) |  | Smallest percentage that must vote for a proposal to pass |
 | `proposal_duration` | [google.protobuf.Duration](#google.protobuf.Duration) |  | The length of time a proposal remains active for. Proposals will close earlier if they get enough votes. |
-| `tally_option` | [TallyOption](#kava.committee.v1beta1.TallyOption) |  |  |
+| `tally_option` | [TallyOption](#zgc.committee.v1beta1.TallyOption) |  |  |
 
 
 
 
 
 
-<a name="kava.committee.v1beta1.MemberCommittee"></a>
+<a name="zgc.committee.v1beta1.MemberCommittee"></a>
 
 ### MemberCommittee
 MemberCommittee is an alias of BaseCommittee
@@ -2230,14 +1920,14 @@ MemberCommittee is an alias of BaseCommittee
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `base_committee` | [BaseCommittee](#kava.committee.v1beta1.BaseCommittee) |  |  |
+| `base_committee` | [BaseCommittee](#zgc.committee.v1beta1.BaseCommittee) |  |  |
 
 
 
 
 
 
-<a name="kava.committee.v1beta1.TokenCommittee"></a>
+<a name="zgc.committee.v1beta1.TokenCommittee"></a>
 
 ### TokenCommittee
 TokenCommittee supports voting on proposals by token holders
@@ -2245,7 +1935,7 @@ TokenCommittee supports voting on proposals by token holders
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `base_committee` | [BaseCommittee](#kava.committee.v1beta1.BaseCommittee) |  |  |
+| `base_committee` | [BaseCommittee](#zgc.committee.v1beta1.BaseCommittee) |  |  |
 | `quorum` | [string](#string) |  |  |
 | `tally_denom` | [string](#string) |  |  |
 
@@ -2256,7 +1946,7 @@ TokenCommittee supports voting on proposals by token holders
  <!-- end messages -->
 
 
-<a name="kava.committee.v1beta1.TallyOption"></a>
+<a name="zgc.committee.v1beta1.TallyOption"></a>
 
 ### TallyOption
 TallyOption enumerates the valid types of a tally.
@@ -2276,14 +1966,14 @@ TallyOption enumerates the valid types of a tally.
 
 
 
-<a name="kava/committee/v1beta1/genesis.proto"></a>
+<a name="zgc/committee/v1beta1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/committee/v1beta1/genesis.proto
+## zgc/committee/v1beta1/genesis.proto
 
 
 
-<a name="kava.committee.v1beta1.GenesisState"></a>
+<a name="zgc.committee.v1beta1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the committee module's genesis state.
@@ -2293,15 +1983,15 @@ GenesisState defines the committee module's genesis state.
 | ----- | ---- | ----- | ----------- |
 | `next_proposal_id` | [uint64](#uint64) |  |  |
 | `committees` | [google.protobuf.Any](#google.protobuf.Any) | repeated |  |
-| `proposals` | [Proposal](#kava.committee.v1beta1.Proposal) | repeated |  |
-| `votes` | [Vote](#kava.committee.v1beta1.Vote) | repeated |  |
+| `proposals` | [Proposal](#zgc.committee.v1beta1.Proposal) | repeated |  |
+| `votes` | [Vote](#zgc.committee.v1beta1.Vote) | repeated |  |
 
 
 
 
 
 
-<a name="kava.committee.v1beta1.Proposal"></a>
+<a name="zgc.committee.v1beta1.Proposal"></a>
 
 ### Proposal
 Proposal is an internal record of a governance proposal submitted to a committee.
@@ -2319,7 +2009,7 @@ Proposal is an internal record of a governance proposal submitted to a committee
 
 
 
-<a name="kava.committee.v1beta1.Vote"></a>
+<a name="zgc.committee.v1beta1.Vote"></a>
 
 ### Vote
 Vote is an internal record of a single governance vote.
@@ -2329,7 +2019,7 @@ Vote is an internal record of a single governance vote.
 | ----- | ---- | ----- | ----------- |
 | `proposal_id` | [uint64](#uint64) |  |  |
 | `voter` | [bytes](#bytes) |  |  |
-| `vote_type` | [VoteType](#kava.committee.v1beta1.VoteType) |  |  |
+| `vote_type` | [VoteType](#zgc.committee.v1beta1.VoteType) |  |  |
 
 
 
@@ -2338,7 +2028,7 @@ Vote is an internal record of a single governance vote.
  <!-- end messages -->
 
 
-<a name="kava.committee.v1beta1.VoteType"></a>
+<a name="zgc.committee.v1beta1.VoteType"></a>
 
 ### VoteType
 VoteType enumerates the valid types of a vote.
@@ -2359,14 +2049,14 @@ VoteType enumerates the valid types of a vote.
 
 
 
-<a name="kava/committee/v1beta1/permissions.proto"></a>
+<a name="zgc/committee/v1beta1/permissions.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/committee/v1beta1/permissions.proto
+## zgc/committee/v1beta1/permissions.proto
 
 
 
-<a name="kava.committee.v1beta1.AllowedParamsChange"></a>
+<a name="zgc.committee.v1beta1.AllowedParamsChange"></a>
 
 ### AllowedParamsChange
 AllowedParamsChange contains data on the allowed parameter changes for subspace, key, and sub params requirements.
@@ -2377,14 +2067,14 @@ AllowedParamsChange contains data on the allowed parameter changes for subspace,
 | `subspace` | [string](#string) |  |  |
 | `key` | [string](#string) |  |  |
 | `single_subparam_allowed_attrs` | [string](#string) | repeated | Requirements for when the subparam value is a single record. This contains list of allowed attribute keys that can be changed on the subparam record. |
-| `multi_subparams_requirements` | [SubparamRequirement](#kava.committee.v1beta1.SubparamRequirement) | repeated | Requirements for when the subparam value is a list of records. The requirements contains requirements for each record in the list. |
+| `multi_subparams_requirements` | [SubparamRequirement](#zgc.committee.v1beta1.SubparamRequirement) | repeated | Requirements for when the subparam value is a list of records. The requirements contains requirements for each record in the list. |
 
 
 
 
 
 
-<a name="kava.committee.v1beta1.CommunityCDPRepayDebtPermission"></a>
+<a name="zgc.committee.v1beta1.CommunityCDPRepayDebtPermission"></a>
 
 ### CommunityCDPRepayDebtPermission
 CommunityCDPRepayDebtPermission allows submission of CommunityCDPRepayDebtProposal
@@ -2394,7 +2084,7 @@ CommunityCDPRepayDebtPermission allows submission of CommunityCDPRepayDebtPropos
 
 
 
-<a name="kava.committee.v1beta1.CommunityCDPWithdrawCollateralPermission"></a>
+<a name="zgc.committee.v1beta1.CommunityCDPWithdrawCollateralPermission"></a>
 
 ### CommunityCDPWithdrawCollateralPermission
 CommunityCDPWithdrawCollateralPermission allows submission of CommunityCDPWithdrawCollateralProposal
@@ -2404,7 +2094,7 @@ CommunityCDPWithdrawCollateralPermission allows submission of CommunityCDPWithdr
 
 
 
-<a name="kava.committee.v1beta1.CommunityPoolLendWithdrawPermission"></a>
+<a name="zgc.committee.v1beta1.CommunityPoolLendWithdrawPermission"></a>
 
 ### CommunityPoolLendWithdrawPermission
 CommunityPoolLendWithdrawPermission allows submission of CommunityPoolLendWithdrawProposal
@@ -2414,7 +2104,7 @@ CommunityPoolLendWithdrawPermission allows submission of CommunityPoolLendWithdr
 
 
 
-<a name="kava.committee.v1beta1.GodPermission"></a>
+<a name="zgc.committee.v1beta1.GodPermission"></a>
 
 ### GodPermission
 GodPermission allows any governance proposal. It is used mainly for testing.
@@ -2424,7 +2114,7 @@ GodPermission allows any governance proposal. It is used mainly for testing.
 
 
 
-<a name="kava.committee.v1beta1.ParamsChangePermission"></a>
+<a name="zgc.committee.v1beta1.ParamsChangePermission"></a>
 
 ### ParamsChangePermission
 ParamsChangePermission allows any parameter or sub parameter change proposal.
@@ -2432,14 +2122,14 @@ ParamsChangePermission allows any parameter or sub parameter change proposal.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `allowed_params_changes` | [AllowedParamsChange](#kava.committee.v1beta1.AllowedParamsChange) | repeated |  |
+| `allowed_params_changes` | [AllowedParamsChange](#zgc.committee.v1beta1.AllowedParamsChange) | repeated |  |
 
 
 
 
 
 
-<a name="kava.committee.v1beta1.SoftwareUpgradePermission"></a>
+<a name="zgc.committee.v1beta1.SoftwareUpgradePermission"></a>
 
 ### SoftwareUpgradePermission
 SoftwareUpgradePermission permission type for software upgrade proposals
@@ -2449,7 +2139,7 @@ SoftwareUpgradePermission permission type for software upgrade proposals
 
 
 
-<a name="kava.committee.v1beta1.SubparamRequirement"></a>
+<a name="zgc.committee.v1beta1.SubparamRequirement"></a>
 
 ### SubparamRequirement
 SubparamRequirement contains requirements for a single record in a subparam value list
@@ -2466,7 +2156,7 @@ SubparamRequirement contains requirements for a single record in a subparam valu
 
 
 
-<a name="kava.committee.v1beta1.TextPermission"></a>
+<a name="zgc.committee.v1beta1.TextPermission"></a>
 
 ### TextPermission
 TextPermission allows any text governance proposal.
@@ -2485,14 +2175,14 @@ TextPermission allows any text governance proposal.
 
 
 
-<a name="kava/committee/v1beta1/proposal.proto"></a>
+<a name="zgc/committee/v1beta1/proposal.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/committee/v1beta1/proposal.proto
+## zgc/committee/v1beta1/proposal.proto
 
 
 
-<a name="kava.committee.v1beta1.CommitteeChangeProposal"></a>
+<a name="zgc.committee.v1beta1.CommitteeChangeProposal"></a>
 
 ### CommitteeChangeProposal
 CommitteeChangeProposal is a gov proposal for creating a new committee or modifying an existing one.
@@ -2509,7 +2199,7 @@ CommitteeChangeProposal is a gov proposal for creating a new committee or modify
 
 
 
-<a name="kava.committee.v1beta1.CommitteeDeleteProposal"></a>
+<a name="zgc.committee.v1beta1.CommitteeDeleteProposal"></a>
 
 ### CommitteeDeleteProposal
 CommitteeDeleteProposal is a gov proposal for removing a committee.
@@ -2535,14 +2225,14 @@ CommitteeDeleteProposal is a gov proposal for removing a committee.
 
 
 
-<a name="kava/committee/v1beta1/query.proto"></a>
+<a name="zgc/committee/v1beta1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/committee/v1beta1/query.proto
+## zgc/committee/v1beta1/query.proto
 
 
 
-<a name="kava.committee.v1beta1.QueryCommitteeRequest"></a>
+<a name="zgc.committee.v1beta1.QueryCommitteeRequest"></a>
 
 ### QueryCommitteeRequest
 QueryCommitteeRequest defines the request type for querying x/committee committee.
@@ -2557,7 +2247,7 @@ QueryCommitteeRequest defines the request type for querying x/committee committe
 
 
 
-<a name="kava.committee.v1beta1.QueryCommitteeResponse"></a>
+<a name="zgc.committee.v1beta1.QueryCommitteeResponse"></a>
 
 ### QueryCommitteeResponse
 QueryCommitteeResponse defines the response type for querying x/committee committee.
@@ -2572,7 +2262,7 @@ QueryCommitteeResponse defines the response type for querying x/committee commit
 
 
 
-<a name="kava.committee.v1beta1.QueryCommitteesRequest"></a>
+<a name="zgc.committee.v1beta1.QueryCommitteesRequest"></a>
 
 ### QueryCommitteesRequest
 QueryCommitteesRequest defines the request type for querying x/committee committees.
@@ -2582,7 +2272,7 @@ QueryCommitteesRequest defines the request type for querying x/committee committ
 
 
 
-<a name="kava.committee.v1beta1.QueryCommitteesResponse"></a>
+<a name="zgc.committee.v1beta1.QueryCommitteesResponse"></a>
 
 ### QueryCommitteesResponse
 QueryCommitteesResponse defines the response type for querying x/committee committees.
@@ -2597,7 +2287,7 @@ QueryCommitteesResponse defines the response type for querying x/committee commi
 
 
 
-<a name="kava.committee.v1beta1.QueryNextProposalIDRequest"></a>
+<a name="zgc.committee.v1beta1.QueryNextProposalIDRequest"></a>
 
 ### QueryNextProposalIDRequest
 QueryNextProposalIDRequest defines the request type for querying x/committee NextProposalID.
@@ -2607,7 +2297,7 @@ QueryNextProposalIDRequest defines the request type for querying x/committee Nex
 
 
 
-<a name="kava.committee.v1beta1.QueryNextProposalIDResponse"></a>
+<a name="zgc.committee.v1beta1.QueryNextProposalIDResponse"></a>
 
 ### QueryNextProposalIDResponse
 QueryNextProposalIDRequest defines the response type for querying x/committee NextProposalID.
@@ -2622,7 +2312,7 @@ QueryNextProposalIDRequest defines the response type for querying x/committee Ne
 
 
 
-<a name="kava.committee.v1beta1.QueryProposalRequest"></a>
+<a name="zgc.committee.v1beta1.QueryProposalRequest"></a>
 
 ### QueryProposalRequest
 QueryProposalRequest defines the request type for querying x/committee proposal.
@@ -2637,7 +2327,7 @@ QueryProposalRequest defines the request type for querying x/committee proposal.
 
 
 
-<a name="kava.committee.v1beta1.QueryProposalResponse"></a>
+<a name="zgc.committee.v1beta1.QueryProposalResponse"></a>
 
 ### QueryProposalResponse
 QueryProposalResponse defines the response type for querying x/committee proposal.
@@ -2655,7 +2345,7 @@ QueryProposalResponse defines the response type for querying x/committee proposa
 
 
 
-<a name="kava.committee.v1beta1.QueryProposalsRequest"></a>
+<a name="zgc.committee.v1beta1.QueryProposalsRequest"></a>
 
 ### QueryProposalsRequest
 QueryProposalsRequest defines the request type for querying x/committee proposals.
@@ -2670,7 +2360,7 @@ QueryProposalsRequest defines the request type for querying x/committee proposal
 
 
 
-<a name="kava.committee.v1beta1.QueryProposalsResponse"></a>
+<a name="zgc.committee.v1beta1.QueryProposalsResponse"></a>
 
 ### QueryProposalsResponse
 QueryProposalsResponse defines the response type for querying x/committee proposals.
@@ -2678,14 +2368,14 @@ QueryProposalsResponse defines the response type for querying x/committee propos
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `proposals` | [QueryProposalResponse](#kava.committee.v1beta1.QueryProposalResponse) | repeated |  |
+| `proposals` | [QueryProposalResponse](#zgc.committee.v1beta1.QueryProposalResponse) | repeated |  |
 
 
 
 
 
 
-<a name="kava.committee.v1beta1.QueryRawParamsRequest"></a>
+<a name="zgc.committee.v1beta1.QueryRawParamsRequest"></a>
 
 ### QueryRawParamsRequest
 QueryRawParamsRequest defines the request type for querying x/committee raw params.
@@ -2701,7 +2391,7 @@ QueryRawParamsRequest defines the request type for querying x/committee raw para
 
 
 
-<a name="kava.committee.v1beta1.QueryRawParamsResponse"></a>
+<a name="zgc.committee.v1beta1.QueryRawParamsResponse"></a>
 
 ### QueryRawParamsResponse
 QueryRawParamsResponse defines the response type for querying x/committee raw params.
@@ -2716,7 +2406,7 @@ QueryRawParamsResponse defines the response type for querying x/committee raw pa
 
 
 
-<a name="kava.committee.v1beta1.QueryTallyRequest"></a>
+<a name="zgc.committee.v1beta1.QueryTallyRequest"></a>
 
 ### QueryTallyRequest
 QueryTallyRequest defines the request type for querying x/committee tally.
@@ -2731,7 +2421,7 @@ QueryTallyRequest defines the request type for querying x/committee tally.
 
 
 
-<a name="kava.committee.v1beta1.QueryTallyResponse"></a>
+<a name="zgc.committee.v1beta1.QueryTallyResponse"></a>
 
 ### QueryTallyResponse
 QueryTallyResponse defines the response type for querying x/committee tally.
@@ -2752,7 +2442,7 @@ QueryTallyResponse defines the response type for querying x/committee tally.
 
 
 
-<a name="kava.committee.v1beta1.QueryVoteRequest"></a>
+<a name="zgc.committee.v1beta1.QueryVoteRequest"></a>
 
 ### QueryVoteRequest
 QueryVoteRequest defines the request type for querying x/committee vote.
@@ -2768,7 +2458,7 @@ QueryVoteRequest defines the request type for querying x/committee vote.
 
 
 
-<a name="kava.committee.v1beta1.QueryVoteResponse"></a>
+<a name="zgc.committee.v1beta1.QueryVoteResponse"></a>
 
 ### QueryVoteResponse
 QueryVoteResponse defines the response type for querying x/committee vote.
@@ -2778,14 +2468,14 @@ QueryVoteResponse defines the response type for querying x/committee vote.
 | ----- | ---- | ----- | ----------- |
 | `proposal_id` | [uint64](#uint64) |  |  |
 | `voter` | [string](#string) |  |  |
-| `vote_type` | [VoteType](#kava.committee.v1beta1.VoteType) |  |  |
+| `vote_type` | [VoteType](#zgc.committee.v1beta1.VoteType) |  |  |
 
 
 
 
 
 
-<a name="kava.committee.v1beta1.QueryVotesRequest"></a>
+<a name="zgc.committee.v1beta1.QueryVotesRequest"></a>
 
 ### QueryVotesRequest
 QueryVotesRequest defines the request type for querying x/committee votes.
@@ -2801,7 +2491,7 @@ QueryVotesRequest defines the request type for querying x/committee votes.
 
 
 
-<a name="kava.committee.v1beta1.QueryVotesResponse"></a>
+<a name="zgc.committee.v1beta1.QueryVotesResponse"></a>
 
 ### QueryVotesResponse
 QueryVotesResponse defines the response type for querying x/committee votes.
@@ -2809,7 +2499,7 @@ QueryVotesResponse defines the response type for querying x/committee votes.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `votes` | [QueryVoteResponse](#kava.committee.v1beta1.QueryVoteResponse) | repeated | votes defined the queried votes. |
+| `votes` | [QueryVoteResponse](#zgc.committee.v1beta1.QueryVoteResponse) | repeated | votes defined the queried votes. |
 | `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  | pagination defines the pagination in the response. |
 
 
@@ -2823,35 +2513,35 @@ QueryVotesResponse defines the response type for querying x/committee votes.
  <!-- end HasExtensions -->
 
 
-<a name="kava.committee.v1beta1.Query"></a>
+<a name="zgc.committee.v1beta1.Query"></a>
 
 ### Query
 Query defines the gRPC querier service for committee module
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Committees` | [QueryCommitteesRequest](#kava.committee.v1beta1.QueryCommitteesRequest) | [QueryCommitteesResponse](#kava.committee.v1beta1.QueryCommitteesResponse) | Committees queries all committess of the committee module. | GET|/kava/committee/v1beta1/committees|
-| `Committee` | [QueryCommitteeRequest](#kava.committee.v1beta1.QueryCommitteeRequest) | [QueryCommitteeResponse](#kava.committee.v1beta1.QueryCommitteeResponse) | Committee queries a committee based on committee ID. | GET|/kava/committee/v1beta1/committees/{committee_id}|
-| `Proposals` | [QueryProposalsRequest](#kava.committee.v1beta1.QueryProposalsRequest) | [QueryProposalsResponse](#kava.committee.v1beta1.QueryProposalsResponse) | Proposals queries proposals based on committee ID. | GET|/kava/committee/v1beta1/proposals|
-| `Proposal` | [QueryProposalRequest](#kava.committee.v1beta1.QueryProposalRequest) | [QueryProposalResponse](#kava.committee.v1beta1.QueryProposalResponse) | Deposits queries a proposal based on proposal ID. | GET|/kava/committee/v1beta1/proposals/{proposal_id}|
-| `NextProposalID` | [QueryNextProposalIDRequest](#kava.committee.v1beta1.QueryNextProposalIDRequest) | [QueryNextProposalIDResponse](#kava.committee.v1beta1.QueryNextProposalIDResponse) | NextProposalID queries the next proposal ID of the committee module. | GET|/kava/committee/v1beta1/next-proposal-id|
-| `Votes` | [QueryVotesRequest](#kava.committee.v1beta1.QueryVotesRequest) | [QueryVotesResponse](#kava.committee.v1beta1.QueryVotesResponse) | Votes queries all votes for a single proposal ID. | GET|/kava/committee/v1beta1/proposals/{proposal_id}/votes|
-| `Vote` | [QueryVoteRequest](#kava.committee.v1beta1.QueryVoteRequest) | [QueryVoteResponse](#kava.committee.v1beta1.QueryVoteResponse) | Vote queries the vote of a single voter for a single proposal ID. | GET|/kava/committee/v1beta1/proposals/{proposal_id}/votes/{voter}|
-| `Tally` | [QueryTallyRequest](#kava.committee.v1beta1.QueryTallyRequest) | [QueryTallyResponse](#kava.committee.v1beta1.QueryTallyResponse) | Tally queries the tally of a single proposal ID. | GET|/kava/committee/v1beta1/proposals/{proposal_id}/tally|
-| `RawParams` | [QueryRawParamsRequest](#kava.committee.v1beta1.QueryRawParamsRequest) | [QueryRawParamsResponse](#kava.committee.v1beta1.QueryRawParamsResponse) | RawParams queries the raw params data of any subspace and key. | GET|/kava/committee/v1beta1/raw-params|
+| `Committees` | [QueryCommitteesRequest](#zgc.committee.v1beta1.QueryCommitteesRequest) | [QueryCommitteesResponse](#zgc.committee.v1beta1.QueryCommitteesResponse) | Committees queries all committess of the committee module. | GET|/0g/committee/v1beta1/committees|
+| `Committee` | [QueryCommitteeRequest](#zgc.committee.v1beta1.QueryCommitteeRequest) | [QueryCommitteeResponse](#zgc.committee.v1beta1.QueryCommitteeResponse) | Committee queries a committee based on committee ID. | GET|/0g/committee/v1beta1/committees/{committee_id}|
+| `Proposals` | [QueryProposalsRequest](#zgc.committee.v1beta1.QueryProposalsRequest) | [QueryProposalsResponse](#zgc.committee.v1beta1.QueryProposalsResponse) | Proposals queries proposals based on committee ID. | GET|/0g/committee/v1beta1/proposals|
+| `Proposal` | [QueryProposalRequest](#zgc.committee.v1beta1.QueryProposalRequest) | [QueryProposalResponse](#zgc.committee.v1beta1.QueryProposalResponse) | Deposits queries a proposal based on proposal ID. | GET|/0g/committee/v1beta1/proposals/{proposal_id}|
+| `NextProposalID` | [QueryNextProposalIDRequest](#zgc.committee.v1beta1.QueryNextProposalIDRequest) | [QueryNextProposalIDResponse](#zgc.committee.v1beta1.QueryNextProposalIDResponse) | NextProposalID queries the next proposal ID of the committee module. | GET|/0g/committee/v1beta1/next-proposal-id|
+| `Votes` | [QueryVotesRequest](#zgc.committee.v1beta1.QueryVotesRequest) | [QueryVotesResponse](#zgc.committee.v1beta1.QueryVotesResponse) | Votes queries all votes for a single proposal ID. | GET|/0g/committee/v1beta1/proposals/{proposal_id}/votes|
+| `Vote` | [QueryVoteRequest](#zgc.committee.v1beta1.QueryVoteRequest) | [QueryVoteResponse](#zgc.committee.v1beta1.QueryVoteResponse) | Vote queries the vote of a single voter for a single proposal ID. | GET|/0g/committee/v1beta1/proposals/{proposal_id}/votes/{voter}|
+| `Tally` | [QueryTallyRequest](#zgc.committee.v1beta1.QueryTallyRequest) | [QueryTallyResponse](#zgc.committee.v1beta1.QueryTallyResponse) | Tally queries the tally of a single proposal ID. | GET|/0g/committee/v1beta1/proposals/{proposal_id}/tally|
+| `RawParams` | [QueryRawParamsRequest](#zgc.committee.v1beta1.QueryRawParamsRequest) | [QueryRawParamsResponse](#zgc.committee.v1beta1.QueryRawParamsResponse) | RawParams queries the raw params data of any subspace and key. | GET|/0g/committee/v1beta1/raw-params|
 
  <!-- end services -->
 
 
 
-<a name="kava/committee/v1beta1/tx.proto"></a>
+<a name="zgc/committee/v1beta1/tx.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/committee/v1beta1/tx.proto
+## zgc/committee/v1beta1/tx.proto
 
 
 
-<a name="kava.committee.v1beta1.MsgSubmitProposal"></a>
+<a name="zgc.committee.v1beta1.MsgSubmitProposal"></a>
 
 ### MsgSubmitProposal
 MsgSubmitProposal is used by committee members to create a new proposal that they can vote on.
@@ -2868,7 +2558,7 @@ MsgSubmitProposal is used by committee members to create a new proposal that the
 
 
 
-<a name="kava.committee.v1beta1.MsgSubmitProposalResponse"></a>
+<a name="zgc.committee.v1beta1.MsgSubmitProposalResponse"></a>
 
 ### MsgSubmitProposalResponse
 MsgSubmitProposalResponse defines the SubmitProposal response type
@@ -2883,7 +2573,7 @@ MsgSubmitProposalResponse defines the SubmitProposal response type
 
 
 
-<a name="kava.committee.v1beta1.MsgVote"></a>
+<a name="zgc.committee.v1beta1.MsgVote"></a>
 
 ### MsgVote
 MsgVote is submitted by committee members to vote on proposals.
@@ -2893,14 +2583,14 @@ MsgVote is submitted by committee members to vote on proposals.
 | ----- | ---- | ----- | ----------- |
 | `proposal_id` | [uint64](#uint64) |  |  |
 | `voter` | [string](#string) |  |  |
-| `vote_type` | [VoteType](#kava.committee.v1beta1.VoteType) |  |  |
+| `vote_type` | [VoteType](#zgc.committee.v1beta1.VoteType) |  |  |
 
 
 
 
 
 
-<a name="kava.committee.v1beta1.MsgVoteResponse"></a>
+<a name="zgc.committee.v1beta1.MsgVoteResponse"></a>
 
 ### MsgVoteResponse
 MsgVoteResponse defines the Vote response type
@@ -2916,96 +2606,67 @@ MsgVoteResponse defines the Vote response type
  <!-- end HasExtensions -->
 
 
-<a name="kava.committee.v1beta1.Msg"></a>
+<a name="zgc.committee.v1beta1.Msg"></a>
 
 ### Msg
 Msg defines the committee Msg service
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `SubmitProposal` | [MsgSubmitProposal](#kava.committee.v1beta1.MsgSubmitProposal) | [MsgSubmitProposalResponse](#kava.committee.v1beta1.MsgSubmitProposalResponse) | SubmitProposal defines a method for submitting a committee proposal | |
-| `Vote` | [MsgVote](#kava.committee.v1beta1.MsgVote) | [MsgVoteResponse](#kava.committee.v1beta1.MsgVoteResponse) | Vote defines a method for voting on a proposal | |
+| `SubmitProposal` | [MsgSubmitProposal](#zgc.committee.v1beta1.MsgSubmitProposal) | [MsgSubmitProposalResponse](#zgc.committee.v1beta1.MsgSubmitProposalResponse) | SubmitProposal defines a method for submitting a committee proposal | |
+| `Vote` | [MsgVote](#zgc.committee.v1beta1.MsgVote) | [MsgVoteResponse](#zgc.committee.v1beta1.MsgVoteResponse) | Vote defines a method for voting on a proposal | |
 
  <!-- end services -->
 
 
 
-<a name="kava/community/v1beta1/params.proto"></a>
+<a name="zgc/council/v1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/community/v1beta1/params.proto
+## zgc/council/v1/genesis.proto
 
 
 
-<a name="kava.community.v1beta1.Params"></a>
+<a name="zgc.council.v1.Ballot"></a>
 
-### Params
-Params defines the parameters of the community module.
+### Ballot
+
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `upgrade_time_disable_inflation` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  | upgrade_time_disable_inflation is the time at which to disable mint and kavadist module inflation. If set to 0, inflation will be disabled from block 1. |
-| `staking_rewards_per_second` | [string](#string) |  | staking_rewards_per_second is the amount paid out to delegators each block from the community account |
-| `upgrade_time_set_staking_rewards_per_second` | [string](#string) |  | upgrade_time_set_staking_rewards_per_second is the initial staking_rewards_per_second to set and use when the disable inflation time is reached |
+| `id` | [uint64](#uint64) |  |  |
+| `content` | [bytes](#bytes) |  |  |
 
 
 
 
 
- <!-- end messages -->
 
- <!-- end enums -->
+<a name="zgc.council.v1.Council"></a>
 
- <!-- end HasExtensions -->
+### Council
 
- <!-- end services -->
-
-
-
-<a name="kava/community/v1beta1/staking.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/community/v1beta1/staking.proto
-
-
-
-<a name="kava.community.v1beta1.StakingRewardsState"></a>
-
-### StakingRewardsState
-StakingRewardsState represents the state of staking reward accumulation between blocks.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `last_accumulation_time` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  | last_accumulation_time represents the last block time which rewards where calculated and distributed. This may be zero to signal accumulation should start on the next interval. |
-| `last_truncation_error` | [string](#string) |  | accumulated_truncation_error represents the sum of previous errors due to truncation on payout This value will always be on the interval [0, 1). |
+| `id` | [uint64](#uint64) |  |  |
+| `voting_start_height` | [uint64](#uint64) |  |  |
+| `start_height` | [uint64](#uint64) |  |  |
+| `end_height` | [uint64](#uint64) |  |  |
+| `votes` | [Vote](#zgc.council.v1.Vote) | repeated |  |
+| `members` | [bytes](#bytes) | repeated |  |
 
 
 
 
 
- <!-- end messages -->
 
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/community/v1beta1/genesis.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/community/v1beta1/genesis.proto
-
-
-
-<a name="kava.community.v1beta1.GenesisState"></a>
+<a name="zgc.council.v1.GenesisState"></a>
 
 ### GenesisState
-GenesisState defines the community module's genesis state.
+GenesisState defines the council module's genesis state.
 
 
 | Field | Type | Label | Description |
@@ -3017,440 +2678,33 @@ GenesisState defines the community module's genesis state.
 
 
 
- <!-- end messages -->
 
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/community/v1beta1/proposal.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/community/v1beta1/proposal.proto
-
-
-
-<a name="kava.community.v1beta1.CommunityCDPRepayDebtProposal"></a>
-
-### CommunityCDPRepayDebtProposal
-CommunityCDPRepayDebtProposal repays a cdp debt position owned by the community module
-This proposal exists primarily to allow committees to repay community module cdp debts.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `title` | [string](#string) |  |  |
-| `description` | [string](#string) |  |  |
-| `collateral_type` | [string](#string) |  |  |
-| `payment` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-
-
-
-
-
-
-<a name="kava.community.v1beta1.CommunityCDPWithdrawCollateralProposal"></a>
-
-### CommunityCDPWithdrawCollateralProposal
-CommunityCDPWithdrawCollateralProposal withdraws cdp collateral owned by the community module
-This proposal exists primarily to allow committees to withdraw community module cdp collateral.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `title` | [string](#string) |  |  |
-| `description` | [string](#string) |  |  |
-| `collateral_type` | [string](#string) |  |  |
-| `collateral` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-
-
-
-
-
-
-<a name="kava.community.v1beta1.CommunityPoolLendDepositProposal"></a>
-
-### CommunityPoolLendDepositProposal
-CommunityPoolLendDepositProposal deposits from the community pool into lend
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `title` | [string](#string) |  |  |
-| `description` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.community.v1beta1.CommunityPoolLendWithdrawProposal"></a>
-
-### CommunityPoolLendWithdrawProposal
-CommunityPoolLendWithdrawProposal withdraws a lend position back to the community pool
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `title` | [string](#string) |  |  |
-| `description` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/community/v1beta1/query.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/community/v1beta1/query.proto
-
-
-
-<a name="kava.community.v1beta1.QueryAnnualizedRewardsRequest"></a>
-
-### QueryAnnualizedRewardsRequest
-QueryAnnualizedRewardsRequest defines the request type for querying the annualized rewards.
-
-
-
-
-
-
-<a name="kava.community.v1beta1.QueryAnnualizedRewardsResponse"></a>
-
-### QueryAnnualizedRewardsResponse
-QueryAnnualizedRewardsResponse defines the response type for querying the annualized rewards.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `staking_rewards` | [string](#string) |  | staking_rewards is the calculated annualized staking rewards percentage rate |
-
-
-
-
-
-
-<a name="kava.community.v1beta1.QueryBalanceRequest"></a>
-
-### QueryBalanceRequest
-QueryBalanceRequest defines the request type for querying x/community balance.
-
-
-
-
-
-
-<a name="kava.community.v1beta1.QueryBalanceResponse"></a>
-
-### QueryBalanceResponse
-QueryBalanceResponse defines the response type for querying x/community balance.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `coins` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.community.v1beta1.QueryParamsRequest"></a>
-
-### QueryParamsRequest
-QueryParams defines the request type for querying x/community params.
-
-
-
-
-
-
-<a name="kava.community.v1beta1.QueryParamsResponse"></a>
-
-### QueryParamsResponse
-QueryParamsResponse defines the response type for querying x/community params.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.community.v1beta1.Params) |  | params represents the community module parameters |
-
-
-
-
-
-
-<a name="kava.community.v1beta1.QueryTotalBalanceRequest"></a>
-
-### QueryTotalBalanceRequest
-QueryTotalBalanceRequest defines the request type for querying total community pool balance.
-
-
-
-
-
-
-<a name="kava.community.v1beta1.QueryTotalBalanceResponse"></a>
-
-### QueryTotalBalanceResponse
-QueryTotalBalanceResponse defines the response type for querying total
-community pool balance. This matches the x/distribution CommunityPool query response.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `pool` | [cosmos.base.v1beta1.DecCoin](#cosmos.base.v1beta1.DecCoin) | repeated | pool defines community pool's coins. |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
-
-<a name="kava.community.v1beta1.Query"></a>
-
-### Query
-Query defines the gRPC querier service for x/community.
-
-| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
-| ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#kava.community.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#kava.community.v1beta1.QueryParamsResponse) | Params queires the module params. | GET|/kava/community/v1beta1/params|
-| `Balance` | [QueryBalanceRequest](#kava.community.v1beta1.QueryBalanceRequest) | [QueryBalanceResponse](#kava.community.v1beta1.QueryBalanceResponse) | Balance queries the balance of all coins of x/community module. | GET|/kava/community/v1beta1/balance|
-| `TotalBalance` | [QueryTotalBalanceRequest](#kava.community.v1beta1.QueryTotalBalanceRequest) | [QueryTotalBalanceResponse](#kava.community.v1beta1.QueryTotalBalanceResponse) | TotalBalance queries the balance of all coins, including x/distribution, x/community, and supplied balances. | GET|/kava/community/v1beta1/total_balance|
-| `AnnualizedRewards` | [QueryAnnualizedRewardsRequest](#kava.community.v1beta1.QueryAnnualizedRewardsRequest) | [QueryAnnualizedRewardsResponse](#kava.community.v1beta1.QueryAnnualizedRewardsResponse) | AnnualizedRewards calculates and returns the current annualized reward percentages, like staking rewards, for the chain. | GET|/kava/community/v1beta1/annualized_rewards|
-
- <!-- end services -->
-
-
-
-<a name="kava/community/v1beta1/tx.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/community/v1beta1/tx.proto
-
-
-
-<a name="kava.community.v1beta1.MsgFundCommunityPool"></a>
-
-### MsgFundCommunityPool
-MsgFundCommunityPool allows an account to directly fund the community module account.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-| `depositor` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.community.v1beta1.MsgFundCommunityPoolResponse"></a>
-
-### MsgFundCommunityPoolResponse
-MsgFundCommunityPoolResponse defines the Msg/FundCommunityPool response type.
-
-
-
-
-
-
-<a name="kava.community.v1beta1.MsgUpdateParams"></a>
-
-### MsgUpdateParams
-MsgUpdateParams allows an account to update the community module parameters.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `authority` | [string](#string) |  | authority is the address that controls the module (defaults to x/gov unless overwritten). |
-| `params` | [Params](#kava.community.v1beta1.Params) |  | params defines the x/community parameters to update. |
-
-
-
-
-
-
-<a name="kava.community.v1beta1.MsgUpdateParamsResponse"></a>
-
-### MsgUpdateParamsResponse
-MsgUpdateParamsResponse defines the Msg/UpdateParams response type.
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
-
-<a name="kava.community.v1beta1.Msg"></a>
-
-### Msg
-Msg defines the community Msg service.
-
-| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
-| ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `FundCommunityPool` | [MsgFundCommunityPool](#kava.community.v1beta1.MsgFundCommunityPool) | [MsgFundCommunityPoolResponse](#kava.community.v1beta1.MsgFundCommunityPoolResponse) | FundCommunityPool defines a method to allow an account to directly fund the community module account. | |
-| `UpdateParams` | [MsgUpdateParams](#kava.community.v1beta1.MsgUpdateParams) | [MsgUpdateParamsResponse](#kava.community.v1beta1.MsgUpdateParamsResponse) | UpdateParams defines a method to allow an account to update the community module parameters. | |
-
- <!-- end services -->
-
-
-
-<a name="kava/earn/v1beta1/strategy.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/earn/v1beta1/strategy.proto
-
-
- <!-- end messages -->
-
-
-<a name="kava.earn.v1beta1.StrategyType"></a>
-
-### StrategyType
-StrategyType is the type of strategy that a vault uses to optimize yields.
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| STRATEGY_TYPE_UNSPECIFIED | 0 | STRATEGY_TYPE_UNSPECIFIED represents an unspecified or invalid strategy type. |
-| STRATEGY_TYPE_HARD | 1 | STRATEGY_TYPE_HARD represents the strategy that deposits assets in the Hard module. |
-| STRATEGY_TYPE_SAVINGS | 2 | STRATEGY_TYPE_SAVINGS represents the strategy that deposits assets in the Savings module. |
-
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/earn/v1beta1/vault.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/earn/v1beta1/vault.proto
-
-
-
-<a name="kava.earn.v1beta1.AllowedVault"></a>
-
-### AllowedVault
-AllowedVault is a vault that is allowed to be created. These can be
-modified via parameter governance.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  | Denom is the only supported denomination of the vault for deposits and withdrawals. |
-| `strategies` | [StrategyType](#kava.earn.v1beta1.StrategyType) | repeated | VaultStrategy is the strategy used for this vault. |
-| `is_private_vault` | [bool](#bool) |  | IsPrivateVault is true if the vault only allows depositors contained in AllowedDepositors. |
-| `allowed_depositors` | [bytes](#bytes) | repeated | AllowedDepositors is a list of addresses that are allowed to deposit to this vault if IsPrivateVault is true. Addresses not contained in this list are not allowed to deposit into this vault. If IsPrivateVault is false, this should be empty and ignored. |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.VaultRecord"></a>
-
-### VaultRecord
-VaultRecord is the state of a vault.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `total_shares` | [VaultShare](#kava.earn.v1beta1.VaultShare) |  | TotalShares is the total distributed number of shares in the vault. |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.VaultShare"></a>
-
-### VaultShare
-VaultShare defines shares of a vault owned by a depositor.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `amount` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.VaultShareRecord"></a>
-
-### VaultShareRecord
-VaultShareRecord defines the vault shares owned by a depositor.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `depositor` | [bytes](#bytes) |  | Depositor represents the owner of the shares |
-| `shares` | [VaultShare](#kava.earn.v1beta1.VaultShare) | repeated | Shares represent the vault shares owned by the depositor. |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/earn/v1beta1/params.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/earn/v1beta1/params.proto
-
-
-
-<a name="kava.earn.v1beta1.Params"></a>
+<a name="zgc.council.v1.Params"></a>
 
 ### Params
-Params defines the parameters of the earn module.
+
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `allowed_vaults` | [AllowedVault](#kava.earn.v1beta1.AllowedVault) | repeated |  |
+| `council_size` | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="zgc.council.v1.Vote"></a>
+
+### Vote
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `council_id` | [uint64](#uint64) |  |  |
+| `voter` | [bytes](#bytes) |  |  |
+| `ballots` | [Ballot](#zgc.council.v1.Ballot) | repeated |  |
 
 
 
@@ -3466,17 +2720,27 @@ Params defines the parameters of the earn module.
 
 
 
-<a name="kava/earn/v1beta1/genesis.proto"></a>
+<a name="zgc/council/v1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/earn/v1beta1/genesis.proto
+## zgc/council/v1/query.proto
 
 
 
-<a name="kava.earn.v1beta1.GenesisState"></a>
+<a name="zgc.council.v1.QueryCurrentCouncilIDRequest"></a>
 
-### GenesisState
-GenesisState defines the earn module's genesis state.
+### QueryCurrentCouncilIDRequest
+
+
+
+
+
+
+
+<a name="zgc.council.v1.QueryCurrentCouncilIDResponse"></a>
+
+### QueryCurrentCouncilIDResponse
+
 
 
 | Field | Type | Label | Description |
@@ -3489,280 +2753,26 @@ GenesisState defines the earn module's genesis state.
 
 
 
- <!-- end messages -->
 
- <!-- end enums -->
+<a name="zgc.council.v1.QueryRegisteredVotersRequest"></a>
 
- <!-- end HasExtensions -->
-
- <!-- end services -->
+### QueryRegisteredVotersRequest
 
 
 
-<a name="kava/earn/v1beta1/proposal.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/earn/v1beta1/proposal.proto
 
 
 
-<a name="kava.earn.v1beta1.CommunityPoolDepositProposal"></a>
 
-### CommunityPoolDepositProposal
-CommunityPoolDepositProposal deposits from the community pool into an earn vault
+<a name="zgc.council.v1.QueryRegisteredVotersResponse"></a>
+
+### QueryRegisteredVotersResponse
+
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `title` | [string](#string) |  |  |
-| `description` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.CommunityPoolDepositProposalJSON"></a>
-
-### CommunityPoolDepositProposalJSON
-CommunityPoolDepositProposalJSON defines a CommunityPoolDepositProposal with a deposit
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `title` | [string](#string) |  |  |
-| `description` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-| `deposit` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.CommunityPoolWithdrawProposal"></a>
-
-### CommunityPoolWithdrawProposal
-CommunityPoolWithdrawProposal withdraws from an earn vault back to community pool
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `title` | [string](#string) |  |  |
-| `description` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.CommunityPoolWithdrawProposalJSON"></a>
-
-### CommunityPoolWithdrawProposalJSON
-CommunityPoolWithdrawProposalJSON defines a CommunityPoolWithdrawProposal with a deposit
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `title` | [string](#string) |  |  |
-| `description` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-| `deposit` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/earn/v1beta1/query.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/earn/v1beta1/query.proto
-
-
-
-<a name="kava.earn.v1beta1.DepositResponse"></a>
-
-### DepositResponse
-DepositResponse defines a deposit query response type.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `depositor` | [string](#string) |  | depositor represents the owner of the deposit. |
-| `shares` | [VaultShare](#kava.earn.v1beta1.VaultShare) | repeated | Shares represent the issued shares from their corresponding vaults. |
-| `value` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated | Value represents the total accumulated value of denom coins supplied to vaults. This may be greater than or equal to amount_supplied depending on the strategy. |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryDepositsRequest"></a>
-
-### QueryDepositsRequest
-QueryDepositsRequest is the request type for the Query/Deposits RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `depositor` | [string](#string) |  | depositor optionally filters deposits by depositor |
-| `denom` | [string](#string) |  | denom optionally filters deposits by vault denom |
-| `value_in_staked_tokens` | [bool](#bool) |  | respond with vault value in ukava for bkava vaults |
-| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  | pagination defines an optional pagination for the request. |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryDepositsResponse"></a>
-
-### QueryDepositsResponse
-QueryDepositsResponse is the response type for the Query/Deposits RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `deposits` | [DepositResponse](#kava.earn.v1beta1.DepositResponse) | repeated | deposits returns the deposits matching the requested parameters |
-| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  | pagination defines the pagination in the response. |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryParamsRequest"></a>
-
-### QueryParamsRequest
-QueryParamsRequest defines the request type for querying x/earn parameters.
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryParamsResponse"></a>
-
-### QueryParamsResponse
-QueryParamsResponse defines the response type for querying x/earn parameters.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.earn.v1beta1.Params) |  | params represents the earn module parameters |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryTotalSupplyRequest"></a>
-
-### QueryTotalSupplyRequest
-QueryTotalSupplyRequest defines the request type for Query/TotalSupply method.
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryTotalSupplyResponse"></a>
-
-### QueryTotalSupplyResponse
-TotalSupplyResponse defines the response type for the Query/TotalSupply method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `height` | [int64](#int64) |  | Height is the block height at which these totals apply |
-| `result` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated | Result is a list of coins supplied to earn |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryVaultRequest"></a>
-
-### QueryVaultRequest
-QueryVaultRequest is the request type for the Query/Vault RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  | vault filters vault by denom |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryVaultResponse"></a>
-
-### QueryVaultResponse
-QueryVaultResponse is the response type for the Query/Vault RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `vault` | [VaultResponse](#kava.earn.v1beta1.VaultResponse) |  | vault represents the queried earn module vault |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryVaultsRequest"></a>
-
-### QueryVaultsRequest
-QueryVaultsRequest is the request type for the Query/Vaults RPC method.
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.QueryVaultsResponse"></a>
-
-### QueryVaultsResponse
-QueryVaultsResponse is the response type for the Query/Vaults RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `vaults` | [VaultResponse](#kava.earn.v1beta1.VaultResponse) | repeated | vaults represents the earn module vaults |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.VaultResponse"></a>
-
-### VaultResponse
-VaultResponse is the response type for a vault.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  | denom represents the denom of the vault |
-| `strategies` | [StrategyType](#kava.earn.v1beta1.StrategyType) | repeated | VaultStrategy is the strategy used for this vault. |
-| `is_private_vault` | [bool](#bool) |  | IsPrivateVault is true if the vault only allows depositors contained in AllowedDepositors. |
-| `allowed_depositors` | [string](#string) | repeated | AllowedDepositors is a list of addresses that are allowed to deposit to this vault if IsPrivateVault is true. Addresses not contained in this list are not allowed to deposit into this vault. If IsPrivateVault is false, this should be empty and ignored. |
-| `total_shares` | [string](#string) |  | TotalShares is the total amount of shares issued to depositors. |
-| `total_value` | [string](#string) |  | TotalValue is the total value of denom coins supplied to the vault if the vault were to be liquidated. |
+| `voters` | [string](#string) | repeated |  |
 
 
 
@@ -3775,88 +2785,74 @@ VaultResponse is the response type for a vault.
  <!-- end HasExtensions -->
 
 
-<a name="kava.earn.v1beta1.Query"></a>
+<a name="zgc.council.v1.Query"></a>
 
 ### Query
-Query defines the gRPC querier service for earn module
+Query defines the gRPC querier service for council module
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#kava.earn.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#kava.earn.v1beta1.QueryParamsResponse) | Params queries all parameters of the earn module. | GET|/kava/earn/v1beta1/params|
-| `Vaults` | [QueryVaultsRequest](#kava.earn.v1beta1.QueryVaultsRequest) | [QueryVaultsResponse](#kava.earn.v1beta1.QueryVaultsResponse) | Vaults queries all vaults | GET|/kava/earn/v1beta1/vaults|
-| `Vault` | [QueryVaultRequest](#kava.earn.v1beta1.QueryVaultRequest) | [QueryVaultResponse](#kava.earn.v1beta1.QueryVaultResponse) | Vault queries a single vault based on the vault denom | GET|/kava/earn/v1beta1/vaults/{denom=**}|
-| `Deposits` | [QueryDepositsRequest](#kava.earn.v1beta1.QueryDepositsRequest) | [QueryDepositsResponse](#kava.earn.v1beta1.QueryDepositsResponse) | Deposits queries deposit details based on depositor address and vault | GET|/kava/earn/v1beta1/deposits|
-| `TotalSupply` | [QueryTotalSupplyRequest](#kava.earn.v1beta1.QueryTotalSupplyRequest) | [QueryTotalSupplyResponse](#kava.earn.v1beta1.QueryTotalSupplyResponse) | TotalSupply returns the total sum of all coins currently locked into the earn module. | GET|/kava/earn/v1beta1/total_supply|
+| `CurrentCouncilID` | [QueryCurrentCouncilIDRequest](#zgc.council.v1.QueryCurrentCouncilIDRequest) | [QueryCurrentCouncilIDResponse](#zgc.council.v1.QueryCurrentCouncilIDResponse) |  | GET|/0gchain/council/v1/current-council-id|
+| `RegisteredVoters` | [QueryRegisteredVotersRequest](#zgc.council.v1.QueryRegisteredVotersRequest) | [QueryRegisteredVotersResponse](#zgc.council.v1.QueryRegisteredVotersResponse) |  | GET|/0gchain/council/v1/registered-voters|
 
  <!-- end services -->
 
 
 
-<a name="kava/earn/v1beta1/tx.proto"></a>
+<a name="zgc/council/v1/tx.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/earn/v1beta1/tx.proto
+## zgc/council/v1/tx.proto
 
 
 
-<a name="kava.earn.v1beta1.MsgDeposit"></a>
+<a name="zgc.council.v1.MsgRegister"></a>
 
-### MsgDeposit
-MsgDeposit represents a message for depositing assedts into a vault
+### MsgRegister
+
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `depositor` | [string](#string) |  | depositor represents the address to deposit funds from |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  | Amount represents the token to deposit. The vault corresponds to the denom of the amount coin. |
-| `strategy` | [StrategyType](#kava.earn.v1beta1.StrategyType) |  | Strategy is the vault strategy to use. |
+| `voter` | [string](#string) |  |  |
+| `key` | [bytes](#bytes) |  |  |
 
 
 
 
 
 
-<a name="kava.earn.v1beta1.MsgDepositResponse"></a>
+<a name="zgc.council.v1.MsgRegisterResponse"></a>
 
-### MsgDepositResponse
-MsgDepositResponse defines the Msg/Deposit response type.
+### MsgRegisterResponse
+
+
+
+
+
+
+
+<a name="zgc.council.v1.MsgVote"></a>
+
+### MsgVote
+
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `shares` | [VaultShare](#kava.earn.v1beta1.VaultShare) |  |  |
+| `council_id` | [uint64](#uint64) |  |  |
+| `voter` | [string](#string) |  |  |
+| `ballots` | [Ballot](#zgc.council.v1.Ballot) | repeated |  |
 
 
 
 
 
 
-<a name="kava.earn.v1beta1.MsgWithdraw"></a>
+<a name="zgc.council.v1.MsgVoteResponse"></a>
 
-### MsgWithdraw
-MsgWithdraw represents a message for withdrawing liquidity from a vault
+### MsgVoteResponse
 
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `from` | [string](#string) |  | from represents the address we are withdrawing for |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  | Amount represents the token to withdraw. The vault corresponds to the denom of the amount coin. |
-| `strategy` | [StrategyType](#kava.earn.v1beta1.StrategyType) |  | Strategy is the vault strategy to use. |
-
-
-
-
-
-
-<a name="kava.earn.v1beta1.MsgWithdrawResponse"></a>
-
-### MsgWithdrawResponse
-MsgWithdrawResponse defines the Msg/Withdraw response type.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `shares` | [VaultShare](#kava.earn.v1beta1.VaultShare) |  |  |
 
 
 
@@ -3869,28 +2865,464 @@ MsgWithdrawResponse defines the Msg/Withdraw response type.
  <!-- end HasExtensions -->
 
 
-<a name="kava.earn.v1beta1.Msg"></a>
+<a name="zgc.council.v1.Msg"></a>
 
 ### Msg
-Msg defines the earn Msg service.
+Msg defines the council Msg service
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Deposit` | [MsgDeposit](#kava.earn.v1beta1.MsgDeposit) | [MsgDepositResponse](#kava.earn.v1beta1.MsgDepositResponse) | Deposit defines a method for depositing assets into a vault | |
-| `Withdraw` | [MsgWithdraw](#kava.earn.v1beta1.MsgWithdraw) | [MsgWithdrawResponse](#kava.earn.v1beta1.MsgWithdrawResponse) | Withdraw defines a method for withdrawing assets into a vault | |
+| `Register` | [MsgRegister](#zgc.council.v1.MsgRegister) | [MsgRegisterResponse](#zgc.council.v1.MsgRegisterResponse) |  | |
+| `Vote` | [MsgVote](#zgc.council.v1.MsgVote) | [MsgVoteResponse](#zgc.council.v1.MsgVoteResponse) |  | |
 
  <!-- end services -->
 
 
 
-<a name="kava/evmutil/v1beta1/conversion_pair.proto"></a>
+<a name="zgc/dasigners/v1/dasigners.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/evmutil/v1beta1/conversion_pair.proto
+## zgc/dasigners/v1/dasigners.proto
 
 
 
-<a name="kava.evmutil.v1beta1.AllowedCosmosCoinERC20Token"></a>
+<a name="zgc.dasigners.v1.Quorum"></a>
+
+### Quorum
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `signers` | [string](#string) | repeated |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.Quorums"></a>
+
+### Quorums
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `quorums` | [Quorum](#zgc.dasigners.v1.Quorum) | repeated |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.Signer"></a>
+
+### Signer
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `account` | [string](#string) |  | account defines the hex address of signer without 0x |
+| `socket` | [string](#string) |  | socket defines the da node socket address |
+| `pubkey_g1` | [bytes](#bytes) |  | pubkey_g1 defines the public key on bn254 G1 |
+| `pubkey_g2` | [bytes](#bytes) |  | pubkey_g1 defines the public key on bn254 G2 |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="zgc/dasigners/v1/genesis.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## zgc/dasigners/v1/genesis.proto
+
+
+
+<a name="zgc.dasigners.v1.GenesisState"></a>
+
+### GenesisState
+GenesisState defines the dasigners module's genesis state.
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `params` | [Params](#zgc.dasigners.v1.Params) |  | params defines all the parameters of related to deposit. |
+| `epoch_number` | [uint64](#uint64) |  | params epoch_number the epoch number |
+| `signers` | [Signer](#zgc.dasigners.v1.Signer) | repeated | signers defines all signers information |
+| `quorums_by_epoch` | [Quorums](#zgc.dasigners.v1.Quorums) | repeated | quorums_by_epoch defines chosen quorums by epoch |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.Params"></a>
+
+### Params
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `tokens_per_vote` | [uint64](#uint64) |  |  |
+| `max_votes_per_signer` | [uint64](#uint64) |  |  |
+| `max_quorums` | [uint64](#uint64) |  |  |
+| `epoch_blocks` | [uint64](#uint64) |  |  |
+| `encoded_slices` | [uint64](#uint64) |  |  |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+ <!-- end services -->
+
+
+
+<a name="zgc/dasigners/v1/query.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## zgc/dasigners/v1/query.proto
+
+
+
+<a name="zgc.dasigners.v1.QueryAggregatePubkeyG1Request"></a>
+
+### QueryAggregatePubkeyG1Request
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `epoch_number` | [uint64](#uint64) |  |  |
+| `quorum_id` | [uint64](#uint64) |  |  |
+| `quorum_bitmap` | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QueryAggregatePubkeyG1Response"></a>
+
+### QueryAggregatePubkeyG1Response
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `aggregate_pubkey_g1` | [bytes](#bytes) |  |  |
+| `total` | [uint64](#uint64) |  |  |
+| `hit` | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QueryEpochNumberRequest"></a>
+
+### QueryEpochNumberRequest
+
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QueryEpochNumberResponse"></a>
+
+### QueryEpochNumberResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `epoch_number` | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QueryEpochQuorumRequest"></a>
+
+### QueryEpochQuorumRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `epoch_number` | [uint64](#uint64) |  |  |
+| `quorum_id` | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QueryEpochQuorumResponse"></a>
+
+### QueryEpochQuorumResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `quorum` | [Quorum](#zgc.dasigners.v1.Quorum) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QueryEpochQuorumRowRequest"></a>
+
+### QueryEpochQuorumRowRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `epoch_number` | [uint64](#uint64) |  |  |
+| `quorum_id` | [uint64](#uint64) |  |  |
+| `row_index` | [uint32](#uint32) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QueryEpochQuorumRowResponse"></a>
+
+### QueryEpochQuorumRowResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `signer` | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QueryQuorumCountRequest"></a>
+
+### QueryQuorumCountRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `epoch_number` | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QueryQuorumCountResponse"></a>
+
+### QueryQuorumCountResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `quorum_count` | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QuerySignerRequest"></a>
+
+### QuerySignerRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `accounts` | [string](#string) | repeated |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.QuerySignerResponse"></a>
+
+### QuerySignerResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `signer` | [Signer](#zgc.dasigners.v1.Signer) | repeated |  |
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+
+<a name="zgc.dasigners.v1.Query"></a>
+
+### Query
+Query defines the gRPC querier service for the dasigners module
+
+| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
+| ----------- | ------------ | ------------- | ------------| ------- | -------- |
+| `EpochNumber` | [QueryEpochNumberRequest](#zgc.dasigners.v1.QueryEpochNumberRequest) | [QueryEpochNumberResponse](#zgc.dasigners.v1.QueryEpochNumberResponse) |  | GET|/0g/dasigners/v1/epoch-number|
+| `QuorumCount` | [QueryQuorumCountRequest](#zgc.dasigners.v1.QueryQuorumCountRequest) | [QueryQuorumCountResponse](#zgc.dasigners.v1.QueryQuorumCountResponse) |  | GET|/0g/dasigners/v1/quorum-count|
+| `EpochQuorum` | [QueryEpochQuorumRequest](#zgc.dasigners.v1.QueryEpochQuorumRequest) | [QueryEpochQuorumResponse](#zgc.dasigners.v1.QueryEpochQuorumResponse) |  | GET|/0g/dasigners/v1/epoch-quorum|
+| `EpochQuorumRow` | [QueryEpochQuorumRowRequest](#zgc.dasigners.v1.QueryEpochQuorumRowRequest) | [QueryEpochQuorumRowResponse](#zgc.dasigners.v1.QueryEpochQuorumRowResponse) |  | GET|/0g/dasigners/v1/epoch-quorum-row|
+| `AggregatePubkeyG1` | [QueryAggregatePubkeyG1Request](#zgc.dasigners.v1.QueryAggregatePubkeyG1Request) | [QueryAggregatePubkeyG1Response](#zgc.dasigners.v1.QueryAggregatePubkeyG1Response) |  | GET|/0g/dasigners/v1/aggregate-pubkey-g1|
+| `Signer` | [QuerySignerRequest](#zgc.dasigners.v1.QuerySignerRequest) | [QuerySignerResponse](#zgc.dasigners.v1.QuerySignerResponse) |  | GET|/0g/dasigners/v1/signer|
+
+ <!-- end services -->
+
+
+
+<a name="zgc/dasigners/v1/tx.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## zgc/dasigners/v1/tx.proto
+
+
+
+<a name="zgc.dasigners.v1.MsgRegisterNextEpoch"></a>
+
+### MsgRegisterNextEpoch
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `account` | [string](#string) |  |  |
+| `signature` | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.MsgRegisterNextEpochResponse"></a>
+
+### MsgRegisterNextEpochResponse
+
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.MsgRegisterSigner"></a>
+
+### MsgRegisterSigner
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `signer` | [Signer](#zgc.dasigners.v1.Signer) |  |  |
+| `signature` | [bytes](#bytes) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.MsgRegisterSignerResponse"></a>
+
+### MsgRegisterSignerResponse
+
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.MsgUpdateSocket"></a>
+
+### MsgUpdateSocket
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| `account` | [string](#string) |  |  |
+| `socket` | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="zgc.dasigners.v1.MsgUpdateSocketResponse"></a>
+
+### MsgUpdateSocketResponse
+
+
+
+
+
+
+ <!-- end messages -->
+
+ <!-- end enums -->
+
+ <!-- end HasExtensions -->
+
+
+<a name="zgc.dasigners.v1.Msg"></a>
+
+### Msg
+Msg defines the dasigners Msg service
+
+| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
+| ----------- | ------------ | ------------- | ------------| ------- | -------- |
+| `RegisterSigner` | [MsgRegisterSigner](#zgc.dasigners.v1.MsgRegisterSigner) | [MsgRegisterSignerResponse](#zgc.dasigners.v1.MsgRegisterSignerResponse) |  | |
+| `UpdateSocket` | [MsgUpdateSocket](#zgc.dasigners.v1.MsgUpdateSocket) | [MsgUpdateSocketResponse](#zgc.dasigners.v1.MsgUpdateSocketResponse) |  | |
+| `RegisterNextEpoch` | [MsgRegisterNextEpoch](#zgc.dasigners.v1.MsgRegisterNextEpoch) | [MsgRegisterNextEpochResponse](#zgc.dasigners.v1.MsgRegisterNextEpochResponse) |  | |
+
+ <!-- end services -->
+
+
+
+<a name="zgc/evmutil/v1beta1/conversion_pair.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## zgc/evmutil/v1beta1/conversion_pair.proto
+
+
+
+<a name="zgc.evmutil.v1beta1.AllowedCosmosCoinERC20Token"></a>
 
 ### AllowedCosmosCoinERC20Token
 AllowedCosmosCoinERC20Token defines allowed cosmos-sdk denom & metadata
@@ -3911,16 +3343,16 @@ cosmos_denom will not change metadata of deployed contract.
 
 
 
-<a name="kava.evmutil.v1beta1.ConversionPair"></a>
+<a name="zgc.evmutil.v1beta1.ConversionPair"></a>
 
 ### ConversionPair
-ConversionPair defines a Kava ERC20 address and corresponding denom that is
+ConversionPair defines a 0gChain ERC20 address and corresponding denom that is
 allowed to be converted between ERC20 and sdk.Coin
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `kava_erc20_address` | [bytes](#bytes) |  | ERC20 address of the token on the Kava EVM |
+| `zgchain_erc20_address` | [bytes](#bytes) |  | ERC20 address of the token on the 0gChain EVM |
 | `denom` | [string](#string) |  | Denom of the corresponding sdk.Coin |
 
 
@@ -3937,14 +3369,14 @@ allowed to be converted between ERC20 and sdk.Coin
 
 
 
-<a name="kava/evmutil/v1beta1/genesis.proto"></a>
+<a name="zgc/evmutil/v1beta1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/evmutil/v1beta1/genesis.proto
+## zgc/evmutil/v1beta1/genesis.proto
 
 
 
-<a name="kava.evmutil.v1beta1.Account"></a>
+<a name="zgc.evmutil.v1beta1.Account"></a>
 
 ### Account
 BalanceAccount defines an account in the evmutil module.
@@ -3953,14 +3385,14 @@ BalanceAccount defines an account in the evmutil module.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `address` | [bytes](#bytes) |  |  |
-| `balance` | [string](#string) |  | balance indicates the amount of akava owned by the address. |
+| `balance` | [string](#string) |  | balance indicates the amount of neuron owned by the address. |
 
 
 
 
 
 
-<a name="kava.evmutil.v1beta1.GenesisState"></a>
+<a name="zgc.evmutil.v1beta1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the evmutil module's genesis state.
@@ -3968,15 +3400,15 @@ GenesisState defines the evmutil module's genesis state.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `accounts` | [Account](#kava.evmutil.v1beta1.Account) | repeated |  |
-| `params` | [Params](#kava.evmutil.v1beta1.Params) |  | params defines all the parameters of the module. |
+| `accounts` | [Account](#zgc.evmutil.v1beta1.Account) | repeated |  |
+| `params` | [Params](#zgc.evmutil.v1beta1.Params) |  | params defines all the parameters of the module. |
 
 
 
 
 
 
-<a name="kava.evmutil.v1beta1.Params"></a>
+<a name="zgc.evmutil.v1beta1.Params"></a>
 
 ### Params
 Params defines the evmutil module params
@@ -3984,8 +3416,8 @@ Params defines the evmutil module params
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `enabled_conversion_pairs` | [ConversionPair](#kava.evmutil.v1beta1.ConversionPair) | repeated | enabled_conversion_pairs defines the list of conversion pairs allowed to be converted between Kava ERC20 and sdk.Coin |
-| `allowed_cosmos_denoms` | [AllowedCosmosCoinERC20Token](#kava.evmutil.v1beta1.AllowedCosmosCoinERC20Token) | repeated | allowed_cosmos_denoms is a list of denom & erc20 token metadata pairs. if a denom is in the list, it is allowed to be converted to an erc20 in the evm. |
+| `enabled_conversion_pairs` | [ConversionPair](#zgc.evmutil.v1beta1.ConversionPair) | repeated | enabled_conversion_pairs defines the list of conversion pairs allowed to be converted between 0gChain ERC20 and sdk.Coin |
+| `allowed_cosmos_denoms` | [AllowedCosmosCoinERC20Token](#zgc.evmutil.v1beta1.AllowedCosmosCoinERC20Token) | repeated | allowed_cosmos_denoms is a list of denom & erc20 token metadata pairs. if a denom is in the list, it is allowed to be converted to an erc20 in the evm. |
 
 
 
@@ -4001,14 +3433,14 @@ Params defines the evmutil module params
 
 
 
-<a name="kava/evmutil/v1beta1/query.proto"></a>
+<a name="zgc/evmutil/v1beta1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/evmutil/v1beta1/query.proto
+## zgc/evmutil/v1beta1/query.proto
 
 
 
-<a name="kava.evmutil.v1beta1.DeployedCosmosCoinContract"></a>
+<a name="zgc.evmutil.v1beta1.DeployedCosmosCoinContract"></a>
 
 ### DeployedCosmosCoinContract
 DeployedCosmosCoinContract defines a deployed token contract to the evm representing a native cosmos-sdk coin
@@ -4024,7 +3456,7 @@ DeployedCosmosCoinContract defines a deployed token contract to the evm represen
 
 
 
-<a name="kava.evmutil.v1beta1.QueryDeployedCosmosCoinContractsRequest"></a>
+<a name="zgc.evmutil.v1beta1.QueryDeployedCosmosCoinContractsRequest"></a>
 
 ### QueryDeployedCosmosCoinContractsRequest
 QueryDeployedCosmosCoinContractsRequest defines the request type for Query/DeployedCosmosCoinContracts method.
@@ -4040,7 +3472,7 @@ QueryDeployedCosmosCoinContractsRequest defines the request type for Query/Deplo
 
 
 
-<a name="kava.evmutil.v1beta1.QueryDeployedCosmosCoinContractsResponse"></a>
+<a name="zgc.evmutil.v1beta1.QueryDeployedCosmosCoinContractsResponse"></a>
 
 ### QueryDeployedCosmosCoinContractsResponse
 QueryDeployedCosmosCoinContractsResponse defines the response type for the Query/DeployedCosmosCoinContracts method.
@@ -4048,7 +3480,7 @@ QueryDeployedCosmosCoinContractsResponse defines the response type for the Query
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `deployed_cosmos_coin_contracts` | [DeployedCosmosCoinContract](#kava.evmutil.v1beta1.DeployedCosmosCoinContract) | repeated | deployed_cosmos_coin_contracts is a list of cosmos-sdk coin denom and its deployed contract address |
+| `deployed_cosmos_coin_contracts` | [DeployedCosmosCoinContract](#zgc.evmutil.v1beta1.DeployedCosmosCoinContract) | repeated | deployed_cosmos_coin_contracts is a list of cosmos-sdk coin denom and its deployed contract address |
 | `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  | pagination defines the pagination in the response. |
 
 
@@ -4056,7 +3488,7 @@ QueryDeployedCosmosCoinContractsResponse defines the response type for the Query
 
 
 
-<a name="kava.evmutil.v1beta1.QueryParamsRequest"></a>
+<a name="zgc.evmutil.v1beta1.QueryParamsRequest"></a>
 
 ### QueryParamsRequest
 QueryParamsRequest defines the request type for querying x/evmutil parameters.
@@ -4066,7 +3498,7 @@ QueryParamsRequest defines the request type for querying x/evmutil parameters.
 
 
 
-<a name="kava.evmutil.v1beta1.QueryParamsResponse"></a>
+<a name="zgc.evmutil.v1beta1.QueryParamsResponse"></a>
 
 ### QueryParamsResponse
 QueryParamsResponse defines the response type for querying x/evmutil parameters.
@@ -4074,7 +3506,7 @@ QueryParamsResponse defines the response type for querying x/evmutil parameters.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.evmutil.v1beta1.Params) |  |  |
+| `params` | [Params](#zgc.evmutil.v1beta1.Params) |  |  |
 
 
 
@@ -4087,37 +3519,37 @@ QueryParamsResponse defines the response type for querying x/evmutil parameters.
  <!-- end HasExtensions -->
 
 
-<a name="kava.evmutil.v1beta1.Query"></a>
+<a name="zgc.evmutil.v1beta1.Query"></a>
 
 ### Query
 Query defines the gRPC querier service for evmutil module
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#kava.evmutil.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#kava.evmutil.v1beta1.QueryParamsResponse) | Params queries all parameters of the evmutil module. | GET|/kava/evmutil/v1beta1/params|
-| `DeployedCosmosCoinContracts` | [QueryDeployedCosmosCoinContractsRequest](#kava.evmutil.v1beta1.QueryDeployedCosmosCoinContractsRequest) | [QueryDeployedCosmosCoinContractsResponse](#kava.evmutil.v1beta1.QueryDeployedCosmosCoinContractsResponse) | DeployedCosmosCoinContracts queries a list cosmos coin denom and their deployed erc20 address | GET|/kava/evmutil/v1beta1/deployed_cosmos_coin_contracts|
+| `Params` | [QueryParamsRequest](#zgc.evmutil.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#zgc.evmutil.v1beta1.QueryParamsResponse) | Params queries all parameters of the evmutil module. | GET|/0g/evmutil/v1beta1/params|
+| `DeployedCosmosCoinContracts` | [QueryDeployedCosmosCoinContractsRequest](#zgc.evmutil.v1beta1.QueryDeployedCosmosCoinContractsRequest) | [QueryDeployedCosmosCoinContractsResponse](#zgc.evmutil.v1beta1.QueryDeployedCosmosCoinContractsResponse) | DeployedCosmosCoinContracts queries a list cosmos coin denom and their deployed erc20 address | GET|/0g/evmutil/v1beta1/deployed_cosmos_coin_contracts|
 
  <!-- end services -->
 
 
 
-<a name="kava/evmutil/v1beta1/tx.proto"></a>
+<a name="zgc/evmutil/v1beta1/tx.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/evmutil/v1beta1/tx.proto
+## zgc/evmutil/v1beta1/tx.proto
 
 
 
-<a name="kava.evmutil.v1beta1.MsgConvertCoinToERC20"></a>
+<a name="zgc.evmutil.v1beta1.MsgConvertCoinToERC20"></a>
 
 ### MsgConvertCoinToERC20
-MsgConvertCoinToERC20 defines a conversion from sdk.Coin to Kava ERC20 for EVM-native assets.
+MsgConvertCoinToERC20 defines a conversion from sdk.Coin to 0gChain ERC20 for EVM-native assets.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `initiator` | [string](#string) |  | Kava bech32 address initiating the conversion. |
-| `receiver` | [string](#string) |  | EVM 0x hex address that will receive the converted Kava ERC20 tokens. |
+| `initiator` | [string](#string) |  | 0gChain bech32 address initiating the conversion. |
+| `receiver` | [string](#string) |  | EVM 0x hex address that will receive the converted 0gChain ERC20 tokens. |
 | `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  | Amount is the sdk.Coin amount to convert. |
 
 
@@ -4125,7 +3557,7 @@ MsgConvertCoinToERC20 defines a conversion from sdk.Coin to Kava ERC20 for EVM-n
 
 
 
-<a name="kava.evmutil.v1beta1.MsgConvertCoinToERC20Response"></a>
+<a name="zgc.evmutil.v1beta1.MsgConvertCoinToERC20Response"></a>
 
 ### MsgConvertCoinToERC20Response
 MsgConvertCoinToERC20Response defines the response value from Msg/ConvertCoinToERC20.
@@ -4135,7 +3567,7 @@ MsgConvertCoinToERC20Response defines the response value from Msg/ConvertCoinToE
 
 
 
-<a name="kava.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20"></a>
+<a name="zgc.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20"></a>
 
 ### MsgConvertCosmosCoinFromERC20
 MsgConvertCosmosCoinFromERC20 defines a conversion from ERC20 to cosmos coins for cosmos-native assets.
@@ -4144,7 +3576,7 @@ MsgConvertCosmosCoinFromERC20 defines a conversion from ERC20 to cosmos coins fo
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `initiator` | [string](#string) |  | EVM hex address initiating the conversion. |
-| `receiver` | [string](#string) |  | Kava bech32 address that will receive the cosmos coins. |
+| `receiver` | [string](#string) |  | 0gChain bech32 address that will receive the cosmos coins. |
 | `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  | Amount is the amount to convert, expressed as a Cosmos coin. |
 
 
@@ -4152,7 +3584,7 @@ MsgConvertCosmosCoinFromERC20 defines a conversion from ERC20 to cosmos coins fo
 
 
 
-<a name="kava.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20Response"></a>
+<a name="zgc.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20Response"></a>
 
 ### MsgConvertCosmosCoinFromERC20Response
 MsgConvertCosmosCoinFromERC20Response defines the response value from Msg/MsgConvertCosmosCoinFromERC20.
@@ -4162,7 +3594,7 @@ MsgConvertCosmosCoinFromERC20Response defines the response value from Msg/MsgCon
 
 
 
-<a name="kava.evmutil.v1beta1.MsgConvertCosmosCoinToERC20"></a>
+<a name="zgc.evmutil.v1beta1.MsgConvertCosmosCoinToERC20"></a>
 
 ### MsgConvertCosmosCoinToERC20
 MsgConvertCosmosCoinToERC20 defines a conversion from cosmos sdk.Coin to ERC20 for cosmos-native assets.
@@ -4170,7 +3602,7 @@ MsgConvertCosmosCoinToERC20 defines a conversion from cosmos sdk.Coin to ERC20 f
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `initiator` | [string](#string) |  | Kava bech32 address initiating the conversion. |
+| `initiator` | [string](#string) |  | 0gChain bech32 address initiating the conversion. |
 | `receiver` | [string](#string) |  | EVM hex address that will receive the ERC20 tokens. |
 | `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  | Amount is the sdk.Coin amount to convert. |
 
@@ -4179,7 +3611,7 @@ MsgConvertCosmosCoinToERC20 defines a conversion from cosmos sdk.Coin to ERC20 f
 
 
 
-<a name="kava.evmutil.v1beta1.MsgConvertCosmosCoinToERC20Response"></a>
+<a name="zgc.evmutil.v1beta1.MsgConvertCosmosCoinToERC20Response"></a>
 
 ### MsgConvertCosmosCoinToERC20Response
 MsgConvertCosmosCoinToERC20Response defines the response value from Msg/MsgConvertCosmosCoinToERC20.
@@ -4189,17 +3621,17 @@ MsgConvertCosmosCoinToERC20Response defines the response value from Msg/MsgConve
 
 
 
-<a name="kava.evmutil.v1beta1.MsgConvertERC20ToCoin"></a>
+<a name="zgc.evmutil.v1beta1.MsgConvertERC20ToCoin"></a>
 
 ### MsgConvertERC20ToCoin
-MsgConvertERC20ToCoin defines a conversion from Kava ERC20 to sdk.Coin for EVM-native assets.
+MsgConvertERC20ToCoin defines a conversion from 0gChain ERC20 to sdk.Coin for EVM-native assets.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `initiator` | [string](#string) |  | EVM 0x hex address initiating the conversion. |
-| `receiver` | [string](#string) |  | Kava bech32 address that will receive the converted sdk.Coin. |
-| `kava_erc20_address` | [string](#string) |  | EVM 0x hex address of the ERC20 contract. |
+| `receiver` | [string](#string) |  | 0gChain bech32 address that will receive the converted sdk.Coin. |
+| `zgchain_erc20_address` | [string](#string) |  | EVM 0x hex address of the ERC20 contract. |
 | `amount` | [string](#string) |  | ERC20 token amount to convert. |
 
 
@@ -4207,7 +3639,7 @@ MsgConvertERC20ToCoin defines a conversion from Kava ERC20 to sdk.Coin for EVM-n
 
 
 
-<a name="kava.evmutil.v1beta1.MsgConvertERC20ToCoinResponse"></a>
+<a name="zgc.evmutil.v1beta1.MsgConvertERC20ToCoinResponse"></a>
 
 ### MsgConvertERC20ToCoinResponse
 MsgConvertERC20ToCoinResponse defines the response value from
@@ -4224,1660 +3656,30 @@ Msg/MsgConvertERC20ToCoin.
  <!-- end HasExtensions -->
 
 
-<a name="kava.evmutil.v1beta1.Msg"></a>
+<a name="zgc.evmutil.v1beta1.Msg"></a>
 
 ### Msg
 Msg defines the evmutil Msg service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `ConvertCoinToERC20` | [MsgConvertCoinToERC20](#kava.evmutil.v1beta1.MsgConvertCoinToERC20) | [MsgConvertCoinToERC20Response](#kava.evmutil.v1beta1.MsgConvertCoinToERC20Response) | ConvertCoinToERC20 defines a method for converting sdk.Coin to Kava ERC20. | |
-| `ConvertERC20ToCoin` | [MsgConvertERC20ToCoin](#kava.evmutil.v1beta1.MsgConvertERC20ToCoin) | [MsgConvertERC20ToCoinResponse](#kava.evmutil.v1beta1.MsgConvertERC20ToCoinResponse) | ConvertERC20ToCoin defines a method for converting Kava ERC20 to sdk.Coin. | |
-| `ConvertCosmosCoinToERC20` | [MsgConvertCosmosCoinToERC20](#kava.evmutil.v1beta1.MsgConvertCosmosCoinToERC20) | [MsgConvertCosmosCoinToERC20Response](#kava.evmutil.v1beta1.MsgConvertCosmosCoinToERC20Response) | ConvertCosmosCoinToERC20 defines a method for converting a cosmos sdk.Coin to an ERC20. | |
-| `ConvertCosmosCoinFromERC20` | [MsgConvertCosmosCoinFromERC20](#kava.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20) | [MsgConvertCosmosCoinFromERC20Response](#kava.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20Response) | ConvertCosmosCoinFromERC20 defines a method for converting a cosmos sdk.Coin to an ERC20. | |
+| `ConvertCoinToERC20` | [MsgConvertCoinToERC20](#zgc.evmutil.v1beta1.MsgConvertCoinToERC20) | [MsgConvertCoinToERC20Response](#zgc.evmutil.v1beta1.MsgConvertCoinToERC20Response) | ConvertCoinToERC20 defines a method for converting sdk.Coin to 0gChain ERC20. | |
+| `ConvertERC20ToCoin` | [MsgConvertERC20ToCoin](#zgc.evmutil.v1beta1.MsgConvertERC20ToCoin) | [MsgConvertERC20ToCoinResponse](#zgc.evmutil.v1beta1.MsgConvertERC20ToCoinResponse) | ConvertERC20ToCoin defines a method for converting 0gChain ERC20 to sdk.Coin. | |
+| `ConvertCosmosCoinToERC20` | [MsgConvertCosmosCoinToERC20](#zgc.evmutil.v1beta1.MsgConvertCosmosCoinToERC20) | [MsgConvertCosmosCoinToERC20Response](#zgc.evmutil.v1beta1.MsgConvertCosmosCoinToERC20Response) | ConvertCosmosCoinToERC20 defines a method for converting a cosmos sdk.Coin to an ERC20. | |
+| `ConvertCosmosCoinFromERC20` | [MsgConvertCosmosCoinFromERC20](#zgc.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20) | [MsgConvertCosmosCoinFromERC20Response](#zgc.evmutil.v1beta1.MsgConvertCosmosCoinFromERC20Response) | ConvertCosmosCoinFromERC20 defines a method for converting a cosmos sdk.Coin to an ERC20. | |
 
  <!-- end services -->
 
 
 
-<a name="kava/hard/v1beta1/hard.proto"></a>
+<a name="zgc/issuance/v1beta1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/hard/v1beta1/hard.proto
+## zgc/issuance/v1beta1/genesis.proto
 
 
 
-<a name="kava.hard.v1beta1.Borrow"></a>
-
-### Borrow
-Borrow defines an amount of coins borrowed from a hard module account.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `borrower` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-| `index` | [BorrowInterestFactor](#kava.hard.v1beta1.BorrowInterestFactor) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.BorrowInterestFactor"></a>
-
-### BorrowInterestFactor
-BorrowInterestFactor defines an individual borrow interest factor.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `value` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.BorrowLimit"></a>
-
-### BorrowLimit
-BorrowLimit enforces restrictions on a money market.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `has_max_limit` | [bool](#bool) |  |  |
-| `maximum_limit` | [string](#string) |  |  |
-| `loan_to_value` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.CoinsProto"></a>
-
-### CoinsProto
-CoinsProto defines a Protobuf wrapper around a Coins slice
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `coins` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.Deposit"></a>
-
-### Deposit
-Deposit defines an amount of coins deposited into a hard module account.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `depositor` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-| `index` | [SupplyInterestFactor](#kava.hard.v1beta1.SupplyInterestFactor) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.InterestRateModel"></a>
-
-### InterestRateModel
-InterestRateModel contains information about an asset's interest rate.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `base_rate_apy` | [string](#string) |  |  |
-| `base_multiplier` | [string](#string) |  |  |
-| `kink` | [string](#string) |  |  |
-| `jump_multiplier` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MoneyMarket"></a>
-
-### MoneyMarket
-MoneyMarket is a money market for an individual asset.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `borrow_limit` | [BorrowLimit](#kava.hard.v1beta1.BorrowLimit) |  |  |
-| `spot_market_id` | [string](#string) |  |  |
-| `conversion_factor` | [string](#string) |  |  |
-| `interest_rate_model` | [InterestRateModel](#kava.hard.v1beta1.InterestRateModel) |  |  |
-| `reserve_factor` | [string](#string) |  |  |
-| `keeper_reward_percentage` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.Params"></a>
-
-### Params
-Params defines the parameters for the hard module.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `money_markets` | [MoneyMarket](#kava.hard.v1beta1.MoneyMarket) | repeated |  |
-| `minimum_borrow_usd_value` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.SupplyInterestFactor"></a>
-
-### SupplyInterestFactor
-SupplyInterestFactor defines an individual borrow interest factor.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `value` | [string](#string) |  |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/hard/v1beta1/genesis.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/hard/v1beta1/genesis.proto
-
-
-
-<a name="kava.hard.v1beta1.GenesisAccumulationTime"></a>
-
-### GenesisAccumulationTime
-GenesisAccumulationTime stores the previous distribution time and its corresponding denom.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `collateral_type` | [string](#string) |  |  |
-| `previous_accumulation_time` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| `supply_interest_factor` | [string](#string) |  |  |
-| `borrow_interest_factor` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.GenesisState"></a>
-
-### GenesisState
-GenesisState defines the hard module's genesis state.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.hard.v1beta1.Params) |  |  |
-| `previous_accumulation_times` | [GenesisAccumulationTime](#kava.hard.v1beta1.GenesisAccumulationTime) | repeated |  |
-| `deposits` | [Deposit](#kava.hard.v1beta1.Deposit) | repeated |  |
-| `borrows` | [Borrow](#kava.hard.v1beta1.Borrow) | repeated |  |
-| `total_supplied` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-| `total_borrowed` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-| `total_reserves` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/hard/v1beta1/query.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/hard/v1beta1/query.proto
-
-
-
-<a name="kava.hard.v1beta1.BorrowInterestFactorResponse"></a>
-
-### BorrowInterestFactorResponse
-BorrowInterestFactorResponse defines an individual borrow interest factor.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `value` | [string](#string) |  | sdk.Dec as string |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.BorrowResponse"></a>
-
-### BorrowResponse
-BorrowResponse defines an amount of coins borrowed from a hard module account.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `borrower` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-| `index` | [BorrowInterestFactorResponse](#kava.hard.v1beta1.BorrowInterestFactorResponse) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.DepositResponse"></a>
-
-### DepositResponse
-DepositResponse defines an amount of coins deposited into a hard module account.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `depositor` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-| `index` | [SupplyInterestFactorResponse](#kava.hard.v1beta1.SupplyInterestFactorResponse) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.InterestFactor"></a>
-
-### InterestFactor
-InterestFactor is a unique type returned by interest factor queries
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `borrow_interest_factor` | [string](#string) |  | sdk.Dec as String |
-| `supply_interest_factor` | [string](#string) |  | sdk.Dec as String |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MoneyMarketInterestRate"></a>
-
-### MoneyMarketInterestRate
-MoneyMarketInterestRate is a unique type returned by interest rate queries
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `supply_interest_rate` | [string](#string) |  | sdk.Dec as String |
-| `borrow_interest_rate` | [string](#string) |  | sdk.Dec as String |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryAccountsRequest"></a>
-
-### QueryAccountsRequest
-QueryAccountsRequest is the request type for the Query/Accounts RPC method.
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryAccountsResponse"></a>
-
-### QueryAccountsResponse
-QueryAccountsResponse is the response type for the Query/Accounts RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `accounts` | [cosmos.auth.v1beta1.ModuleAccount](#cosmos.auth.v1beta1.ModuleAccount) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryBorrowsRequest"></a>
-
-### QueryBorrowsRequest
-QueryBorrowsRequest is the request type for the Query/Borrows RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `owner` | [string](#string) |  |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryBorrowsResponse"></a>
-
-### QueryBorrowsResponse
-QueryBorrowsResponse is the response type for the Query/Borrows RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `borrows` | [BorrowResponse](#kava.hard.v1beta1.BorrowResponse) | repeated |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryDepositsRequest"></a>
-
-### QueryDepositsRequest
-QueryDepositsRequest is the request type for the Query/Deposits RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `owner` | [string](#string) |  |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryDepositsResponse"></a>
-
-### QueryDepositsResponse
-QueryDepositsResponse is the response type for the Query/Deposits RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `deposits` | [DepositResponse](#kava.hard.v1beta1.DepositResponse) | repeated |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryInterestFactorsRequest"></a>
-
-### QueryInterestFactorsRequest
-QueryInterestFactorsRequest is the request type for the Query/InterestFactors RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryInterestFactorsResponse"></a>
-
-### QueryInterestFactorsResponse
-QueryInterestFactorsResponse is the response type for the Query/InterestFactors RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `interest_factors` | [InterestFactor](#kava.hard.v1beta1.InterestFactor) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryInterestRateRequest"></a>
-
-### QueryInterestRateRequest
-QueryInterestRateRequest is the request type for the Query/InterestRate RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryInterestRateResponse"></a>
-
-### QueryInterestRateResponse
-QueryInterestRateResponse is the response type for the Query/InterestRate RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `interest_rates` | [MoneyMarketInterestRate](#kava.hard.v1beta1.MoneyMarketInterestRate) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryParamsRequest"></a>
-
-### QueryParamsRequest
-QueryParamsRequest is the request type for the Query/Params RPC method.
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryParamsResponse"></a>
-
-### QueryParamsResponse
-QueryParamsResponse is the response type for the Query/Params RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.hard.v1beta1.Params) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryReservesRequest"></a>
-
-### QueryReservesRequest
-QueryReservesRequest is the request type for the Query/Reserves RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryReservesResponse"></a>
-
-### QueryReservesResponse
-QueryReservesResponse is the response type for the Query/Reserves RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryTotalBorrowedRequest"></a>
-
-### QueryTotalBorrowedRequest
-QueryTotalBorrowedRequest is the request type for the Query/TotalBorrowed RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryTotalBorrowedResponse"></a>
-
-### QueryTotalBorrowedResponse
-QueryTotalBorrowedResponse is the response type for the Query/TotalBorrowed RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `borrowed_coins` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryTotalDepositedRequest"></a>
-
-### QueryTotalDepositedRequest
-QueryTotalDepositedRequest is the request type for the Query/TotalDeposited RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryTotalDepositedResponse"></a>
-
-### QueryTotalDepositedResponse
-QueryTotalDepositedResponse is the response type for the Query/TotalDeposited RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `supplied_coins` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryUnsyncedBorrowsRequest"></a>
-
-### QueryUnsyncedBorrowsRequest
-QueryUnsyncedBorrowsRequest is the request type for the Query/UnsyncedBorrows RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `owner` | [string](#string) |  |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryUnsyncedBorrowsResponse"></a>
-
-### QueryUnsyncedBorrowsResponse
-QueryUnsyncedBorrowsResponse is the response type for the Query/UnsyncedBorrows RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `borrows` | [BorrowResponse](#kava.hard.v1beta1.BorrowResponse) | repeated |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryUnsyncedDepositsRequest"></a>
-
-### QueryUnsyncedDepositsRequest
-QueryUnsyncedDepositsRequest is the request type for the Query/UnsyncedDeposits RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `owner` | [string](#string) |  |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageRequest](#cosmos.base.query.v1beta1.PageRequest) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.QueryUnsyncedDepositsResponse"></a>
-
-### QueryUnsyncedDepositsResponse
-QueryUnsyncedDepositsResponse is the response type for the Query/UnsyncedDeposits RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `deposits` | [DepositResponse](#kava.hard.v1beta1.DepositResponse) | repeated |  |
-| `pagination` | [cosmos.base.query.v1beta1.PageResponse](#cosmos.base.query.v1beta1.PageResponse) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.SupplyInterestFactorResponse"></a>
-
-### SupplyInterestFactorResponse
-SupplyInterestFactorResponse defines an individual borrow interest factor.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `value` | [string](#string) |  | sdk.Dec as string |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
-
-<a name="kava.hard.v1beta1.Query"></a>
-
-### Query
-Query defines the gRPC querier service for bep3 module.
-
-| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
-| ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#kava.hard.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#kava.hard.v1beta1.QueryParamsResponse) | Params queries module params. | GET|/kava/hard/v1beta1/params|
-| `Accounts` | [QueryAccountsRequest](#kava.hard.v1beta1.QueryAccountsRequest) | [QueryAccountsResponse](#kava.hard.v1beta1.QueryAccountsResponse) | Accounts queries module accounts. | GET|/kava/hard/v1beta1/accounts|
-| `Deposits` | [QueryDepositsRequest](#kava.hard.v1beta1.QueryDepositsRequest) | [QueryDepositsResponse](#kava.hard.v1beta1.QueryDepositsResponse) | Deposits queries hard deposits. | GET|/kava/hard/v1beta1/deposits|
-| `UnsyncedDeposits` | [QueryUnsyncedDepositsRequest](#kava.hard.v1beta1.QueryUnsyncedDepositsRequest) | [QueryUnsyncedDepositsResponse](#kava.hard.v1beta1.QueryUnsyncedDepositsResponse) | UnsyncedDeposits queries unsynced deposits. | GET|/kava/hard/v1beta1/unsynced-deposits|
-| `TotalDeposited` | [QueryTotalDepositedRequest](#kava.hard.v1beta1.QueryTotalDepositedRequest) | [QueryTotalDepositedResponse](#kava.hard.v1beta1.QueryTotalDepositedResponse) | TotalDeposited queries total coins deposited to hard liquidity pools. | GET|/kava/hard/v1beta1/total-deposited|
-| `Borrows` | [QueryBorrowsRequest](#kava.hard.v1beta1.QueryBorrowsRequest) | [QueryBorrowsResponse](#kava.hard.v1beta1.QueryBorrowsResponse) | Borrows queries hard borrows. | GET|/kava/hard/v1beta1/borrows|
-| `UnsyncedBorrows` | [QueryUnsyncedBorrowsRequest](#kava.hard.v1beta1.QueryUnsyncedBorrowsRequest) | [QueryUnsyncedBorrowsResponse](#kava.hard.v1beta1.QueryUnsyncedBorrowsResponse) | UnsyncedBorrows queries unsynced borrows. | GET|/kava/hard/v1beta1/unsynced-borrows|
-| `TotalBorrowed` | [QueryTotalBorrowedRequest](#kava.hard.v1beta1.QueryTotalBorrowedRequest) | [QueryTotalBorrowedResponse](#kava.hard.v1beta1.QueryTotalBorrowedResponse) | TotalBorrowed queries total coins borrowed from hard liquidity pools. | GET|/kava/hard/v1beta1/total-borrowed|
-| `InterestRate` | [QueryInterestRateRequest](#kava.hard.v1beta1.QueryInterestRateRequest) | [QueryInterestRateResponse](#kava.hard.v1beta1.QueryInterestRateResponse) | InterestRate queries the hard module interest rates. | GET|/kava/hard/v1beta1/interest-rate|
-| `Reserves` | [QueryReservesRequest](#kava.hard.v1beta1.QueryReservesRequest) | [QueryReservesResponse](#kava.hard.v1beta1.QueryReservesResponse) | Reserves queries total hard reserve coins. | GET|/kava/hard/v1beta1/reserves|
-| `InterestFactors` | [QueryInterestFactorsRequest](#kava.hard.v1beta1.QueryInterestFactorsRequest) | [QueryInterestFactorsResponse](#kava.hard.v1beta1.QueryInterestFactorsResponse) | InterestFactors queries hard module interest factors. | GET|/kava/hard/v1beta1/interest-factors|
-
- <!-- end services -->
-
-
-
-<a name="kava/hard/v1beta1/tx.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/hard/v1beta1/tx.proto
-
-
-
-<a name="kava.hard.v1beta1.MsgBorrow"></a>
-
-### MsgBorrow
-MsgBorrow defines the Msg/Borrow request type.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `borrower` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MsgBorrowResponse"></a>
-
-### MsgBorrowResponse
-MsgBorrowResponse defines the Msg/Borrow response type.
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MsgDeposit"></a>
-
-### MsgDeposit
-MsgDeposit defines the Msg/Deposit request type.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `depositor` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MsgDepositResponse"></a>
-
-### MsgDepositResponse
-MsgDepositResponse defines the Msg/Deposit response type.
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MsgLiquidate"></a>
-
-### MsgLiquidate
-MsgLiquidate defines the Msg/Liquidate request type.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `keeper` | [string](#string) |  |  |
-| `borrower` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MsgLiquidateResponse"></a>
-
-### MsgLiquidateResponse
-MsgLiquidateResponse defines the Msg/Liquidate response type.
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MsgRepay"></a>
-
-### MsgRepay
-MsgRepay defines the Msg/Repay request type.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `sender` | [string](#string) |  |  |
-| `owner` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MsgRepayResponse"></a>
-
-### MsgRepayResponse
-MsgRepayResponse defines the Msg/Repay response type.
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MsgWithdraw"></a>
-
-### MsgWithdraw
-MsgWithdraw defines the Msg/Withdraw request type.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `depositor` | [string](#string) |  |  |
-| `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.hard.v1beta1.MsgWithdrawResponse"></a>
-
-### MsgWithdrawResponse
-MsgWithdrawResponse defines the Msg/Withdraw response type.
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
-
-<a name="kava.hard.v1beta1.Msg"></a>
-
-### Msg
-Msg defines the hard Msg service.
-
-| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
-| ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Deposit` | [MsgDeposit](#kava.hard.v1beta1.MsgDeposit) | [MsgDepositResponse](#kava.hard.v1beta1.MsgDepositResponse) | Deposit defines a method for depositing funds to hard liquidity pool. | |
-| `Withdraw` | [MsgWithdraw](#kava.hard.v1beta1.MsgWithdraw) | [MsgWithdrawResponse](#kava.hard.v1beta1.MsgWithdrawResponse) | Withdraw defines a method for withdrawing funds from hard liquidity pool. | |
-| `Borrow` | [MsgBorrow](#kava.hard.v1beta1.MsgBorrow) | [MsgBorrowResponse](#kava.hard.v1beta1.MsgBorrowResponse) | Borrow defines a method for borrowing funds from hard liquidity pool. | |
-| `Repay` | [MsgRepay](#kava.hard.v1beta1.MsgRepay) | [MsgRepayResponse](#kava.hard.v1beta1.MsgRepayResponse) | Repay defines a method for repaying funds borrowed from hard liquidity pool. | |
-| `Liquidate` | [MsgLiquidate](#kava.hard.v1beta1.MsgLiquidate) | [MsgLiquidateResponse](#kava.hard.v1beta1.MsgLiquidateResponse) | Liquidate defines a method for attempting to liquidate a borrower that is over their loan-to-value. | |
-
- <!-- end services -->
-
-
-
-<a name="kava/incentive/v1beta1/apy.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/incentive/v1beta1/apy.proto
-
-
-
-<a name="kava.incentive.v1beta1.Apy"></a>
-
-### Apy
-Apy contains the calculated APY for a given collateral type at a specific
-instant in time.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `collateral_type` | [string](#string) |  |  |
-| `apy` | [string](#string) |  |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/incentive/v1beta1/claims.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/incentive/v1beta1/claims.proto
-
-
-
-<a name="kava.incentive.v1beta1.BaseClaim"></a>
-
-### BaseClaim
-BaseClaim is a claim with a single reward coin types
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `owner` | [bytes](#bytes) |  |  |
-| `reward` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.BaseMultiClaim"></a>
-
-### BaseMultiClaim
-BaseMultiClaim is a claim with multiple reward coin types
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `owner` | [bytes](#bytes) |  |  |
-| `reward` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.DelegatorClaim"></a>
-
-### DelegatorClaim
-DelegatorClaim stores delegation rewards that can be claimed by owner
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `base_claim` | [BaseMultiClaim](#kava.incentive.v1beta1.BaseMultiClaim) |  |  |
-| `reward_indexes` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.EarnClaim"></a>
-
-### EarnClaim
-EarnClaim stores the earn rewards that can be claimed by owner
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `base_claim` | [BaseMultiClaim](#kava.incentive.v1beta1.BaseMultiClaim) |  |  |
-| `reward_indexes` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.HardLiquidityProviderClaim"></a>
-
-### HardLiquidityProviderClaim
-HardLiquidityProviderClaim stores the hard liquidity provider rewards that can be claimed by owner
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `base_claim` | [BaseMultiClaim](#kava.incentive.v1beta1.BaseMultiClaim) |  |  |
-| `supply_reward_indexes` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-| `borrow_reward_indexes` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MultiRewardIndex"></a>
-
-### MultiRewardIndex
-MultiRewardIndex stores reward accumulation information on multiple reward types
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `collateral_type` | [string](#string) |  |  |
-| `reward_indexes` | [RewardIndex](#kava.incentive.v1beta1.RewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MultiRewardIndexesProto"></a>
-
-### MultiRewardIndexesProto
-MultiRewardIndexesProto defines a Protobuf wrapper around a MultiRewardIndexes slice
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `multi_reward_indexes` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.RewardIndex"></a>
-
-### RewardIndex
-RewardIndex stores reward accumulation information
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `collateral_type` | [string](#string) |  |  |
-| `reward_factor` | [bytes](#bytes) |  |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.RewardIndexesProto"></a>
-
-### RewardIndexesProto
-RewardIndexesProto defines a Protobuf wrapper around a RewardIndexes slice
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `reward_indexes` | [RewardIndex](#kava.incentive.v1beta1.RewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.SavingsClaim"></a>
-
-### SavingsClaim
-SavingsClaim stores the savings rewards that can be claimed by owner
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `base_claim` | [BaseMultiClaim](#kava.incentive.v1beta1.BaseMultiClaim) |  |  |
-| `reward_indexes` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.SwapClaim"></a>
-
-### SwapClaim
-SwapClaim stores the swap rewards that can be claimed by owner
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `base_claim` | [BaseMultiClaim](#kava.incentive.v1beta1.BaseMultiClaim) |  |  |
-| `reward_indexes` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.USDXMintingClaim"></a>
-
-### USDXMintingClaim
-USDXMintingClaim is for USDX minting rewards
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `base_claim` | [BaseClaim](#kava.incentive.v1beta1.BaseClaim) |  |  |
-| `reward_indexes` | [RewardIndex](#kava.incentive.v1beta1.RewardIndex) | repeated |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/incentive/v1beta1/params.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/incentive/v1beta1/params.proto
-
-
-
-<a name="kava.incentive.v1beta1.MultiRewardPeriod"></a>
-
-### MultiRewardPeriod
-MultiRewardPeriod supports multiple reward types
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `active` | [bool](#bool) |  |  |
-| `collateral_type` | [string](#string) |  |  |
-| `start` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| `end` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| `rewards_per_second` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.Multiplier"></a>
-
-### Multiplier
-Multiplier amount the claim rewards get increased by, along with how long the claim rewards are locked
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `name` | [string](#string) |  |  |
-| `months_lockup` | [int64](#int64) |  |  |
-| `factor` | [bytes](#bytes) |  |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MultipliersPerDenom"></a>
-
-### MultipliersPerDenom
-MultipliersPerDenom is a map of denoms to a set of multipliers
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `multipliers` | [Multiplier](#kava.incentive.v1beta1.Multiplier) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.Params"></a>
-
-### Params
-Params
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `usdx_minting_reward_periods` | [RewardPeriod](#kava.incentive.v1beta1.RewardPeriod) | repeated |  |
-| `hard_supply_reward_periods` | [MultiRewardPeriod](#kava.incentive.v1beta1.MultiRewardPeriod) | repeated |  |
-| `hard_borrow_reward_periods` | [MultiRewardPeriod](#kava.incentive.v1beta1.MultiRewardPeriod) | repeated |  |
-| `delegator_reward_periods` | [MultiRewardPeriod](#kava.incentive.v1beta1.MultiRewardPeriod) | repeated |  |
-| `swap_reward_periods` | [MultiRewardPeriod](#kava.incentive.v1beta1.MultiRewardPeriod) | repeated |  |
-| `claim_multipliers` | [MultipliersPerDenom](#kava.incentive.v1beta1.MultipliersPerDenom) | repeated |  |
-| `claim_end` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| `savings_reward_periods` | [MultiRewardPeriod](#kava.incentive.v1beta1.MultiRewardPeriod) | repeated |  |
-| `earn_reward_periods` | [MultiRewardPeriod](#kava.incentive.v1beta1.MultiRewardPeriod) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.RewardPeriod"></a>
-
-### RewardPeriod
-RewardPeriod stores the state of an ongoing reward
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `active` | [bool](#bool) |  |  |
-| `collateral_type` | [string](#string) |  |  |
-| `start` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| `end` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| `rewards_per_second` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/incentive/v1beta1/genesis.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/incentive/v1beta1/genesis.proto
-
-
-
-<a name="kava.incentive.v1beta1.AccumulationTime"></a>
-
-### AccumulationTime
-AccumulationTime stores the previous reward distribution time and its corresponding collateral type
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `collateral_type` | [string](#string) |  |  |
-| `previous_accumulation_time` | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.GenesisRewardState"></a>
-
-### GenesisRewardState
-GenesisRewardState groups together the global state for a particular reward so it can be exported in genesis.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `accumulation_times` | [AccumulationTime](#kava.incentive.v1beta1.AccumulationTime) | repeated |  |
-| `multi_reward_indexes` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.GenesisState"></a>
-
-### GenesisState
-GenesisState is the state that must be provided at genesis.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.incentive.v1beta1.Params) |  |  |
-| `usdx_reward_state` | [GenesisRewardState](#kava.incentive.v1beta1.GenesisRewardState) |  |  |
-| `hard_supply_reward_state` | [GenesisRewardState](#kava.incentive.v1beta1.GenesisRewardState) |  |  |
-| `hard_borrow_reward_state` | [GenesisRewardState](#kava.incentive.v1beta1.GenesisRewardState) |  |  |
-| `delegator_reward_state` | [GenesisRewardState](#kava.incentive.v1beta1.GenesisRewardState) |  |  |
-| `swap_reward_state` | [GenesisRewardState](#kava.incentive.v1beta1.GenesisRewardState) |  |  |
-| `usdx_minting_claims` | [USDXMintingClaim](#kava.incentive.v1beta1.USDXMintingClaim) | repeated |  |
-| `hard_liquidity_provider_claims` | [HardLiquidityProviderClaim](#kava.incentive.v1beta1.HardLiquidityProviderClaim) | repeated |  |
-| `delegator_claims` | [DelegatorClaim](#kava.incentive.v1beta1.DelegatorClaim) | repeated |  |
-| `swap_claims` | [SwapClaim](#kava.incentive.v1beta1.SwapClaim) | repeated |  |
-| `savings_reward_state` | [GenesisRewardState](#kava.incentive.v1beta1.GenesisRewardState) |  |  |
-| `savings_claims` | [SavingsClaim](#kava.incentive.v1beta1.SavingsClaim) | repeated |  |
-| `earn_reward_state` | [GenesisRewardState](#kava.incentive.v1beta1.GenesisRewardState) |  |  |
-| `earn_claims` | [EarnClaim](#kava.incentive.v1beta1.EarnClaim) | repeated |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
- <!-- end services -->
-
-
-
-<a name="kava/incentive/v1beta1/query.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/incentive/v1beta1/query.proto
-
-
-
-<a name="kava.incentive.v1beta1.QueryApyRequest"></a>
-
-### QueryApyRequest
-QueryApysRequest is the request type for the Query/Apys RPC method.
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.QueryApyResponse"></a>
-
-### QueryApyResponse
-QueryApysResponse is the response type for the Query/Apys RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `earn` | [Apy](#kava.incentive.v1beta1.Apy) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.QueryParamsRequest"></a>
-
-### QueryParamsRequest
-QueryParamsRequest is the request type for the Query/Params RPC method.
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.QueryParamsResponse"></a>
-
-### QueryParamsResponse
-QueryParamsResponse is the response type for the Query/Params RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.incentive.v1beta1.Params) |  |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.QueryRewardFactorsRequest"></a>
-
-### QueryRewardFactorsRequest
-QueryRewardFactorsRequest is the request type for the Query/RewardFactors RPC method.
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.QueryRewardFactorsResponse"></a>
-
-### QueryRewardFactorsResponse
-QueryRewardFactorsResponse is the response type for the Query/RewardFactors RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `usdx_minting_reward_factors` | [RewardIndex](#kava.incentive.v1beta1.RewardIndex) | repeated |  |
-| `hard_supply_reward_factors` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-| `hard_borrow_reward_factors` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-| `delegator_reward_factors` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-| `swap_reward_factors` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-| `savings_reward_factors` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-| `earn_reward_factors` | [MultiRewardIndex](#kava.incentive.v1beta1.MultiRewardIndex) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.QueryRewardsRequest"></a>
-
-### QueryRewardsRequest
-QueryRewardsRequest is the request type for the Query/Rewards RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `owner` | [string](#string) |  | owner is the address of the user to query rewards for. |
-| `reward_type` | [string](#string) |  | reward_type is the type of reward to query rewards for, e.g. hard, earn, swap. |
-| `unsynchronized` | [bool](#bool) |  | unsynchronized is a flag to query rewards that are not simulated for reward synchronized for the current block. |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.QueryRewardsResponse"></a>
-
-### QueryRewardsResponse
-QueryRewardsResponse is the response type for the Query/Rewards RPC method.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `usdx_minting_claims` | [USDXMintingClaim](#kava.incentive.v1beta1.USDXMintingClaim) | repeated |  |
-| `hard_liquidity_provider_claims` | [HardLiquidityProviderClaim](#kava.incentive.v1beta1.HardLiquidityProviderClaim) | repeated |  |
-| `delegator_claims` | [DelegatorClaim](#kava.incentive.v1beta1.DelegatorClaim) | repeated |  |
-| `swap_claims` | [SwapClaim](#kava.incentive.v1beta1.SwapClaim) | repeated |  |
-| `savings_claims` | [SavingsClaim](#kava.incentive.v1beta1.SavingsClaim) | repeated |  |
-| `earn_claims` | [EarnClaim](#kava.incentive.v1beta1.EarnClaim) | repeated |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
-
-<a name="kava.incentive.v1beta1.Query"></a>
-
-### Query
-Query defines the gRPC querier service for incentive module.
-
-| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
-| ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#kava.incentive.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#kava.incentive.v1beta1.QueryParamsResponse) | Params queries module params. | GET|/kava/incentive/v1beta1/params|
-| `Rewards` | [QueryRewardsRequest](#kava.incentive.v1beta1.QueryRewardsRequest) | [QueryRewardsResponse](#kava.incentive.v1beta1.QueryRewardsResponse) | Rewards queries reward information for a given user. | GET|/kava/incentive/v1beta1/rewards|
-| `RewardFactors` | [QueryRewardFactorsRequest](#kava.incentive.v1beta1.QueryRewardFactorsRequest) | [QueryRewardFactorsResponse](#kava.incentive.v1beta1.QueryRewardFactorsResponse) | Rewards queries the reward factors. | GET|/kava/incentive/v1beta1/reward_factors|
-| `Apy` | [QueryApyRequest](#kava.incentive.v1beta1.QueryApyRequest) | [QueryApyResponse](#kava.incentive.v1beta1.QueryApyResponse) | Apy queries incentive reward apy for a reward. | GET|/kava/incentive/v1beta1/apy|
-
- <!-- end services -->
-
-
-
-<a name="kava/incentive/v1beta1/tx.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/incentive/v1beta1/tx.proto
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimDelegatorReward"></a>
-
-### MsgClaimDelegatorReward
-MsgClaimDelegatorReward message type used to claim delegator rewards
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `sender` | [string](#string) |  |  |
-| `denoms_to_claim` | [Selection](#kava.incentive.v1beta1.Selection) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimDelegatorRewardResponse"></a>
-
-### MsgClaimDelegatorRewardResponse
-MsgClaimDelegatorRewardResponse defines the Msg/ClaimDelegatorReward response type.
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimEarnReward"></a>
-
-### MsgClaimEarnReward
-MsgClaimEarnReward message type used to claim earn rewards
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `sender` | [string](#string) |  |  |
-| `denoms_to_claim` | [Selection](#kava.incentive.v1beta1.Selection) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimEarnRewardResponse"></a>
-
-### MsgClaimEarnRewardResponse
-MsgClaimEarnRewardResponse defines the Msg/ClaimEarnReward response type.
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimHardReward"></a>
-
-### MsgClaimHardReward
-MsgClaimHardReward message type used to claim Hard liquidity provider rewards
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `sender` | [string](#string) |  |  |
-| `denoms_to_claim` | [Selection](#kava.incentive.v1beta1.Selection) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimHardRewardResponse"></a>
-
-### MsgClaimHardRewardResponse
-MsgClaimHardRewardResponse defines the Msg/ClaimHardReward response type.
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimSavingsReward"></a>
-
-### MsgClaimSavingsReward
-MsgClaimSavingsReward message type used to claim savings rewards
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `sender` | [string](#string) |  |  |
-| `denoms_to_claim` | [Selection](#kava.incentive.v1beta1.Selection) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimSavingsRewardResponse"></a>
-
-### MsgClaimSavingsRewardResponse
-MsgClaimSavingsRewardResponse defines the Msg/ClaimSavingsReward response type.
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimSwapReward"></a>
-
-### MsgClaimSwapReward
-MsgClaimSwapReward message type used to claim delegator rewards
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `sender` | [string](#string) |  |  |
-| `denoms_to_claim` | [Selection](#kava.incentive.v1beta1.Selection) | repeated |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimSwapRewardResponse"></a>
-
-### MsgClaimSwapRewardResponse
-MsgClaimSwapRewardResponse defines the Msg/ClaimSwapReward response type.
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimUSDXMintingReward"></a>
-
-### MsgClaimUSDXMintingReward
-MsgClaimUSDXMintingReward message type used to claim USDX minting rewards
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `sender` | [string](#string) |  |  |
-| `multiplier_name` | [string](#string) |  |  |
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.MsgClaimUSDXMintingRewardResponse"></a>
-
-### MsgClaimUSDXMintingRewardResponse
-MsgClaimUSDXMintingRewardResponse defines the Msg/ClaimUSDXMintingReward response type.
-
-
-
-
-
-
-<a name="kava.incentive.v1beta1.Selection"></a>
-
-### Selection
-Selection is a pair of denom and multiplier name. It holds the choice of multiplier a user makes when they claim a
-denom.
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| `denom` | [string](#string) |  |  |
-| `multiplier_name` | [string](#string) |  |  |
-
-
-
-
-
- <!-- end messages -->
-
- <!-- end enums -->
-
- <!-- end HasExtensions -->
-
-
-<a name="kava.incentive.v1beta1.Msg"></a>
-
-### Msg
-Msg defines the incentive Msg service.
-
-| Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
-| ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `ClaimUSDXMintingReward` | [MsgClaimUSDXMintingReward](#kava.incentive.v1beta1.MsgClaimUSDXMintingReward) | [MsgClaimUSDXMintingRewardResponse](#kava.incentive.v1beta1.MsgClaimUSDXMintingRewardResponse) | ClaimUSDXMintingReward is a message type used to claim USDX minting rewards | |
-| `ClaimHardReward` | [MsgClaimHardReward](#kava.incentive.v1beta1.MsgClaimHardReward) | [MsgClaimHardRewardResponse](#kava.incentive.v1beta1.MsgClaimHardRewardResponse) | ClaimHardReward is a message type used to claim Hard liquidity provider rewards | |
-| `ClaimDelegatorReward` | [MsgClaimDelegatorReward](#kava.incentive.v1beta1.MsgClaimDelegatorReward) | [MsgClaimDelegatorRewardResponse](#kava.incentive.v1beta1.MsgClaimDelegatorRewardResponse) | ClaimDelegatorReward is a message type used to claim delegator rewards | |
-| `ClaimSwapReward` | [MsgClaimSwapReward](#kava.incentive.v1beta1.MsgClaimSwapReward) | [MsgClaimSwapRewardResponse](#kava.incentive.v1beta1.MsgClaimSwapRewardResponse) | ClaimSwapReward is a message type used to claim swap rewards | |
-| `ClaimSavingsReward` | [MsgClaimSavingsReward](#kava.incentive.v1beta1.MsgClaimSavingsReward) | [MsgClaimSavingsRewardResponse](#kava.incentive.v1beta1.MsgClaimSavingsRewardResponse) | ClaimSavingsReward is a message type used to claim savings rewards | |
-| `ClaimEarnReward` | [MsgClaimEarnReward](#kava.incentive.v1beta1.MsgClaimEarnReward) | [MsgClaimEarnRewardResponse](#kava.incentive.v1beta1.MsgClaimEarnRewardResponse) | ClaimEarnReward is a message type used to claim earn rewards | |
-
- <!-- end services -->
-
-
-
-<a name="kava/issuance/v1beta1/genesis.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## kava/issuance/v1beta1/genesis.proto
-
-
-
-<a name="kava.issuance.v1beta1.Asset"></a>
+<a name="zgc.issuance.v1beta1.Asset"></a>
 
 ### Asset
 Asset type for assets in the issuance module
@@ -5890,14 +3692,14 @@ Asset type for assets in the issuance module
 | `blocked_addresses` | [string](#string) | repeated |  |
 | `paused` | [bool](#bool) |  |  |
 | `blockable` | [bool](#bool) |  |  |
-| `rate_limit` | [RateLimit](#kava.issuance.v1beta1.RateLimit) |  |  |
+| `rate_limit` | [RateLimit](#zgc.issuance.v1beta1.RateLimit) |  |  |
 
 
 
 
 
 
-<a name="kava.issuance.v1beta1.AssetSupply"></a>
+<a name="zgc.issuance.v1beta1.AssetSupply"></a>
 
 ### AssetSupply
 AssetSupply contains information about an asset's rate-limited supply (the
@@ -5914,7 +3716,7 @@ total supply of the asset is tracked in the top-level supply module)
 
 
 
-<a name="kava.issuance.v1beta1.GenesisState"></a>
+<a name="zgc.issuance.v1beta1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the issuance module's genesis state.
@@ -5930,7 +3732,7 @@ GenesisState defines the issuance module's genesis state.
 
 
 
-<a name="kava.issuance.v1beta1.Params"></a>
+<a name="zgc.issuance.v1beta1.Params"></a>
 
 ### Params
 Params defines the parameters for the issuance module.
@@ -5938,14 +3740,14 @@ Params defines the parameters for the issuance module.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `assets` | [Asset](#kava.issuance.v1beta1.Asset) | repeated |  |
+| `assets` | [Asset](#zgc.issuance.v1beta1.Asset) | repeated |  |
 
 
 
 
 
 
-<a name="kava.issuance.v1beta1.RateLimit"></a>
+<a name="zgc.issuance.v1beta1.RateLimit"></a>
 
 ### RateLimit
 RateLimit parameters for rate-limiting the supply of an issued asset
@@ -5971,14 +3773,14 @@ RateLimit parameters for rate-limiting the supply of an issued asset
 
 
 
-<a name="kava/issuance/v1beta1/query.proto"></a>
+<a name="zgc/issuance/v1beta1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/issuance/v1beta1/query.proto
+## zgc/issuance/v1beta1/query.proto
 
 
 
-<a name="kava.issuance.v1beta1.QueryParamsRequest"></a>
+<a name="zgc.issuance.v1beta1.QueryParamsRequest"></a>
 
 ### QueryParamsRequest
 QueryParamsRequest defines the request type for querying x/issuance parameters.
@@ -5988,7 +3790,7 @@ QueryParamsRequest defines the request type for querying x/issuance parameters.
 
 
 
-<a name="kava.issuance.v1beta1.QueryParamsResponse"></a>
+<a name="zgc.issuance.v1beta1.QueryParamsResponse"></a>
 
 ### QueryParamsResponse
 QueryParamsResponse defines the response type for querying x/issuance parameters.
@@ -5996,7 +3798,7 @@ QueryParamsResponse defines the response type for querying x/issuance parameters
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.issuance.v1beta1.Params) |  |  |
+| `params` | [Params](#zgc.issuance.v1beta1.Params) |  |  |
 
 
 
@@ -6009,27 +3811,27 @@ QueryParamsResponse defines the response type for querying x/issuance parameters
  <!-- end HasExtensions -->
 
 
-<a name="kava.issuance.v1beta1.Query"></a>
+<a name="zgc.issuance.v1beta1.Query"></a>
 
 ### Query
 Query defines the gRPC querier service for issuance module
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#kava.issuance.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#kava.issuance.v1beta1.QueryParamsResponse) | Params queries all parameters of the issuance module. | GET|/kava/issuance/v1beta1/params|
+| `Params` | [QueryParamsRequest](#zgc.issuance.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#zgc.issuance.v1beta1.QueryParamsResponse) | Params queries all parameters of the issuance module. | GET|/0g/issuance/v1beta1/params|
 
  <!-- end services -->
 
 
 
-<a name="kava/issuance/v1beta1/tx.proto"></a>
+<a name="zgc/issuance/v1beta1/tx.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/issuance/v1beta1/tx.proto
+## zgc/issuance/v1beta1/tx.proto
 
 
 
-<a name="kava.issuance.v1beta1.MsgBlockAddress"></a>
+<a name="zgc.issuance.v1beta1.MsgBlockAddress"></a>
 
 ### MsgBlockAddress
 MsgBlockAddress represents a message used by the issuer to block an address from holding or transferring tokens
@@ -6046,7 +3848,7 @@ MsgBlockAddress represents a message used by the issuer to block an address from
 
 
 
-<a name="kava.issuance.v1beta1.MsgBlockAddressResponse"></a>
+<a name="zgc.issuance.v1beta1.MsgBlockAddressResponse"></a>
 
 ### MsgBlockAddressResponse
 MsgBlockAddressResponse defines the Msg/BlockAddress response type.
@@ -6056,7 +3858,7 @@ MsgBlockAddressResponse defines the Msg/BlockAddress response type.
 
 
 
-<a name="kava.issuance.v1beta1.MsgIssueTokens"></a>
+<a name="zgc.issuance.v1beta1.MsgIssueTokens"></a>
 
 ### MsgIssueTokens
 MsgIssueTokens represents a message used by the issuer to issue new tokens
@@ -6073,7 +3875,7 @@ MsgIssueTokens represents a message used by the issuer to issue new tokens
 
 
 
-<a name="kava.issuance.v1beta1.MsgIssueTokensResponse"></a>
+<a name="zgc.issuance.v1beta1.MsgIssueTokensResponse"></a>
 
 ### MsgIssueTokensResponse
 MsgIssueTokensResponse defines the Msg/IssueTokens response type.
@@ -6083,7 +3885,7 @@ MsgIssueTokensResponse defines the Msg/IssueTokens response type.
 
 
 
-<a name="kava.issuance.v1beta1.MsgRedeemTokens"></a>
+<a name="zgc.issuance.v1beta1.MsgRedeemTokens"></a>
 
 ### MsgRedeemTokens
 MsgRedeemTokens represents a message used by the issuer to redeem (burn) tokens
@@ -6099,7 +3901,7 @@ MsgRedeemTokens represents a message used by the issuer to redeem (burn) tokens
 
 
 
-<a name="kava.issuance.v1beta1.MsgRedeemTokensResponse"></a>
+<a name="zgc.issuance.v1beta1.MsgRedeemTokensResponse"></a>
 
 ### MsgRedeemTokensResponse
 MsgRedeemTokensResponse defines the Msg/RedeemTokens response type.
@@ -6109,7 +3911,7 @@ MsgRedeemTokensResponse defines the Msg/RedeemTokens response type.
 
 
 
-<a name="kava.issuance.v1beta1.MsgSetPauseStatus"></a>
+<a name="zgc.issuance.v1beta1.MsgSetPauseStatus"></a>
 
 ### MsgSetPauseStatus
 MsgSetPauseStatus message type used by the issuer to pause or unpause status
@@ -6126,7 +3928,7 @@ MsgSetPauseStatus message type used by the issuer to pause or unpause status
 
 
 
-<a name="kava.issuance.v1beta1.MsgSetPauseStatusResponse"></a>
+<a name="zgc.issuance.v1beta1.MsgSetPauseStatusResponse"></a>
 
 ### MsgSetPauseStatusResponse
 MsgSetPauseStatusResponse defines the Msg/SetPauseStatus response type.
@@ -6136,7 +3938,7 @@ MsgSetPauseStatusResponse defines the Msg/SetPauseStatus response type.
 
 
 
-<a name="kava.issuance.v1beta1.MsgUnblockAddress"></a>
+<a name="zgc.issuance.v1beta1.MsgUnblockAddress"></a>
 
 ### MsgUnblockAddress
 MsgUnblockAddress message type used by the issuer to unblock an address from holding or transferring tokens
@@ -6153,7 +3955,7 @@ MsgUnblockAddress message type used by the issuer to unblock an address from hol
 
 
 
-<a name="kava.issuance.v1beta1.MsgUnblockAddressResponse"></a>
+<a name="zgc.issuance.v1beta1.MsgUnblockAddressResponse"></a>
 
 ### MsgUnblockAddressResponse
 MsgUnblockAddressResponse defines the Msg/UnblockAddress response type.
@@ -6169,27 +3971,27 @@ MsgUnblockAddressResponse defines the Msg/UnblockAddress response type.
  <!-- end HasExtensions -->
 
 
-<a name="kava.issuance.v1beta1.Msg"></a>
+<a name="zgc.issuance.v1beta1.Msg"></a>
 
 ### Msg
 Msg defines the issuance Msg service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `IssueTokens` | [MsgIssueTokens](#kava.issuance.v1beta1.MsgIssueTokens) | [MsgIssueTokensResponse](#kava.issuance.v1beta1.MsgIssueTokensResponse) | IssueTokens message type used by the issuer to issue new tokens | |
-| `RedeemTokens` | [MsgRedeemTokens](#kava.issuance.v1beta1.MsgRedeemTokens) | [MsgRedeemTokensResponse](#kava.issuance.v1beta1.MsgRedeemTokensResponse) | RedeemTokens message type used by the issuer to redeem (burn) tokens | |
-| `BlockAddress` | [MsgBlockAddress](#kava.issuance.v1beta1.MsgBlockAddress) | [MsgBlockAddressResponse](#kava.issuance.v1beta1.MsgBlockAddressResponse) | BlockAddress message type used by the issuer to block an address from holding or transferring tokens | |
-| `UnblockAddress` | [MsgUnblockAddress](#kava.issuance.v1beta1.MsgUnblockAddress) | [MsgUnblockAddressResponse](#kava.issuance.v1beta1.MsgUnblockAddressResponse) | UnblockAddress message type used by the issuer to unblock an address from holding or transferring tokens | |
-| `SetPauseStatus` | [MsgSetPauseStatus](#kava.issuance.v1beta1.MsgSetPauseStatus) | [MsgSetPauseStatusResponse](#kava.issuance.v1beta1.MsgSetPauseStatusResponse) | SetPauseStatus message type used to pause or unpause status | |
+| `IssueTokens` | [MsgIssueTokens](#zgc.issuance.v1beta1.MsgIssueTokens) | [MsgIssueTokensResponse](#zgc.issuance.v1beta1.MsgIssueTokensResponse) | IssueTokens message type used by the issuer to issue new tokens | |
+| `RedeemTokens` | [MsgRedeemTokens](#zgc.issuance.v1beta1.MsgRedeemTokens) | [MsgRedeemTokensResponse](#zgc.issuance.v1beta1.MsgRedeemTokensResponse) | RedeemTokens message type used by the issuer to redeem (burn) tokens | |
+| `BlockAddress` | [MsgBlockAddress](#zgc.issuance.v1beta1.MsgBlockAddress) | [MsgBlockAddressResponse](#zgc.issuance.v1beta1.MsgBlockAddressResponse) | BlockAddress message type used by the issuer to block an address from holding or transferring tokens | |
+| `UnblockAddress` | [MsgUnblockAddress](#zgc.issuance.v1beta1.MsgUnblockAddress) | [MsgUnblockAddressResponse](#zgc.issuance.v1beta1.MsgUnblockAddressResponse) | UnblockAddress message type used by the issuer to unblock an address from holding or transferring tokens | |
+| `SetPauseStatus` | [MsgSetPauseStatus](#zgc.issuance.v1beta1.MsgSetPauseStatus) | [MsgSetPauseStatusResponse](#zgc.issuance.v1beta1.MsgSetPauseStatusResponse) | SetPauseStatus message type used to pause or unpause status | |
 
  <!-- end services -->
 
 
 
-<a name="kava/kavadist/v1beta1/params.proto"></a>
+<a name="zgc/pricefeed/v1beta1/store.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/kavadist/v1beta1/params.proto
+## zgc/pricefeed/v1beta1/store.proto
 
 
 
@@ -6818,7 +4620,7 @@ module.
 
 
 
-<a name="kava.pricefeed.v1beta1.Market"></a>
+<a name="zgc.pricefeed.v1beta1.Market"></a>
 
 ### Market
 Market defines an asset in the pricefeed.
@@ -6837,7 +4639,7 @@ Market defines an asset in the pricefeed.
 
 
 
-<a name="kava.pricefeed.v1beta1.Params"></a>
+<a name="zgc.pricefeed.v1beta1.Params"></a>
 
 ### Params
 Params defines the parameters for the pricefeed module.
@@ -6845,14 +4647,14 @@ Params defines the parameters for the pricefeed module.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `markets` | [Market](#kava.pricefeed.v1beta1.Market) | repeated |  |
+| `markets` | [Market](#zgc.pricefeed.v1beta1.Market) | repeated |  |
 
 
 
 
 
 
-<a name="kava.pricefeed.v1beta1.PostedPrice"></a>
+<a name="zgc.pricefeed.v1beta1.PostedPrice"></a>
 
 ### PostedPrice
 PostedPrice defines a price for market posted by a specific oracle.
@@ -6879,14 +4681,14 @@ PostedPrice defines a price for market posted by a specific oracle.
 
 
 
-<a name="kava/pricefeed/v1beta1/genesis.proto"></a>
+<a name="zgc/pricefeed/v1beta1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/pricefeed/v1beta1/genesis.proto
+## zgc/pricefeed/v1beta1/genesis.proto
 
 
 
-<a name="kava.pricefeed.v1beta1.GenesisState"></a>
+<a name="zgc.pricefeed.v1beta1.GenesisState"></a>
 
 ### GenesisState
 GenesisState defines the pricefeed module's genesis state.
@@ -6911,14 +4713,14 @@ GenesisState defines the pricefeed module's genesis state.
 
 
 
-<a name="kava/pricefeed/v1beta1/query.proto"></a>
+<a name="zgc/pricefeed/v1beta1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/pricefeed/v1beta1/query.proto
+## zgc/pricefeed/v1beta1/query.proto
 
 
 
-<a name="kava.pricefeed.v1beta1.CurrentPriceResponse"></a>
+<a name="zgc.pricefeed.v1beta1.CurrentPriceResponse"></a>
 
 ### CurrentPriceResponse
 CurrentPriceResponse defines a current price for a particular market in the pricefeed
@@ -6935,7 +4737,7 @@ module.
 
 
 
-<a name="kava.pricefeed.v1beta1.MarketResponse"></a>
+<a name="zgc.pricefeed.v1beta1.MarketResponse"></a>
 
 ### MarketResponse
 MarketResponse defines an asset in the pricefeed.
@@ -6954,7 +4756,7 @@ MarketResponse defines an asset in the pricefeed.
 
 
 
-<a name="kava.pricefeed.v1beta1.PostedPriceResponse"></a>
+<a name="zgc.pricefeed.v1beta1.PostedPriceResponse"></a>
 
 ### PostedPriceResponse
 PostedPriceResponse defines a price for market posted by a specific oracle.
@@ -6972,7 +4774,7 @@ PostedPriceResponse defines a price for market posted by a specific oracle.
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryMarketsRequest"></a>
+<a name="zgc.pricefeed.v1beta1.QueryMarketsRequest"></a>
 
 ### QueryMarketsRequest
 QueryMarketsRequest is the request type for the Query/Markets RPC method.
@@ -6982,7 +4784,7 @@ QueryMarketsRequest is the request type for the Query/Markets RPC method.
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryMarketsResponse"></a>
+<a name="zgc.pricefeed.v1beta1.QueryMarketsResponse"></a>
 
 ### QueryMarketsResponse
 QueryMarketsResponse is the response type for the Query/Markets RPC method.
@@ -6990,14 +4792,14 @@ QueryMarketsResponse is the response type for the Query/Markets RPC method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `markets` | [MarketResponse](#kava.pricefeed.v1beta1.MarketResponse) | repeated | List of markets |
+| `markets` | [MarketResponse](#zgc.pricefeed.v1beta1.MarketResponse) | repeated | List of markets |
 
 
 
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryOraclesRequest"></a>
+<a name="zgc.pricefeed.v1beta1.QueryOraclesRequest"></a>
 
 ### QueryOraclesRequest
 QueryOraclesRequest is the request type for the Query/Oracles RPC method.
@@ -7012,7 +4814,7 @@ QueryOraclesRequest is the request type for the Query/Oracles RPC method.
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryOraclesResponse"></a>
+<a name="zgc.pricefeed.v1beta1.QueryOraclesResponse"></a>
 
 ### QueryOraclesResponse
 QueryOraclesResponse is the response type for the Query/Oracles RPC method.
@@ -7027,7 +4829,7 @@ QueryOraclesResponse is the response type for the Query/Oracles RPC method.
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryParamsRequest"></a>
+<a name="zgc.pricefeed.v1beta1.QueryParamsRequest"></a>
 
 ### QueryParamsRequest
 QueryParamsRequest defines the request type for querying x/pricefeed
@@ -7038,7 +4840,7 @@ parameters.
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryParamsResponse"></a>
+<a name="zgc.pricefeed.v1beta1.QueryParamsResponse"></a>
 
 ### QueryParamsResponse
 QueryParamsResponse defines the response type for querying x/pricefeed
@@ -7047,14 +4849,14 @@ parameters.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `params` | [Params](#kava.pricefeed.v1beta1.Params) |  |  |
+| `params` | [Params](#zgc.pricefeed.v1beta1.Params) |  |  |
 
 
 
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryPriceRequest"></a>
+<a name="zgc.pricefeed.v1beta1.QueryPriceRequest"></a>
 
 ### QueryPriceRequest
 QueryPriceRequest is the request type for the Query/PriceRequest RPC method.
@@ -7069,7 +4871,7 @@ QueryPriceRequest is the request type for the Query/PriceRequest RPC method.
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryPriceResponse"></a>
+<a name="zgc.pricefeed.v1beta1.QueryPriceResponse"></a>
 
 ### QueryPriceResponse
 QueryPriceResponse is the response type for the Query/Prices RPC method.
@@ -7077,14 +4879,14 @@ QueryPriceResponse is the response type for the Query/Prices RPC method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `price` | [CurrentPriceResponse](#kava.pricefeed.v1beta1.CurrentPriceResponse) |  |  |
+| `price` | [CurrentPriceResponse](#zgc.pricefeed.v1beta1.CurrentPriceResponse) |  |  |
 
 
 
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryPricesRequest"></a>
+<a name="zgc.pricefeed.v1beta1.QueryPricesRequest"></a>
 
 ### QueryPricesRequest
 QueryPricesRequest is the request type for the Query/Prices RPC method.
@@ -7094,7 +4896,7 @@ QueryPricesRequest is the request type for the Query/Prices RPC method.
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryPricesResponse"></a>
+<a name="zgc.pricefeed.v1beta1.QueryPricesResponse"></a>
 
 ### QueryPricesResponse
 QueryPricesResponse is the response type for the Query/Prices RPC method.
@@ -7102,14 +4904,14 @@ QueryPricesResponse is the response type for the Query/Prices RPC method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `prices` | [CurrentPriceResponse](#kava.pricefeed.v1beta1.CurrentPriceResponse) | repeated |  |
+| `prices` | [CurrentPriceResponse](#zgc.pricefeed.v1beta1.CurrentPriceResponse) | repeated |  |
 
 
 
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryRawPricesRequest"></a>
+<a name="zgc.pricefeed.v1beta1.QueryRawPricesRequest"></a>
 
 ### QueryRawPricesRequest
 QueryRawPricesRequest is the request type for the Query/RawPrices RPC method.
@@ -7124,7 +4926,7 @@ QueryRawPricesRequest is the request type for the Query/RawPrices RPC method.
 
 
 
-<a name="kava.pricefeed.v1beta1.QueryRawPricesResponse"></a>
+<a name="zgc.pricefeed.v1beta1.QueryRawPricesResponse"></a>
 
 ### QueryRawPricesResponse
 QueryRawPricesResponse is the response type for the Query/RawPrices RPC
@@ -7133,7 +4935,7 @@ method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `raw_prices` | [PostedPriceResponse](#kava.pricefeed.v1beta1.PostedPriceResponse) | repeated |  |
+| `raw_prices` | [PostedPriceResponse](#zgc.pricefeed.v1beta1.PostedPriceResponse) | repeated |  |
 
 
 
@@ -7146,32 +4948,32 @@ method.
  <!-- end HasExtensions -->
 
 
-<a name="kava.pricefeed.v1beta1.Query"></a>
+<a name="zgc.pricefeed.v1beta1.Query"></a>
 
 ### Query
 Query defines the gRPC querier service for pricefeed module
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#kava.pricefeed.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#kava.pricefeed.v1beta1.QueryParamsResponse) | Params queries all parameters of the pricefeed module. | GET|/kava/pricefeed/v1beta1/params|
-| `Price` | [QueryPriceRequest](#kava.pricefeed.v1beta1.QueryPriceRequest) | [QueryPriceResponse](#kava.pricefeed.v1beta1.QueryPriceResponse) | Price queries price details based on a market | GET|/kava/pricefeed/v1beta1/prices/{market_id}|
-| `Prices` | [QueryPricesRequest](#kava.pricefeed.v1beta1.QueryPricesRequest) | [QueryPricesResponse](#kava.pricefeed.v1beta1.QueryPricesResponse) | Prices queries all prices | GET|/kava/pricefeed/v1beta1/prices|
-| `RawPrices` | [QueryRawPricesRequest](#kava.pricefeed.v1beta1.QueryRawPricesRequest) | [QueryRawPricesResponse](#kava.pricefeed.v1beta1.QueryRawPricesResponse) | RawPrices queries all raw prices based on a market | GET|/kava/pricefeed/v1beta1/rawprices/{market_id}|
-| `Oracles` | [QueryOraclesRequest](#kava.pricefeed.v1beta1.QueryOraclesRequest) | [QueryOraclesResponse](#kava.pricefeed.v1beta1.QueryOraclesResponse) | Oracles queries all oracles based on a market | GET|/kava/pricefeed/v1beta1/oracles/{market_id}|
-| `Markets` | [QueryMarketsRequest](#kava.pricefeed.v1beta1.QueryMarketsRequest) | [QueryMarketsResponse](#kava.pricefeed.v1beta1.QueryMarketsResponse) | Markets queries all markets | GET|/kava/pricefeed/v1beta1/markets|
+| `Params` | [QueryParamsRequest](#zgc.pricefeed.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#zgc.pricefeed.v1beta1.QueryParamsResponse) | Params queries all parameters of the pricefeed module. | GET|/0g/pricefeed/v1beta1/params|
+| `Price` | [QueryPriceRequest](#zgc.pricefeed.v1beta1.QueryPriceRequest) | [QueryPriceResponse](#zgc.pricefeed.v1beta1.QueryPriceResponse) | Price queries price details based on a market | GET|/0g/pricefeed/v1beta1/prices/{market_id}|
+| `Prices` | [QueryPricesRequest](#zgc.pricefeed.v1beta1.QueryPricesRequest) | [QueryPricesResponse](#zgc.pricefeed.v1beta1.QueryPricesResponse) | Prices queries all prices | GET|/0g/pricefeed/v1beta1/prices|
+| `RawPrices` | [QueryRawPricesRequest](#zgc.pricefeed.v1beta1.QueryRawPricesRequest) | [QueryRawPricesResponse](#zgc.pricefeed.v1beta1.QueryRawPricesResponse) | RawPrices queries all raw prices based on a market | GET|/0g/pricefeed/v1beta1/rawprices/{market_id}|
+| `Oracles` | [QueryOraclesRequest](#zgc.pricefeed.v1beta1.QueryOraclesRequest) | [QueryOraclesResponse](#zgc.pricefeed.v1beta1.QueryOraclesResponse) | Oracles queries all oracles based on a market | GET|/0g/pricefeed/v1beta1/oracles/{market_id}|
+| `Markets` | [QueryMarketsRequest](#zgc.pricefeed.v1beta1.QueryMarketsRequest) | [QueryMarketsResponse](#zgc.pricefeed.v1beta1.QueryMarketsResponse) | Markets queries all markets | GET|/0g/pricefeed/v1beta1/markets|
 
  <!-- end services -->
 
 
 
-<a name="kava/pricefeed/v1beta1/tx.proto"></a>
+<a name="zgc/pricefeed/v1beta1/tx.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## kava/pricefeed/v1beta1/tx.proto
+## zgc/pricefeed/v1beta1/tx.proto
 
 
 
-<a name="kava.pricefeed.v1beta1.MsgPostPrice"></a>
+<a name="zgc.pricefeed.v1beta1.MsgPostPrice"></a>
 
 ### MsgPostPrice
 MsgPostPrice represents a method for creating a new post price
@@ -7189,7 +4991,7 @@ MsgPostPrice represents a method for creating a new post price
 
 
 
-<a name="kava.pricefeed.v1beta1.MsgPostPriceResponse"></a>
+<a name="zgc.pricefeed.v1beta1.MsgPostPriceResponse"></a>
 
 ### MsgPostPriceResponse
 MsgPostPriceResponse defines the Msg/PostPrice response type.
@@ -7205,7 +5007,7 @@ MsgPostPriceResponse defines the Msg/PostPrice response type.
  <!-- end HasExtensions -->
 
 
-<a name="kava.pricefeed.v1beta1.Msg"></a>
+<a name="zgc.pricefeed.v1beta1.Msg"></a>
 
 ### Msg
 Msg defines the pricefeed Msg service.

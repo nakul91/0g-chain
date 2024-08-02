@@ -81,7 +81,7 @@ $BINARY gentx $validatorKeyName 1000000000000000000000ua0gi --keyring-backend te
 $BINARY collect-gentxs
 
 # Replace stake with ua0gi
-sed -in-place='' 's/stake/ua0gi/g' $DATA/config/genesis.json
+sed -in-place='' 's/"stake"/"ua0gi"/g' $DATA/config/genesis.json
 
 # Replace the default evm denom of aphoton with neuron
 sed -in-place='' 's/aphoton/neuron/g' $DATA/config/genesis.json
@@ -121,4 +121,4 @@ cat $GENESIS | jq '.app_state.evm.params.chain_config.cancun_block = null' >$TMP
 
 $BINARY config broadcast-mode sync
 
-$BINARY start --home $DATA
+$BINARY start --home $DATA --log_output_console

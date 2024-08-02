@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"bufio"
@@ -51,13 +51,6 @@ The pass backend requires GnuPG: https://gnupg.org/
 	// support adding Ethereum supported keys
 	addCmd := keys.AddKeyCommand()
 	addCmd.Flags().Bool(ethFlag, false, "use default evm coin-type (60) and key signing algorithm (\"eth_secp256k1\")")
-
-	algoFlag := addCmd.Flag(flags.FlagKeyAlgorithm)
-	algoFlag.DefValue = string(hd.EthSecp256k1Type)
-	err := algoFlag.Value.Set(string(hd.EthSecp256k1Type))
-	if err != nil {
-		panic(err)
-	}
 
 	addCmd.RunE = runAddCmd
 

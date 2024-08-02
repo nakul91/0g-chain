@@ -11,7 +11,6 @@ import (
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 
 	v2cdp "github.com/kava-labs/kava/x/cdp/migrations/v2"
-	"github.com/kava-labs/kava/x/cdp/types"
 )
 
 func TestStoreMigrationAddsKeyTableIncludingNewParam(t *testing.T) {
