@@ -25,18 +25,13 @@ import (
 )
 
 const (
-	UpgradeName_Mainnet = "v0.26.0"
-	UpgradeName_Testnet = "v0.26.0-alpha.0"
+	UpgradeName_Testnet = "v0.3.0"
 
 	CDPLiquidationBlockInterval = int64(50)
 )
 
 // RegisterUpgradeHandlers registers the upgrade handlers for the app.
 func (app App) RegisterUpgradeHandlers() {
-	app.upgradeKeeper.SetUpgradeHandler(
-		UpgradeName_Mainnet,
-		upgradeHandler(app, UpgradeName_Mainnet),
-	)
 	app.upgradeKeeper.SetUpgradeHandler(
 		UpgradeName_Testnet,
 		upgradeHandler(app, UpgradeName_Testnet),
@@ -47,8 +42,7 @@ func (app App) RegisterUpgradeHandlers() {
 		panic(err)
 	}
 
-	doUpgrade := upgradeInfo.Name == UpgradeName_Mainnet ||
-		upgradeInfo.Name == UpgradeName_Testnet
+	doUpgrade := upgradeInfo.Name == UpgradeName_Testnet
 
 	if doUpgrade && !app.upgradeKeeper.IsSkipHeight(upgradeInfo.Height) {
 		storeUpgrades := storetypes.StoreUpgrades{
