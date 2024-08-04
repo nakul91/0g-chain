@@ -5,15 +5,15 @@ import (
 
 	sdkmath "cosmossdk.io/math"
 
+	evmutilkeeper "github.com/0glabs/0g-chain/x/evmutil/keeper"
+	evmutiltypes "github.com/0glabs/0g-chain/x/evmutil/types"
+	precisebankkeeper "github.com/0glabs/0g-chain/x/precisebank/keeper"
+	precisebanktypes "github.com/0glabs/0g-chain/x/precisebank/types"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	evmutilkeeper "github.com/kava-labs/kava/x/evmutil/keeper"
-	evmutiltypes "github.com/kava-labs/kava/x/evmutil/types"
-	precisebankkeeper "github.com/kava-labs/kava/x/precisebank/keeper"
-	precisebanktypes "github.com/kava-labs/kava/x/precisebank/types"
 )
 
 const (
