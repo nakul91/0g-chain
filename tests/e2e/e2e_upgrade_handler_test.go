@@ -8,7 +8,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	consensustypes "github.com/cosmos/cosmos-sdk/x/consensus/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-	cdptypes "github.com/kava-labs/kava/x/cdp/types"
 )
 
 func (suite *IntegrationTestSuite) TestUpgradeParams_SDK() {

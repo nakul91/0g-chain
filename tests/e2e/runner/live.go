@@ -6,7 +6,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/grpc/tmservice"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/influxdata/influxdb/client"
+
+	"github.com/0glabs/0g-chain/client/grpc"
 )
 
 // LiveNodeRunnerConfig implements NodeRunner.
@@ -50,21 +51,21 @@ func (r LiveNodeRunner) StartChains() Chains {
 	}
 
 	// determine chain id
-	grpc, err := zgChain.GrpcConn()
+	client, err := grpc.NewClient(zgChain.GrpcUrl)
 	if err != nil {
-		panic(fmt.Sprintf("failed to establish grpc conn to %s: %s", r.config.ZgChainGrpcUrl, err))
+		panic(fmt.Sprintf("failed to create 0g-chain grpc client: %s", err))
 	}
 
 	nodeInfo, err := client.Query.Tm.GetNodeInfo(context.Background(), &tmservice.GetNodeInfoRequest{})
 	if err != nil {
-		panic(fmt.Sprintf("failed to fetch 0-chain node info: %s", err))
+		panic(fmt.Sprintf("failed to fetch 0g-chain node info: %s", err))
 	}
 	zgChain.ChainId = nodeInfo.DefaultNodeInfo.Network
 
 	// determine staking denom
 	stakingParams, err := client.Query.Staking.Params(context.Background(), &stakingtypes.QueryParamsRequest{})
 	if err != nil {
-		panic(fmt.Sprintf("failed to fetch 0gchain staking params: %s", err))
+		panic(fmt.Sprintf("failed to fetch 0g-chain staking params: %s", err))
 	}
 	zgChain.StakingDenom = stakingParams.Params.BondDenom
 

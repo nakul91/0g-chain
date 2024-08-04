@@ -24,8 +24,6 @@ require (
 	github.com/golang/protobuf v1.5.3
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
-	github.com/influxdata/influxdb v1.8.3
-	github.com/kava-labs/kava v0.26.1
 	github.com/linxGnu/grocksdb v1.8.6
 	github.com/pelletier/go-toml/v2 v2.1.0
 	github.com/prometheus/client_golang v1.14.0
@@ -35,7 +33,6 @@ require (
 	github.com/spf13/viper v1.16.0
 	github.com/stretchr/testify v1.8.4
 	github.com/subosito/gotenv v1.6.0
-	github.com/tendermint/tendermint v0.35.9
 	golang.org/x/crypto v0.24.0
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
 	google.golang.org/genproto/googleapis/api v0.0.0-20231212172506-995d672761c0
@@ -235,7 +232,7 @@ replace (
 	// Use go-ethereum fork with precompiles
 	github.com/ethereum/go-ethereum => github.com/evmos/go-ethereum v1.10.26-evmos-rc2
 	// Use ethermint fork that respects min-gas-price with NoBaseFee true and london enabled, and includes eip712 support
-	github.com/evmos/ethermint => github.com/0g-wh/ethermint v0.21.0-0glabs-v26.3.1
+	github.com/evmos/ethermint => github.com/0glabs/ethermint v0.21.0-0g.v3.0.2
 	// See https://github.com/cosmos/cosmos-sdk/pull/10401, https://github.com/cosmos/cosmos-sdk/commit/0592ba6158cd0bf49d894be1cef4faeec59e8320
 	github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.9.0
 	// Downgraded to avoid bugs in following commits which causes "version does not exist" errors

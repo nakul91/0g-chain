@@ -2,21 +2,11 @@ package keeper_test
 
 import (
 	"testing"
-	"time"
 
-	sdkmath "cosmossdk.io/math"
-	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/codec"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/0glabs/0g-chain/app"
-	bep3types "github.com/0glabs/0g-chain/x/bep3/types"
-	cdptypes "github.com/0glabs/0g-chain/x/cdp/types"
-	"github.com/0glabs/0g-chain/x/committee/types"
-	pricefeedtypes "github.com/0glabs/0g-chain/x/pricefeed/types"
 )
 
 type PermissionTestSuite struct {
