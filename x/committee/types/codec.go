@@ -13,8 +13,6 @@ import (
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	proposaltypes "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	communitytypes "github.com/kava-labs/kava/x/community/types"
-	kavadisttypes "github.com/kava-labs/kava/x/kavadist/types"
 )
 
 var (
@@ -49,38 +47,31 @@ func init() {
 	RegisterProposalTypeCodec(govv1beta1.TextProposal{}, "cosmos-sdk/TextProposal")
 	RegisterProposalTypeCodec(upgradetypes.SoftwareUpgradeProposal{}, "cosmos-sdk/SoftwareUpgradeProposal")
 	RegisterProposalTypeCodec(upgradetypes.CancelSoftwareUpgradeProposal{}, "cosmos-sdk/CancelSoftwareUpgradeProposal")
-	RegisterProposalTypeCodec(communitytypes.CommunityCDPRepayDebtProposal{}, "kava/CommunityCDPRepayDebtProposal")
-	RegisterProposalTypeCodec(communitytypes.CommunityCDPWithdrawCollateralProposal{}, "kava/CommunityCDPWithdrawCollateralProposal")
-	RegisterProposalTypeCodec(communitytypes.CommunityPoolLendWithdrawProposal{}, "kava/CommunityPoolLendWithdrawProposal")
-	RegisterProposalTypeCodec(kavadisttypes.CommunityPoolMultiSpendProposal{}, "kava/CommunityPoolMultiSpendProposal")
 }
 
 // RegisterLegacyAminoCodec registers all the necessary types and interfaces for the module.
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	// Proposals
 	cdc.RegisterInterface((*PubProposal)(nil), nil)
-	cdc.RegisterConcrete(CommitteeChangeProposal{}, "kava/CommitteeChangeProposal", nil)
-	cdc.RegisterConcrete(CommitteeDeleteProposal{}, "kava/CommitteeDeleteProposal", nil)
+	cdc.RegisterConcrete(CommitteeChangeProposal{}, "0g/CommitteeChangeProposal", nil)
+	cdc.RegisterConcrete(CommitteeDeleteProposal{}, "0g/CommitteeDeleteProposal", nil)
 
 	// Committees
 	cdc.RegisterInterface((*Committee)(nil), nil)
-	cdc.RegisterConcrete(BaseCommittee{}, "kava/BaseCommittee", nil)
-	cdc.RegisterConcrete(MemberCommittee{}, "kava/MemberCommittee", nil)
-	cdc.RegisterConcrete(TokenCommittee{}, "kava/TokenCommittee", nil)
+	cdc.RegisterConcrete(BaseCommittee{}, "0g/BaseCommittee", nil)
+	cdc.RegisterConcrete(MemberCommittee{}, "0g/MemberCommittee", nil)
+	cdc.RegisterConcrete(TokenCommittee{}, "0g/TokenCommittee", nil)
 
 	// Permissions
 	cdc.RegisterInterface((*Permission)(nil), nil)
-	cdc.RegisterConcrete(GodPermission{}, "kava/GodPermission", nil)
-	cdc.RegisterConcrete(TextPermission{}, "kava/TextPermission", nil)
-	cdc.RegisterConcrete(SoftwareUpgradePermission{}, "kava/SoftwareUpgradePermission", nil)
-	cdc.RegisterConcrete(ParamsChangePermission{}, "kava/ParamsChangePermission", nil)
-	cdc.RegisterConcrete(CommunityCDPRepayDebtPermission{}, "kava/CommunityCDPRepayDebtPermission", nil)
-	cdc.RegisterConcrete(CommunityCDPWithdrawCollateralPermission{}, "kava/CommunityCDPWithdrawCollateralPermission", nil)
-	cdc.RegisterConcrete(CommunityPoolLendWithdrawPermission{}, "kava/CommunityPoolLendWithdrawPermission", nil)
+	cdc.RegisterConcrete(GodPermission{}, "0g/GodPermission", nil)
+	cdc.RegisterConcrete(TextPermission{}, "0g/TextPermission", nil)
+	cdc.RegisterConcrete(SoftwareUpgradePermission{}, "0g/SoftwareUpgradePermission", nil)
+	cdc.RegisterConcrete(ParamsChangePermission{}, "0g/ParamsChangePermission", nil)
 
 	// Msgs
-	legacy.RegisterAminoMsg(cdc, &MsgSubmitProposal{}, "kava/MsgSubmitProposal")
-	legacy.RegisterAminoMsg(cdc, &MsgVote{}, "kava/MsgVote")
+	legacy.RegisterAminoMsg(cdc, &MsgSubmitProposal{}, "0g/MsgSubmitProposal")
+	legacy.RegisterAminoMsg(cdc, &MsgVote{}, "0g/MsgVote")
 }
 
 // RegisterProposalTypeCodec allows external modules to register their own pubproposal types on the
@@ -98,7 +89,7 @@ func RegisterInterfaces(registry types.InterfaceRegistry) {
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 
 	registry.RegisterInterface(
-		"kava.committee.v1beta1.Committee",
+		"0g.committee.v1beta1.Committee",
 		(*Committee)(nil),
 		&BaseCommittee{},
 		&TokenCommittee{},
@@ -106,32 +97,25 @@ func RegisterInterfaces(registry types.InterfaceRegistry) {
 	)
 
 	registry.RegisterInterface(
-		"kava.committee.v1beta1.Permission",
+		"0g.committee.v1beta1.Permission",
 		(*Permission)(nil),
 		&GodPermission{},
 		&TextPermission{},
 		&SoftwareUpgradePermission{},
 		&ParamsChangePermission{},
-		&CommunityCDPRepayDebtPermission{},
-		&CommunityCDPWithdrawCollateralPermission{},
-		&CommunityPoolLendWithdrawPermission{},
 	)
 
 	// Need to register PubProposal here since we use this as alias for the x/gov Content interface for all the proposal implementations used in this module.
 	// Note that all proposals supported by x/committee needed to be registered here, including the proposals from x/gov.
 	registry.RegisterInterface(
-		"kava.committee.v1beta1.PubProposal",
+		"0g.committee.v1beta1.PubProposal",
 		(*PubProposal)(nil),
 		&Proposal{},
 		&distrtypes.CommunityPoolSpendProposal{},
 		&govv1beta1.TextProposal{},
-		&kavadisttypes.CommunityPoolMultiSpendProposal{},
 		&proposaltypes.ParameterChangeProposal{},
 		&upgradetypes.SoftwareUpgradeProposal{},
 		&upgradetypes.CancelSoftwareUpgradeProposal{},
-		&communitytypes.CommunityCDPRepayDebtProposal{},
-		&communitytypes.CommunityCDPWithdrawCollateralProposal{},
-		&communitytypes.CommunityPoolLendWithdrawProposal{},
 	)
 
 	registry.RegisterImplementations(

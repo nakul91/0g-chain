@@ -9,15 +9,15 @@ import (
 
 	tmtime "github.com/cometbft/cometbft/types/time"
 
-	"github.com/kava-labs/kava/app"
-	"github.com/kava-labs/kava/x/bep3/types"
+	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/x/bep3/types"
 )
 
 const (
 	TestSenderOtherChain    = "bnb1uky3me9ggqypmrsvxk7ur6hqkzq7zmv4ed4ng7"
 	TestRecipientOtherChain = "bnb1urfermcg92dwq36572cx4xg84wpk3lfpksr5g7"
-	TestDeputy              = "kava1xy7hrjy9r0algz9w3gzm8u6mrpq97kwta747gj"
-	TestUser                = "kava1vry5lhegzlulehuutcr7nmdlmktw88awp0a39p"
+	TestDeputy              = "0g1ffv7nhd3z6sych2qpqkk03ec6hzkmufyhp5hf8"
+	TestUser                = "0g10wlnqzyss4accfqmyxwx5jy5x9nfkwh6ceq5f5"
 )
 
 var (

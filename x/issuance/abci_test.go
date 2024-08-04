@@ -12,10 +12,10 @@ import (
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	tmtime "github.com/cometbft/cometbft/types/time"
 
-	"github.com/kava-labs/kava/app"
-	"github.com/kava-labs/kava/x/issuance"
-	"github.com/kava-labs/kava/x/issuance/keeper"
-	"github.com/kava-labs/kava/x/issuance/types"
+	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/x/issuance"
+	"github.com/0glabs/0g-chain/x/issuance/keeper"
+	"github.com/0glabs/0g-chain/x/issuance/types"
 )
 
 // Test suite used for all keeper tests
@@ -38,7 +38,7 @@ func (suite *ABCITestSuite) SetupTest() {
 	tApp.InitializeFromGenesisStates()
 	_, addrs := app.GeneratePrivKeyAddressPairs(5)
 	keeper := tApp.GetIssuanceKeeper()
-	modAccount, err := sdk.AccAddressFromBech32("kava1cj7njkw2g9fqx4e768zc75dp9sks8u9znxrf0w")
+	modAccount, err := sdk.AccAddressFromBech32("0g1ffv7nhd3z6sych2qpqkk03ec6hzkmufyhp5hf8")
 	suite.Require().NoError(err)
 	suite.app = tApp
 	suite.ctx = ctx

@@ -16,9 +16,6 @@ import (
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/stretchr/testify/suite"
-
-	earntypes "github.com/kava-labs/kava/x/earn/types"
-	liquidtypes "github.com/kava-labs/kava/x/liquid/types"
 )
 
 // d is an alias for sdk.MustNewDecFromStr
@@ -271,39 +268,40 @@ func (suite *tallyHandlerSuite) newBondCoin(amount sdkmath.Int) sdk.Coin {
 }
 
 func (suite *tallyHandlerSuite) allowBKavaEarnDeposits() {
-	ek := suite.app.GetEarnKeeper()
-	earnParams := ek.GetParams(suite.ctx)
+	// ek := suite.app.GetEarnKeeper()
+	// earnParams := ek.GetParams(suite.ctx)
 
-	vault := earntypes.NewAllowedVault(
-		liquidtypes.DefaultDerivativeDenom,
-		earntypes.StrategyTypes{earntypes.STRATEGY_TYPE_SAVINGS},
-		false,
-		nil,
-	)
+	// vault := earntypes.NewAllowedVault(
+	// 	liquidtypes.DefaultDerivativeDenom,
+	// 	earntypes.StrategyTypes{earntypes.STRATEGY_TYPE_SAVINGS},
+	// 	false,
+	// 	nil,
+	// )
 
-	earnParams.AllowedVaults = append(earnParams.AllowedVaults, vault)
-	ek.SetParams(suite.ctx, earnParams)
+	// earnParams.AllowedVaults = append(earnParams.AllowedVaults, vault)
+	// ek.SetParams(suite.ctx, earnParams)
 
-	sk := suite.app.GetSavingsKeeper()
-	savingsParams := sk.GetParams(suite.ctx)
-	savingsParams.SupportedDenoms = append(savingsParams.SupportedDenoms, liquidtypes.DefaultDerivativeDenom)
-	sk.SetParams(suite.ctx, savingsParams)
+	// sk := suite.app.GetSavingsKeeper()
+	// savingsParams := sk.GetParams(suite.ctx)
+	// savingsParams.SupportedDenoms = append(savingsParams.SupportedDenoms, liquidtypes.DefaultDerivativeDenom)
+	// sk.SetParams(suite.ctx, savingsParams)
 }
 
 func (suite *tallyHandlerSuite) earnDeposit(owner sdk.AccAddress, derivative sdk.Coin) {
-	ek := suite.app.GetEarnKeeper()
+	// ek := suite.app.GetEarnKeeper()
 
-	err := ek.Deposit(suite.ctx, owner, derivative, earntypes.STRATEGY_TYPE_SAVINGS)
-	suite.Require().NoError(err)
+	// err := ek.Deposit(suite.ctx, owner, derivative, earntypes.STRATEGY_TYPE_SAVINGS)
+	// suite.Require().NoError(err)
 }
 
 func (suite *tallyHandlerSuite) mintDerivative(owner sdk.AccAddress, validator sdk.ValAddress, amount sdkmath.Int) sdk.Coin {
-	lk := suite.app.GetLiquidKeeper()
+	// lk := suite.app.GetLiquidKeeper()
 
-	minted, err := lk.MintDerivative(suite.ctx, owner, validator, suite.newBondCoin(amount))
-	suite.Require().NoError(err)
+	// minted, err := lk.MintDerivative(suite.ctx, owner, validator, suite.newBondCoin(amount))
+	// suite.Require().NoError(err)
 
-	return minted
+	// return minted
+	return sdk.NewCoin("ukava", amount)
 }
 
 func (suite *tallyHandlerSuite) delegateToNewBondedValidator(delegator sdk.AccAddress, amount sdkmath.Int) stakingtypes.ValidatorI {

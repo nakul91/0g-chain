@@ -4,6 +4,7 @@ import (
 	fmt "fmt"
 	"time"
 
+	"github.com/0glabs/0g-chain/chaincfg"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -15,10 +16,10 @@ import (
 const MaxCommitteeDescriptionLength int = 512
 
 const (
-	BaseCommitteeType   = "kava/BaseCommittee"
-	MemberCommitteeType = "kava/MemberCommittee" // Committee is composed of member addresses that vote to enact proposals within their permissions
-	TokenCommitteeType  = "kava/TokenCommittee"  // Committee is composed of token holders with voting power determined by total token balance
-	BondDenom           = "ukava"
+	BaseCommitteeType   = "0g/BaseCommittee"
+	MemberCommitteeType = "0g/MemberCommittee" // Committee is composed of member addresses that vote to enact proposals within their permissions
+	TokenCommitteeType  = "0g/TokenCommittee"  // Committee is composed of token holders with voting power determined by total token balance
+	BondDenom           = chaincfg.BondDenom
 )
 
 // Marshal needed for protobuf compatibility.

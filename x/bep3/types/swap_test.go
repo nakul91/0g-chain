@@ -10,8 +10,9 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/kava-labs/kava/app"
-	"github.com/kava-labs/kava/x/bep3/types"
+	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/chaincfg"
+	"github.com/0glabs/0g-chain/x/bep3/types"
 )
 
 type AtomicSwapTestSuite struct {
@@ -23,8 +24,7 @@ type AtomicSwapTestSuite struct {
 
 func (suite *AtomicSwapTestSuite) SetupTest() {
 	// Generate 10 addresses
-	config := sdk.GetConfig()
-	app.SetBech32AddressPrefixes(config)
+	chaincfg.SetSDKConfig()
 	_, addrs := app.GeneratePrivKeyAddressPairs(10)
 
 	// Generate 10 timestamps and random number hashes

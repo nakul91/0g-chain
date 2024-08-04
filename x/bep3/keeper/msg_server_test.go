@@ -11,10 +11,11 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/kava-labs/kava/app"
-	"github.com/kava-labs/kava/x/bep3"
-	"github.com/kava-labs/kava/x/bep3/keeper"
-	"github.com/kava-labs/kava/x/bep3/types"
+	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/chaincfg"
+	"github.com/0glabs/0g-chain/x/bep3"
+	"github.com/0glabs/0g-chain/x/bep3/keeper"
+	"github.com/0glabs/0g-chain/x/bep3/types"
 )
 
 type MsgServerTestSuite struct {
@@ -35,7 +36,7 @@ func (suite *MsgServerTestSuite) SetupTest() {
 
 	// Set up genesis state and initialize
 	_, addrs := app.GeneratePrivKeyAddressPairs(3)
-	coins := sdk.NewCoins(c("bnb", 10000000000), c("ukava", 10000000000))
+	coins := sdk.NewCoins(c("bnb", 10000000000), c(chaincfg.GasDenom, 10000))
 	authGS := app.NewFundedGenStateWithSameCoins(tApp.AppCodec(), coins, addrs)
 	tApp.InitializeFromGenesisStates(authGS, NewBep3GenStateMulti(cdc, addrs[0]))
 
