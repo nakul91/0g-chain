@@ -16,8 +16,6 @@ import (
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/stretchr/testify/suite"
-
-	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 )
 
 // d is an alias for sdk.MustNewDecFromStr

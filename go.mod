@@ -34,7 +34,7 @@ require (
 	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.9.0
 	github.com/subosito/gotenv v1.6.0
-	golang.org/x/crypto v0.22.0
+	golang.org/x/crypto v0.24.0
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
 	google.golang.org/genproto/googleapis/api v0.0.0-20240227224415-6ceb2ff114de
 	google.golang.org/grpc v1.63.2
@@ -245,9 +245,7 @@ replace (
 	// TODO: Tag before release
 	github.com/ethereum/go-ethereum => github.com/Kava-Labs/go-ethereum v1.10.27-0.20240513233504-6e038346780b
 	// Use ethermint fork that respects min-gas-price with NoBaseFee true and london enabled, and includes eip712 support
-	// Tracking kava-labs/etheremint master branch
-	// TODO: Tag before release
-	github.com/evmos/ethermint => github.com/kava-labs/ethermint v0.21.1-0.20240802224012-586960857184
+	github.com/evmos/ethermint => github.com/0glabs/ethermint v0.21.0-0g.v3.1.0
 	// See https://github.com/cosmos/cosmos-sdk/pull/10401, https://github.com/cosmos/cosmos-sdk/commit/0592ba6158cd0bf49d894be1cef4faeec59e8320
 	github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.9.0
 	// Downgraded to avoid bugs in following commits which causes "version does not exist" errors
