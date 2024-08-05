@@ -14,9 +14,9 @@ jobs:
       with:
         go-version: '1.21'
     - name: Build
-      run: make build
+      run: sudo LINK_STATICALLY=true make build-release
     - name: Rename file
-      run: mv ./out/linux/0gchaind ./out/linux/0gchaind-linux-${{ github.ref_name }}
+      run: sudo mv ./out/linux/0gchaind ./out/linux/0gchaind-linux-${{ github.ref_name }}
     - name: Upload Release Asset
       uses: softprops/action-gh-release@v2
       with:
