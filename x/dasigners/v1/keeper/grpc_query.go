@@ -24,7 +24,7 @@ func (k Keeper) Signer(
 			return nil, err
 		}
 		if !found {
-			return nil, nil
+			return nil, types.ErrSignerNotFound
 		}
 		response.Signer[i] = &signer
 	}

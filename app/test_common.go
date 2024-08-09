@@ -9,6 +9,7 @@ import (
 	"time"
 
 	sdkmath "cosmossdk.io/math"
+	dasignerskeeper "github.com/0glabs/0g-chain/x/dasigners/v1/keeper"
 	tmdb "github.com/cometbft/cometbft-db"
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/libs/log"
@@ -55,7 +56,7 @@ var (
 	defaultInitialHeight int64 = 1
 )
 
-const TestChainId = "kavatest_2221-1"
+const TestChainId = "zgchain_8888-1"
 
 // TestApp is a simple wrapper around an App. It exposes internal keepers for use in integration tests.
 // This file also contains test helpers. Ideally they would be in separate package.
@@ -115,6 +116,7 @@ func (tApp TestApp) GetCommitteeKeeper() committeekeeper.Keeper     { return tAp
 func (tApp TestApp) GetEvmutilKeeper() evmutilkeeper.Keeper         { return tApp.evmutilKeeper }
 func (tApp TestApp) GetEvmKeeper() *evmkeeper.Keeper                { return tApp.evmKeeper }
 func (tApp TestApp) GetFeeMarketKeeper() feemarketkeeper.Keeper     { return tApp.feeMarketKeeper }
+func (tApp TestApp) GetDASignersKeeper() dasignerskeeper.Keeper     { return tApp.dasignersKeeper }
 func (tApp TestApp) GetPrecisebankKeeper() precisebankkeeper.Keeper { return tApp.precisebankKeeper }
 
 func (tApp TestApp) GetKVStoreKey(key string) *storetypes.KVStoreKey {
