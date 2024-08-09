@@ -39,7 +39,7 @@ func ExportGenesis(ctx sdk.Context, keeper keeper.Keeper) *types.GenesisState {
 		return false
 	})
 	epochQuorums := make([]*types.Quorums, 0)
-	for i := 0; i < int(epochNumber); i += 1 {
+	for i := 0; i <= int(epochNumber); i += 1 {
 		quorumCnt, err := keeper.GetQuorumCount(ctx, uint64(i))
 		if err != nil {
 			panic("historical quorums not found")
