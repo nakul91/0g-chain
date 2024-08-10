@@ -669,6 +669,7 @@ func NewApp(
 		evmutil.NewAppModule(app.evmutilKeeper, app.bankKeeper, app.accountKeeper),
 		// nil InflationCalculationFn, use SDK's default inflation function
 		mint.NewAppModule(appCodec, app.mintKeeper, app.accountKeeper, nil, mintSubspace),
+		council.NewAppModule(app.CouncilKeeper),
 		ibcwasm.NewAppModule(app.ibcWasmClientKeeper),
 	)
 
@@ -711,6 +712,7 @@ func NewApp(
 		paramstypes.ModuleName,
 		authz.ModuleName,
 		evmutiltypes.ModuleName,
+		counciltypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		packetforwardtypes.ModuleName,
 		ibcwasmtypes.ModuleName,
@@ -745,6 +747,7 @@ func NewApp(
 		authz.ModuleName,
 		evmutiltypes.ModuleName,
 		minttypes.ModuleName,
+		counciltypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		packetforwardtypes.ModuleName,
 		ibcwasmtypes.ModuleName,
@@ -777,6 +780,7 @@ func NewApp(
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		validatorvestingtypes.ModuleName,
+		counciltypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		packetforwardtypes.ModuleName,
 		crisistypes.ModuleName, // runs the invariants at genesis, should run after other modules
