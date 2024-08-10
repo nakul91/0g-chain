@@ -686,6 +686,7 @@ func NewApp(
 		// nil InflationCalculationFn, use SDK's default inflation function
 		mint.NewAppModule(appCodec, app.mintKeeper, app.accountKeeper, nil, mintSubspace),
 		precisebank.NewAppModule(app.precisebankKeeper, app.bankKeeper, app.accountKeeper),
+		council.NewAppModule(app.CouncilKeeper),
 		ibcwasm.NewAppModule(app.ibcWasmClientKeeper),
 		dasigners.NewAppModule(app.dasignersKeeper, *app.stakingKeeper),
 	)
@@ -729,6 +730,7 @@ func NewApp(
 		paramstypes.ModuleName,
 		authz.ModuleName,
 		evmutiltypes.ModuleName,
+		counciltypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		packetforwardtypes.ModuleName,
 		precisebanktypes.ModuleName,
@@ -765,6 +767,7 @@ func NewApp(
 		authz.ModuleName,
 		evmutiltypes.ModuleName,
 		minttypes.ModuleName,
+		counciltypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		packetforwardtypes.ModuleName,
 		precisebanktypes.ModuleName,
@@ -799,6 +802,7 @@ func NewApp(
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		validatorvestingtypes.ModuleName,
+		counciltypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		packetforwardtypes.ModuleName,
 		precisebanktypes.ModuleName, // Must be run after x/bank to verify reserve balance
