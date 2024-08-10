@@ -687,6 +687,7 @@ func NewApp(
 		mint.NewAppModule(appCodec, app.mintKeeper, app.accountKeeper, nil, mintSubspace),
 		precisebank.NewAppModule(app.precisebankKeeper, app.bankKeeper, app.accountKeeper),
 		ibcwasm.NewAppModule(app.ibcWasmClientKeeper),
+		dasigners.NewAppModule(app.dasignersKeeper, *app.stakingKeeper),
 	)
 
 	// Warning: Some begin blockers must run before others. Ensure the dependencies are understood before modifying this list.
@@ -732,6 +733,7 @@ func NewApp(
 		packetforwardtypes.ModuleName,
 		precisebanktypes.ModuleName,
 		ibcwasmtypes.ModuleName,
+		dasignerstypes.ModuleName,
 	)
 
 	// Warning: Some end blockers must run before others. Ensure the dependencies are understood before modifying this list.
@@ -767,6 +769,7 @@ func NewApp(
 		packetforwardtypes.ModuleName,
 		precisebanktypes.ModuleName,
 		ibcwasmtypes.ModuleName,
+		dasignerstypes.ModuleName,
 	)
 
 	// Warning: Some init genesis methods must run before others. Ensure the dependencies are understood before modifying this list
@@ -801,6 +804,7 @@ func NewApp(
 		precisebanktypes.ModuleName, // Must be run after x/bank to verify reserve balance
 		crisistypes.ModuleName,      // runs the invariants at genesis, should run after other modules
 		ibcwasmtypes.ModuleName,
+		dasignerstypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.crisisKeeper)

@@ -7,7 +7,6 @@ import (
 	"testing"
 
 	"github.com/0glabs/0g-chain/crypto/bn254util"
-	"github.com/0glabs/0g-chain/x/dasigners/v1"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/keeper"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/testutil"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/types"
@@ -312,7 +311,7 @@ func (suite *KeeperTestSuite) queryAggregatePubkeyG1(params types.Params) {
 
 func (suite *KeeperTestSuite) Test_Keeper() {
 	// suite.App.InitializeFromGenesisStates()
-	dasigners.InitGenesis(suite.Ctx, suite.Keeper, *types.DefaultGenesisState())
+	// dasigners.InitGenesis(suite.Ctx, suite.Keeper, *types.DefaultGenesisState())
 	// add delegation
 	params := suite.Keeper.GetParams(suite.Ctx)
 	suite.AddDelegation(signer1, signer1, keeper.BondedConversionRate.Mul(sdk.NewIntFromUint64(params.TokensPerVote)))
