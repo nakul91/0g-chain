@@ -3,7 +3,6 @@ package keeper_test
 import (
 	"testing"
 
-	"github.com/0glabs/0g-chain/x/dasigners/v1"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/keeper"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/testutil"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/types"
@@ -19,16 +18,29 @@ type AbciTestSuite struct {
 
 func (suite *AbciTestSuite) TestBeginBlock_NotContinuous() {
 	// suite.App.InitializeFromGenesisStates()
-	dasigners.InitGenesis(suite.Ctx, suite.Keeper, *types.DefaultGenesisState())
+	// dasigners.InitGenesis(suite.Ctx, suite.Keeper, *types.DefaultGenesisState())
 	params := suite.Keeper.GetParams(suite.Ctx)
-	suite.Require().Panics(func() {
-		suite.Keeper.BeginBlock(suite.Ctx.WithBlockHeight(int64(params.EpochBlocks*2)), abci.RequestBeginBlock{})
+	suite.Assert().EqualValues(params, types.DefaultGenesisState().Params)
+
+	epoch, err := suite.Keeper.GetEpochNumber(suite.Ctx)
+	suite.Require().NoError(err)
+	suite.Assert().EqualValues(epoch, 0)
+
+	suite.Assert().NotPanics(func() {
+		suite.Keeper.BeginBlock(suite.Ctx.WithBlockHeight(int64(params.EpochBlocks*10)), abci.RequestBeginBlock{})
+	})
+	epoch, err = suite.Keeper.GetEpochNumber(suite.Ctx)
+	suite.Require().NoError(err)
+	suite.Assert().EqualValues(epoch, 10)
+
+	suite.Assert().Panics(func() {
+		suite.Keeper.BeginBlock(suite.Ctx.WithBlockHeight(int64(params.EpochBlocks*9)), abci.RequestBeginBlock{})
 	}, "block height is not continuous")
 }
 
 func (suite *AbciTestSuite) TestBeginBlock_Success() {
 	// suite.App.InitializeFromGenesisStates()
-	dasigners.InitGenesis(suite.Ctx, suite.Keeper, *types.DefaultGenesisState())
+	// dasigners.InitGenesis(suite.Ctx, suite.Keeper, *types.DefaultGenesisState())
 	suite.Keeper.SetParams(suite.Ctx, types.Params{
 		TokensPerVote:     10,
 		MaxVotesPerSigner: 200,
