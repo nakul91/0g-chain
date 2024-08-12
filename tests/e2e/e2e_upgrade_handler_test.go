@@ -8,10 +8,10 @@ import (
 func (suite *IntegrationTestSuite) TestUpgrade_PreciseBankReserveTransfer() {
 	suite.SkipIfUpgradeDisabled()
 
-	beforeUpgradeCtx := suite.Kava.Grpc.CtxAtHeight(suite.UpgradeHeight - 1)
-	afterUpgradeCtx := suite.Kava.Grpc.CtxAtHeight(suite.UpgradeHeight)
+	// 	beforeUpgradeCtx := suite.Kava.Grpc.CtxAtHeight(suite.UpgradeHeight - 1)
+	// 	afterUpgradeCtx := suite.Kava.Grpc.CtxAtHeight(suite.UpgradeHeight)
 
-	grpcClient := suite.Kava.Grpc
+	// 	grpcClient := suite.Kava.Grpc
 
 	// -----------------------------
 	// Get initial reserve balances
