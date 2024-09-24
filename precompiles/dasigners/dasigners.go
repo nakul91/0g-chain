@@ -18,6 +18,7 @@ const (
 
 	RequiredGasMax uint64 = 1000_000_000
 
+	DASignersFunctionParams            = "params"
 	DASignersFunctionEpochNumber       = "epochNumber"
 	DASignersFunctionQuorumCount       = "quorumCount"
 	DASignersFunctionGetSigner         = "getSigner"
@@ -32,6 +33,7 @@ const (
 )
 
 var RequiredGasBasic = map[string]uint64{
+	DASignersFunctionParams:            1000,
 	DASignersFunctionEpochNumber:       1000,
 	DASignersFunctionQuorumCount:       1000,
 	DASignersFunctionGetSigner:         100000,
@@ -117,6 +119,8 @@ func (d *DASignersPrecompile) Run(evm *vm.EVM, contract *vm.Contract, readonly b
 	var bz []byte
 	switch method.Name {
 	// queries
+	case DASignersFunctionParams:
+		bz, err = d.Params(ctx, evm, method, args)
 	case DASignersFunctionEpochNumber:
 		bz, err = d.EpochNumber(ctx, evm, method, args)
 	case DASignersFunctionQuorumCount:

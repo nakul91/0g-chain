@@ -212,10 +212,10 @@ func (suite *MsgServerSuite) TestConvertERC20ToCoin_Bep3() {
 		{
 			name: "invalid - invalid receiver address",
 			msg: types.MsgConvertERC20ToCoin{
-				Initiator:        invoker.String(),
-				Receiver:         "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc",
+				Initiator:           invoker.String(),
+				Receiver:            "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc",
 				ZgChainERC20Address: contractAddr.String(),
-				Amount:           sdkmath.NewInt(12e8),
+				Amount:              sdkmath.NewInt(12e8),
 			},
 			userErc20Balance: sdkmath.NewInt(2e18),
 			errArgs: errArgs{
@@ -226,10 +226,10 @@ func (suite *MsgServerSuite) TestConvertERC20ToCoin_Bep3() {
 		{
 			name: "invalid - invalid contract address",
 			msg: types.MsgConvertERC20ToCoin{
-				Initiator:        invoker.String(),
-				Receiver:         invokerCosmosAddr.String(),
+				Initiator:           invoker.String(),
+				Receiver:            invokerCosmosAddr.String(),
 				ZgChainERC20Address: invokerCosmosAddr.String(),
-				Amount:           sdkmath.NewInt(12e8),
+				Amount:              sdkmath.NewInt(12e8),
 			},
 			userErc20Balance: sdkmath.NewInt(2e18),
 			errArgs: errArgs{

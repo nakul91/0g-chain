@@ -5,16 +5,25 @@ import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "google/protobuf/any.proto";
 import "zgc/dasigners/v1/dasigners.proto";
+import "zgc/dasigners/v1/genesis.proto";
 
 option go_package = "github.com/0glabs/0g-chain/x/dasigners/v1/types";
 option (gogoproto.goproto_getters_all) = false;
 
 // Msg defines the dasigners Msg service
 service Msg {
+  rpc ChangeParams(MsgChangeParams) returns (MsgChangeParamsResponse);
   rpc RegisterSigner(MsgRegisterSigner) returns (MsgRegisterSignerResponse);
   rpc UpdateSocket(MsgUpdateSocket) returns (MsgUpdateSocketResponse);
   rpc RegisterNextEpoch(MsgRegisterNextEpoch) returns (MsgRegisterNextEpochResponse);
 }
+
+message MsgChangeParams {
+  string authority = 1;
+  Params params = 2;
+}
+
+message MsgChangeParamsResponse {}
 
 message MsgRegisterSigner {
   Signer signer = 1;

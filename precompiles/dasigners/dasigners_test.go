@@ -370,6 +370,25 @@ func (suite *DASignersTestSuite) Test_DASigners() {
 
 }
 
+func (suite *DASignersTestSuite) Test_Params() {
+	input, err := suite.abi.Pack(
+		"params",
+	)
+	suite.Assert().NoError(err)
+
+	bz, err := suite.runTx(input, suite.signerOne, 10000000)
+	suite.Assert().NoError(err)
+	out, err := suite.abi.Methods["params"].Outputs.Unpack(bz)
+	suite.Assert().NoError(err)
+	params := out[0].(dasignersprecompile.IDASignersParams)
+	expected := types.DefaultGenesisState().Params
+	suite.Assert().EqualValues(expected.TokensPerVote, params.TokensPerVote.Uint64())
+	suite.Assert().EqualValues(expected.MaxVotesPerSigner, params.MaxVotesPerSigner.Uint64())
+	suite.Assert().EqualValues(expected.MaxQuorums, params.MaxQuorums.Uint64())
+	suite.Assert().EqualValues(expected.EpochBlocks, params.EpochBlocks.Uint64())
+	suite.Assert().EqualValues(expected.EncodedSlices, params.EncodedSlices.Uint64())
+}
+
 func TestKeeperSuite(t *testing.T) {
 	suite.Run(t, new(DASignersTestSuite))
 }

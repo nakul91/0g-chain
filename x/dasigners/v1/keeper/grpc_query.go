@@ -11,6 +11,17 @@ import (
 
 var _ types.QueryServer = Keeper{}
 
+func (k Keeper) Params(
+	c context.Context,
+	request *types.QueryParamsRequest,
+) (*types.QueryParamsResponse, error) {
+	ctx := sdk.UnwrapSDKContext(c)
+	params := k.GetParams(ctx)
+	return &types.QueryParamsResponse{
+		Params: &params,
+	}, nil
+}
+
 func (k Keeper) Signer(
 	c context.Context,
 	request *types.QuerySignerRequest,

@@ -17,22 +17,17 @@ type Ballot struct {
 	content []byte
 }
 
-// generateOneEpoch generate one epoch and returns true if there is a new epoch generated
-func (k Keeper) generateOneEpoch(ctx sdk.Context) bool {
+func (k Keeper) BeginBlock(ctx sdk.Context, _ abci.RequestBeginBlock) {
+	params := k.GetParams(ctx)
+	if uint64(ctx.BlockHeight())%params.EpochBlocks != 0 {
+		return
+	}
 	epochNumber, err := k.GetEpochNumber(ctx)
 	if err != nil {
 		k.Logger(ctx).Error("[BeginBlock] cannot get epoch number")
 		panic(err)
 	}
-	params := k.GetParams(ctx)
-	expectedEpoch := uint64(ctx.BlockHeight()) / params.EpochBlocks
-	if expectedEpoch == epochNumber {
-		return false
-	}
-	if expectedEpoch < epochNumber {
-		panic("block height is not continuous")
-	}
-	expectedEpoch = epochNumber + 1
+	expectedEpoch := epochNumber + 1
 	// new epoch
 	k.Logger(ctx).Info(fmt.Sprintf("[BeginBlock] generating epoch %v", expectedEpoch))
 	registrations := []Ballot{}
@@ -110,11 +105,6 @@ func (k Keeper) generateOneEpoch(ctx sdk.Context) bool {
 	// save to store
 	k.SetEpochQuorums(ctx, expectedEpoch, quorums)
 	k.SetEpochNumber(ctx, expectedEpoch)
-	k.Logger(ctx).Info(fmt.Sprintf("[BeginBlock] epoch %v generated, with %v quorums", expectedEpoch, len(quorums.Quorums)))
-	return true
-}
-
-func (k Keeper) BeginBlock(ctx sdk.Context, _ abci.RequestBeginBlock) {
-	for k.generateOneEpoch(ctx) {
-	}
+	k.Logger(ctx).Info(fmt.Sprintf("[BeginBlock] epoch %v generated at block height %v, with %v quorums", expectedEpoch, ctx.BlockHeight(), len(quorums.Quorums)))
+	return
 }

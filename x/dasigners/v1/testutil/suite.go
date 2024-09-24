@@ -14,6 +14,7 @@ import (
 	"github.com/0glabs/0g-chain/chaincfg"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/keeper"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/types"
+	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/evmos/ethermint/crypto/ethsecp256k1"
 )
@@ -24,6 +25,7 @@ type Suite struct {
 
 	Keeper        keeper.Keeper
 	StakingKeeper *stakingkeeper.Keeper
+	GovKeeper     govkeeper.Keeper
 	App           app.TestApp
 	Ctx           sdk.Context
 	QueryClient   types.QueryClient
@@ -37,6 +39,7 @@ func (suite *Suite) SetupTest() {
 	suite.App.InitializeFromGenesisStates()
 	suite.Keeper = suite.App.GetDASignersKeeper()
 	suite.StakingKeeper = suite.App.GetStakingKeeper()
+	suite.GovKeeper = suite.App.GetGovKeeper()
 
 	// make block header
 	privkey, _ := ethsecp256k1.GenerateKey()

@@ -3,14 +3,27 @@ package keeper
 import (
 	"context"
 
+	errorsmod "cosmossdk.io/errors"
 	"github.com/0glabs/0g-chain/crypto/bn254util"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	gov "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/ethereum/go-ethereum/common"
 	etherminttypes "github.com/evmos/ethermint/types"
 )
 
 var _ types.MsgServer = &Keeper{}
+
+func (k Keeper) ChangeParams(goCtx context.Context, msg *types.MsgChangeParams) (*types.MsgChangeParamsResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	// validate authority
+	if k.authority != msg.Authority {
+		return nil, errorsmod.Wrapf(gov.ErrInvalidSigner, "expected %s got %s", k.authority, msg.Authority)
+	}
+	// save params
+	k.SetParams(ctx, *msg.Params)
+	return &types.MsgChangeParamsResponse{}, nil
+}
 
 func (k Keeper) RegisterSigner(goCtx context.Context, msg *types.MsgRegisterSigner) (*types.MsgRegisterSignerResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)

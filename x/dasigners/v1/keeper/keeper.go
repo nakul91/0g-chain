@@ -2,18 +2,21 @@ package keeper
 
 import (
 	"encoding/hex"
+	"fmt"
 	"math/big"
 
 	"cosmossdk.io/math"
 	"github.com/cometbft/cometbft/libs/log"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
+
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
 	"github.com/0glabs/0g-chain/chaincfg"
 	"github.com/0glabs/0g-chain/x/dasigners/v1/types"
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 )
 
 var BondedConversionRate = math.NewIntFromBigInt(big.NewInt(0).Exp(big.NewInt(10), big.NewInt(chaincfg.GasDenomUnit), nil))
@@ -22,6 +25,7 @@ type Keeper struct {
 	storeKey      storetypes.StoreKey
 	cdc           codec.BinaryCodec
 	stakingKeeper types.StakingKeeper
+	authority     string // the address capable of changing signers params. Should be the gov module account
 }
 
 // NewKeeper creates a new das Keeper instance
@@ -29,11 +33,13 @@ func NewKeeper(
 	storeKey storetypes.StoreKey,
 	cdc codec.BinaryCodec,
 	stakingKeeper types.StakingKeeper,
+	authority string,
 ) Keeper {
 	return Keeper{
 		storeKey:      storeKey,
 		cdc:           cdc,
 		stakingKeeper: stakingKeeper,
+		authority:     authority,
 	}
 }
 
@@ -54,6 +60,17 @@ func (k Keeper) SetParams(ctx sdk.Context, params types.Params) {
 	store := ctx.KVStore(k.storeKey)
 	bz := k.cdc.MustMarshal(&params)
 	store.Set(types.ParamsKey, bz)
+
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			types.EventTypeUpdateParams,
+			sdk.NewAttribute(types.AttributeKeyBlockHeight, fmt.Sprint(ctx.BlockHeader().Height)),
+			sdk.NewAttribute(types.AttributeKeyTokensPerVote, fmt.Sprint(params.TokensPerVote)),
+			sdk.NewAttribute(types.AttributeKeyMaxQuorums, fmt.Sprint(params.MaxQuorums)),
+			sdk.NewAttribute(types.AttributeKeyEpochBlocks, fmt.Sprint(params.EpochBlocks)),
+			sdk.NewAttribute(types.AttributeKeyEncodedSlices, fmt.Sprint(params.EncodedSlices)),
+		),
+	)
 }
 
 func (k Keeper) GetEpochNumber(ctx sdk.Context) (uint64, error) {
