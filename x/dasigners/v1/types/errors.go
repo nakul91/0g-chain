@@ -12,4 +12,5 @@ var (
 	ErrQuorumBitmapLengthMismatch = errorsmod.Register(ModuleName, 7, "quorum bitmap length mismatch")
 	ErrInsufficientBonded         = errorsmod.Register(ModuleName, 8, "insufficient bonded amount")
 	ErrRowIndexOutOfBound         = errorsmod.Register(ModuleName, 9, "row index out of bound")
+	ErrInvalidEpochBlocks         = errorsmod.Register(ModuleName, 10, "invalid epoch blocks")
 )

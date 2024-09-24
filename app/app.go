@@ -484,7 +484,7 @@ func NewApp(
 
 	evmBankKeeper := evmutilkeeper.NewEvmBankKeeper(app.evmutilKeeper, app.bankKeeper, app.accountKeeper)
 	// dasigners keeper
-	app.dasignersKeeper = dasignerskeeper.NewKeeper(keys[dasignerstypes.StoreKey], appCodec, app.stakingKeeper)
+	app.dasignersKeeper = dasignerskeeper.NewKeeper(keys[dasignerstypes.StoreKey], appCodec, app.stakingKeeper, govAuthAddrStr)
 	// precopmiles
 	precompiles := make(map[common.Address]vm.PrecompiledContract)
 	daSignersPrecompile, err := dasignersprecompile.NewDASignersPrecompile(app.dasignersKeeper)

@@ -11,6 +11,17 @@ import (
 	"github.com/ethereum/go-ethereum/core/vm"
 )
 
+func (d *DASignersPrecompile) Params(ctx sdk.Context, _ *vm.EVM, method *abi.Method, _ []interface{}) ([]byte, error) {
+	params := d.dasignersKeeper.GetParams(ctx)
+	return method.Outputs.Pack(IDASignersParams{
+		TokensPerVote:     big.NewInt(int64(params.TokensPerVote)),
+		MaxVotesPerSigner: big.NewInt(int64(params.MaxVotesPerSigner)),
+		MaxQuorums:        big.NewInt(int64(params.MaxQuorums)),
+		EpochBlocks:       big.NewInt(int64(params.EpochBlocks)),
+		EncodedSlices:     big.NewInt(int64(params.EncodedSlices)),
+	})
+}
+
 func (d *DASignersPrecompile) EpochNumber(ctx sdk.Context, _ *vm.EVM, method *abi.Method, _ []interface{}) ([]byte, error) {
 	epochNumber, err := d.dasignersKeeper.GetEpochNumber(ctx)
 	if err != nil {

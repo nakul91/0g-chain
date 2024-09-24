@@ -269,6 +269,46 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "params",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "tokensPerVote",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxVotesPerSigner",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxQuorums",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "epochBlocks",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "encodedSlices",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IDASigners.Params",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",

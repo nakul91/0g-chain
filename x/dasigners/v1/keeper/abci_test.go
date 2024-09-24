@@ -31,11 +31,7 @@ func (suite *AbciTestSuite) TestBeginBlock_NotContinuous() {
 	})
 	epoch, err = suite.Keeper.GetEpochNumber(suite.Ctx)
 	suite.Require().NoError(err)
-	suite.Assert().EqualValues(epoch, 10)
-
-	suite.Assert().Panics(func() {
-		suite.Keeper.BeginBlock(suite.Ctx.WithBlockHeight(int64(params.EpochBlocks*9)), abci.RequestBeginBlock{})
-	}, "block height is not continuous")
+	suite.Assert().EqualValues(epoch, 1)
 }
 
 func (suite *AbciTestSuite) TestBeginBlock_Success() {

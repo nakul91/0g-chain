@@ -7,12 +7,16 @@ import "google/api/annotations.proto";
 import "google/protobuf/any.proto";
 import "google/protobuf/timestamp.proto";
 import "zgc/dasigners/v1/dasigners.proto";
+import "zgc/dasigners/v1/genesis.proto";
 
 option go_package = "github.com/0glabs/0g-chain/x/dasigners/v1/types";
 option (gogoproto.goproto_getters_all) = false;
 
 // Query defines the gRPC querier service for the dasigners module
 service Query {
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/0g/dasigners/v1/params";
+  }
   rpc EpochNumber(QueryEpochNumberRequest) returns (QueryEpochNumberResponse) {
     option (google.api.http).get = "/0g/dasigners/v1/epoch-number";
   }
@@ -31,6 +35,12 @@ service Query {
   rpc Signer(QuerySignerRequest) returns (QuerySignerResponse) {
     option (google.api.http).get = "/0g/dasigners/v1/signer";
   }
+}
+
+message QueryParamsRequest {}
+
+message QueryParamsResponse {
+  Params params = 1;
 }
 
 message QuerySignerRequest {

@@ -27,6 +27,14 @@ type IDASignersSignerDetail = struct {
 	PkG2   BN254G2Point   "json:\"pkG2\""
 }
 
+type IDASignersParams = struct {
+	TokensPerVote     *big.Int "json:\"tokensPerVote\""
+	MaxVotesPerSigner *big.Int "json:\"maxVotesPerSigner\""
+	MaxQuorums        *big.Int "json:\"maxQuorums\""
+	EpochBlocks       *big.Int "json:\"epochBlocks\""
+	EncodedSlices     *big.Int "json:\"encodedSlices\""
+}
+
 func NewBN254G1Point(b []byte) BN254G1Point {
 	return BN254G1Point{
 		X: new(big.Int).SetBytes(b[:32]),
