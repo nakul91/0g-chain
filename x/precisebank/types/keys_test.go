@@ -3,8 +3,8 @@ package types_test
 import (
 	"testing"
 
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/kava-labs/kava/x/precisebank/types"
 	"github.com/stretchr/testify/require"
 )
 

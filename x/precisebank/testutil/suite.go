@@ -16,9 +16,9 @@ import (
 	"github.com/evmos/ethermint/crypto/ethsecp256k1"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/kava-labs/kava/app"
-	"github.com/kava-labs/kava/x/precisebank/keeper"
-	"github.com/kava-labs/kava/x/precisebank/types"
+	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/x/precisebank/keeper"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 )
 
 type Suite struct {

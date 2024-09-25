@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	sdkmath "cosmossdk.io/math"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/kava-labs/kava/x/precisebank/types"
 )
 
 // RegisterInvariants registers the x/precisebank module invariants

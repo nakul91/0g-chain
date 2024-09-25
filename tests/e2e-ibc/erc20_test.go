@@ -26,13 +26,13 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7/ibc"
 	"github.com/strangelove-ventures/interchaintest/v7/testreporter"
 
-	"github.com/kava-labs/kava/app"
-	"github.com/kava-labs/kava/client/erc20"
-	"github.com/kava-labs/kava/tests/e2e/runner"
-	"github.com/kava-labs/kava/tests/e2e/testutil"
-	kavainterchain "github.com/kava-labs/kava/tests/interchain"
-	"github.com/kava-labs/kava/tests/util"
-	evmutiltypes "github.com/kava-labs/kava/x/evmutil/types"
+	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/client/erc20"
+	"github.com/0glabs/0g-chain/tests/e2e/runner"
+	"github.com/0glabs/0g-chain/tests/e2e/testutil"
+	kavainterchain "github.com/0glabs/0g-chain/tests/interchain"
+	"github.com/0glabs/0g-chain/tests/util"
+	evmutiltypes "github.com/0glabs/0g-chain/x/evmutil/types"
 )
 
 // This test does the following:

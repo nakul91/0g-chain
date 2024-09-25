@@ -11,9 +11,9 @@ import (
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/kava-labs/kava/x/precisebank/keeper"
-	"github.com/kava-labs/kava/x/precisebank/testutil"
-	"github.com/kava-labs/kava/x/precisebank/types"
+	"github.com/0glabs/0g-chain/x/precisebank/keeper"
+	"github.com/0glabs/0g-chain/x/precisebank/testutil"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 )
 
 type grpcQueryTestSuite struct {

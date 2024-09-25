@@ -8,7 +8,7 @@ outpkg: "mocks"
 filename: "Mock{{.InterfaceName}}.go"
 
 packages:
-  github.com/kava-labs/kava/x/precisebank/types:
+  github.com/0glabs/0g-chain/x/precisebank/types:
     # package-specific config
     config:
     interfaces:

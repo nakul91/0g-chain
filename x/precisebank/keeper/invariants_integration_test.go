@@ -4,10 +4,10 @@ import (
 	"testing"
 
 	sdkmath "cosmossdk.io/math"
+	"github.com/0glabs/0g-chain/x/precisebank/keeper"
+	"github.com/0glabs/0g-chain/x/precisebank/testutil"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/kava-labs/kava/x/precisebank/keeper"
-	"github.com/kava-labs/kava/x/precisebank/testutil"
-	"github.com/kava-labs/kava/x/precisebank/types"
 	"github.com/stretchr/testify/suite"
 )
 

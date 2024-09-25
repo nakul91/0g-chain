@@ -4,7 +4,7 @@ package kava.precisebank.v1;
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/kava-labs/kava/x/precisebank/types";
+option go_package = "github.com/0glabs/0g-chain/x/precisebank/types";
 
 // GenesisState defines the precisebank module's genesis state.
 message GenesisState {

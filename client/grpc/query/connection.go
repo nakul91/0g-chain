@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"net/url"
 
+	"github.com/0glabs/0g-chain/app"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/kava-labs/kava/app"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"

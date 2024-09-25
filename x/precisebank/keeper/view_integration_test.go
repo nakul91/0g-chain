@@ -8,8 +8,8 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	vestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 
-	"github.com/kava-labs/kava/x/precisebank/testutil"
-	"github.com/kava-labs/kava/x/precisebank/types"
+	"github.com/0glabs/0g-chain/x/precisebank/testutil"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 	"github.com/stretchr/testify/suite"
 )
 

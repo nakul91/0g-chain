@@ -8,9 +8,9 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/kava-labs/kava/x/precisebank/keeper"
-	"github.com/kava-labs/kava/x/precisebank/types"
-	"github.com/kava-labs/kava/x/precisebank/types/mocks"
+	"github.com/0glabs/0g-chain/x/precisebank/keeper"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
+	"github.com/0glabs/0g-chain/x/precisebank/types/mocks"
 	"github.com/stretchr/testify/require"
 )
 

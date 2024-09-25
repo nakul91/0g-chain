@@ -8,7 +8,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/kava-labs/kava/x/precisebank/types"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 )
 
 func TestSetGetFractionalBalance(t *testing.T) {

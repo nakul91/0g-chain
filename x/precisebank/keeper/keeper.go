@@ -6,7 +6,7 @@ import (
 
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 
-	"github.com/kava-labs/kava/x/precisebank/types"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 )
 
 // Enforce that Keeper implements the expected keeper interfaces

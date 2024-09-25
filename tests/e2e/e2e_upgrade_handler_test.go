@@ -1,8 +1,8 @@
 package e2e_test
 
 import (
+	precisebanktypes "github.com/0glabs/0g-chain/x/precisebank/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	precisebanktypes "github.com/kava-labs/kava/x/precisebank/types"
 )
 
 func (suite *IntegrationTestSuite) TestUpgrade_PreciseBankReserveTransfer() {

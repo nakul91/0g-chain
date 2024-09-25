@@ -28,8 +28,8 @@ import (
 	committeetypes "github.com/0glabs/0g-chain/x/committee/types"
 	evmutiltypes "github.com/0glabs/0g-chain/x/evmutil/types"
 	issuancetypes "github.com/0glabs/0g-chain/x/issuance/types"
+	precisebanktypes "github.com/0glabs/0g-chain/x/precisebank/types"
 	pricefeedtypes "github.com/0glabs/0g-chain/x/pricefeed/types"
-	precisebanktypes "github.com/kava-labs/kava/x/precisebank/types"
 )
 
 // QueryClient is a wrapper with all Cosmos and Kava grpc query clients

@@ -15,8 +15,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/kava-labs/kava/x/precisebank/keeper"
-	"github.com/kava-labs/kava/x/precisebank/types"
+	"github.com/0glabs/0g-chain/x/precisebank/keeper"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 )
 
 // ConsensusVersion defines the current module consensus version.

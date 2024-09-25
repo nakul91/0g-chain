@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	sdkmath "cosmossdk.io/math"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/address"
-	"github.com/kava-labs/kava/x/precisebank/types"
 	"github.com/stretchr/testify/require"
 )
 

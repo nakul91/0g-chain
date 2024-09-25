@@ -6,12 +6,12 @@ import (
 	"time"
 
 	sdkmath "cosmossdk.io/math"
+	"github.com/0glabs/0g-chain/app"
+	evmutiltypes "github.com/0glabs/0g-chain/x/evmutil/types"
+	precisebankkeeper "github.com/0glabs/0g-chain/x/precisebank/keeper"
+	precisebanktypes "github.com/0glabs/0g-chain/x/precisebank/types"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/kava-labs/kava/app"
-	evmutiltypes "github.com/kava-labs/kava/x/evmutil/types"
-	precisebankkeeper "github.com/kava-labs/kava/x/precisebank/keeper"
-	precisebanktypes "github.com/kava-labs/kava/x/precisebank/types"
 	"github.com/stretchr/testify/require"
 )
 

@@ -8,10 +8,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/testutil"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/kava-labs/kava/app"
-	"github.com/kava-labs/kava/x/precisebank/keeper"
-	"github.com/kava-labs/kava/x/precisebank/types"
-	"github.com/kava-labs/kava/x/precisebank/types/mocks"
+	"github.com/0glabs/0g-chain/app"
+	"github.com/0glabs/0g-chain/x/precisebank/keeper"
+	"github.com/0glabs/0g-chain/x/precisebank/types"
+	"github.com/0glabs/0g-chain/x/precisebank/types/mocks"
 )
 
 // testData defines necessary fields for testing keeper store methods and mocks
