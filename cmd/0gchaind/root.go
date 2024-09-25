@@ -31,7 +31,6 @@ import (
 	"github.com/0glabs/0g-chain/chaincfg"
 	"github.com/0glabs/0g-chain/cmd/0gchaind/iavlviewer"
 	"github.com/0glabs/0g-chain/cmd/0gchaind/rocksdb"
-	"github.com/0glabs/0g-chain/cmd/opendb"
 	"github.com/0glabs/0g-chain/crypto/vrf"
 	"github.com/Kava-Labs/opendb"
 )
