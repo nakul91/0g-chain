@@ -518,6 +518,16 @@ func NewApp(
 	}
 	precompiles[daSignersPrecompile.Address()] = daSignersPrecompile
 
+	// dasigners keeper
+	app.dasignersKeeper = dasignerskeeper.NewKeeper(keys[dasignerstypes.StoreKey], appCodec, app.stakingKeeper, govAuthAddrStr)
+	// precopmiles
+	precompiles := make(map[common.Address]vm.PrecompiledContract)
+	daSignersPrecompile, err := dasignersprecompile.NewDASignersPrecompile(app.dasignersKeeper)
+	if err != nil {
+		panic("initialize precompile failed")
+	}
+	precompiles[daSignersPrecompile.Address()] = daSignersPrecompile
+
 	app.evmutilKeeper.SetEvmKeeper(app.evmKeeper)
 
 	// It's important to note that the PFM Keeper must be initialized before the Transfer Keeper
