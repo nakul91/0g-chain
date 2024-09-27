@@ -8,4 +8,4 @@ const IntegerCoinDenom = "ua0gi"
 // ExtendedCoinDenom is the denomination for the extended IntegerCoinDenom. This
 // not only represents the fractional balance, but the total balance of
 // integer + fractional balances.
-const ExtendedCoinDenom = "aa0gi"
+const ExtendedCoinDenom = "neuron"
