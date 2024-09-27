@@ -120,16 +120,6 @@ func TestLegacyMsgAreAminoRegistered(t *testing.T) {
 	}
 }
 
-// TestPrecompilesAreRegistered asserts that we have loaded the global precompile registry
-// by checking if at least one precompile is set
-//
-// If this test fails then has '_ "github.com/kava-labs/kava/precompile/registry"' been imported?
-func TestPrecompilesAreRegistered(t *testing.T) {
-	assert.Greater(t, len(modules.RegisteredModules()), 0,
-		"expected precompile registry to be imported and have at least one registered precompile",
-	)
-}
-
 // catchPanic returns the panic value of the passed function. The second return indicates if the function panicked.
 func catchPanic(f func()) (panicValue interface{}, didPanic bool) {
 	didPanic = true

@@ -41,7 +41,7 @@ func (suite *Suite) SetupTest() {
 	suite.Keeper = tApp.GetPrecisebankKeeper()
 
 	cdc := suite.App.AppCodec()
-	coins := sdk.NewCoins(sdk.NewInt64Coin("ukava", 1000_000_000_000_000_000))
+	coins := sdk.NewCoins(sdk.NewInt64Coin("ua0gi", 1000_000_000_000_000_000))
 	authGS := app.NewFundedGenStateWithSameCoins(cdc, coins, []sdk.AccAddress{})
 
 	gs := app.GenesisState{}
