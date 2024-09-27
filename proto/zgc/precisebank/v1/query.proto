@@ -1,5 +1,5 @@
 syntax = "proto3";
-package kava.precisebank.v1;
+package zgc.precisebank.v1;
 
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
@@ -13,19 +13,19 @@ service Query {
   // TotalFractionalBalances returns the total sum of all fractional balances
   // managed by the precisebank module.
   rpc TotalFractionalBalances(QueryTotalFractionalBalancesRequest) returns (QueryTotalFractionalBalancesResponse) {
-    option (google.api.http).get = "/kava/precisebank/v1/total_fractional_balances";
+    option (google.api.http).get = "/0g/precisebank/v1/total_fractional_balances";
   }
 
   // Remainder returns the amount backed by the reserve, but not yet owned by
   // any account, i.e. not in circulation.
   rpc Remainder(QueryRemainderRequest) returns (QueryRemainderResponse) {
-    option (google.api.http).get = "/kava/precisebank/v1/remainder";
+    option (google.api.http).get = "/0g/precisebank/v1/remainder";
   }
 
   // FractionalBalance returns only the fractional balance of an address. This
   // does not include any integer balance.
   rpc FractionalBalance(QueryFractionalBalanceRequest) returns (QueryFractionalBalanceResponse) {
-    option (google.api.http).get = "/kava/precisebank/v1/fractional_balance/{address}";
+    option (google.api.http).get = "/0g/precisebank/v1/fractional_balance/{address}";
   }
 }
 

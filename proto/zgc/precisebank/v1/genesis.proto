@@ -1,5 +1,5 @@
 syntax = "proto3";
-package kava.precisebank.v1;
+package zgc.precisebank.v1;
 
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
