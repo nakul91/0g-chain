@@ -211,8 +211,8 @@ git.sr.ht/~sircmpwn/getopt v0.0.0-20191230200459-23622cc906b3/go.mod h1:wMEGFFFN
 git.sr.ht/~sircmpwn/go-bare v0.0.0-20210406120253-ab86bc2846d9/go.mod h1:BVJwbDfVjCjoFiKrhkei6NdGcZYpkDkdyCdg1ukytRA=
 github.com/0glabs/cosmos-sdk v0.47.10-0glabs.5 h1:CwL3i7ccMjOXpKnJ9w0WkM7UpTWLXa/W2ZAwpxFUfb8=
 github.com/0glabs/cosmos-sdk v0.47.10-0glabs.5/go.mod h1:KskIVnhXTFqrw7CDccMvx7To5KzUsOomIsQV7sPGOog=
-github.com/0glabs/ethermint v0.21.0-0g.v3.1.1 h1:mz7WwR0gefTSokmiTugpZEZ1BtQIHZjgi/ufeexrfJw=
-github.com/0glabs/ethermint v0.21.0-0g.v3.1.1/go.mod h1:MjUzm+q5TiZIBNVq29B3a5Lx0A946QXBBvSSqD4l8ks=
+github.com/0glabs/ethermint v0.21.0-0g.v3.1.2 h1:qSTk1t5u3ppN/00bBaZYBF4+GiFlyr+92UlcWW2J8Zg=
+github.com/0glabs/ethermint v0.21.0-0g.v3.1.2/go.mod h1:MjUzm+q5TiZIBNVq29B3a5Lx0A946QXBBvSSqD4l8ks=
 github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4 h1:/vQbFIOMbk2FiG/kXiLl8BRyzTWDw7gX/Hz7Dd5eDMs=
 github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4/go.mod h1:hN7oaIRCjzsZ2dE+yG5k+rsdt3qcwykqK6HVGcKwsw4=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v0.21.1/go.mod h1:fBF9PQNqB8scdgpZ3ufzaLntG0AG7C1WjPMsiFOmfHM=
