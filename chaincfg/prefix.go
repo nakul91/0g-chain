@@ -6,7 +6,7 @@ import (
 
 const (
 	// Bech32Prefix defines the Bech32 prefix used for EthAccounts
-	Bech32Prefix = "0g"
+	Bech32Prefix = "srg"
 
 	// PrefixAccount is the prefix for account keys
 	PrefixAccount = "acc"

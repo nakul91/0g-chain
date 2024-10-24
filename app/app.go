@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"path/filepath"
+	"strings"
 
 	dbm "github.com/cometbft/cometbft-db"
 	abci "github.com/cometbft/cometbft/abci/types"
@@ -140,6 +142,10 @@ import (
 	validatorvestingrest "github.com/0glabs/0g-chain/x/validator-vesting/client/rest"
 	validatorvestingtypes "github.com/0glabs/0g-chain/x/validator-vesting/types"
 	"github.com/ethereum/go-ethereum/common"
+
+	wasm "github.com/CosmWasm/wasmd/x/wasm"
+    wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+    wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 )
 
 var (
@@ -186,6 +192,7 @@ var (
 		dasigners.AppModuleBasic{},
 		consensus.AppModuleBasic{},
 		ibcwasm.AppModuleBasic{},
+		wasm.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -278,6 +285,9 @@ type App struct {
 	// make scoped keepers public for test purposes
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
+	ScopedWasmKeeper     capabilitykeeper.ScopedKeeper
+	
+	WasmKeeper           wasmkeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -326,6 +336,7 @@ func NewApp(
 		vestingtypes.StoreKey,
 		consensusparamtypes.StoreKey, crisistypes.StoreKey, precisebanktypes.StoreKey,
 		ibcwasmtypes.StoreKey,
+		wasm.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey, evmtypes.TransientKey, feemarkettypes.TransientKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -368,6 +379,7 @@ func NewApp(
 	evmSubspace := app.paramsKeeper.Subspace(evmtypes.ModuleName)
 	evmutilSubspace := app.paramsKeeper.Subspace(evmutiltypes.ModuleName)
 	mintSubspace := app.paramsKeeper.Subspace(minttypes.ModuleName)
+	//wasmSubspace := app.paramsKeeper.Subspace(wasm.ModuleName)
 
 	// set the BaseApp's parameter store
 	app.consensusParamsKeeper = consensusparamkeeper.NewKeeper(appCodec, keys[consensusparamtypes.StoreKey], govAuthAddrStr)
@@ -376,6 +388,7 @@ func NewApp(
 	app.capabilityKeeper = capabilitykeeper.NewKeeper(appCodec, keys[capabilitytypes.StoreKey], memKeys[capabilitytypes.MemStoreKey])
 	scopedIBCKeeper := app.capabilityKeeper.ScopeToModule(ibcexported.ModuleName)
 	scopedTransferKeeper := app.capabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
+	scopedWasmKeeper := app.capabilityKeeper.ScopeToModule(wasm.ModuleName)
 	app.capabilityKeeper.Seal()
 
 	// add keepers
@@ -398,7 +411,7 @@ func NewApp(
 
 	app.stakingKeeper = stakingkeeper.NewKeeper(
 		appCodec,
-		keys[stakingtypes.StoreKey],
+		keys[stakingtypes.StoreKey],	
 		app.accountKeeper,
 		app.bankKeeper,
 		app.vestingKeeper,
@@ -470,6 +483,7 @@ func NewApp(
 		},
 		app.GRPCQueryRouter(),
 	)
+
 
 	// Create Ethermint keepers
 	app.feeMarketKeeper = feemarketkeeper.NewKeeper(
@@ -562,6 +576,45 @@ func NewApp(
 	ibcRouter := ibcporttypes.NewRouter()
 	ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferStack)
 	app.ibcKeeper.SetRouter(ibcRouter)
+
+
+	wasmDir := filepath.Join(homePath, "wasm")
+	wasmConfig := wasmtypes.WasmConfig{
+		SmartQueryGasLimit:    3000000,  // Example gas limit for smart queries
+	}
+	
+
+	// The last arguments can contain custom message handlers, and custom query handlers,
+	// if we want to allow any custom callbacks
+	availableCapabilities := strings.Join(AllCapabilities(), ",")
+	
+	// Initialize scoped keepers
+	app.ScopedWasmKeeper = app.capabilityKeeper.ScopeToModule(wasm.ModuleName)
+
+
+
+wasmKeeper := wasmkeeper.NewKeeper(
+    appCodec, 
+    keys[wasm.StoreKey], 
+    app.accountKeeper, 
+    app.bankKeeper, 
+    nil, 
+    distrkeeper.NewQuerier(app.distrKeeper),
+	app.packetForwardKeeper,
+    app.ibcKeeper.ChannelKeeper, 	
+    &app.ibcKeeper.PortKeeper, 
+    scopedWasmKeeper, 
+    app.transferKeeper, 
+    app.MsgServiceRouter(), 
+    app.GRPCQueryRouter(), 
+    wasmDir, 
+    wasmConfig, 
+	availableCapabilities, 
+    authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+    // Any additional keeper options
+)
+
+app.WasmKeeper = wasmKeeper
 
 	app.issuanceKeeper = issuancekeeper.NewKeeper(
 		appCodec,
@@ -687,6 +740,7 @@ func NewApp(
 		council.NewAppModule(app.CouncilKeeper),
 		ibcwasm.NewAppModule(app.ibcWasmClientKeeper),
 		dasigners.NewAppModule(app.dasignersKeeper, *app.stakingKeeper),
+		wasm.NewAppModule(appCodec, &app.WasmKeeper, app.stakingKeeper, app.accountKeeper, app.bankKeeper, app.MsgServiceRouter(), app.GetSubspace(wasmtypes.ModuleName)),
 	)
 
 	// Warning: Some begin blockers must run before others. Ensure the dependencies are understood before modifying this list.
@@ -734,6 +788,7 @@ func NewApp(
 		precisebanktypes.ModuleName,
 		ibcwasmtypes.ModuleName,
 		dasignerstypes.ModuleName,
+		wasm.ModuleName,
 	)
 
 	// Warning: Some end blockers must run before others. Ensure the dependencies are understood before modifying this list.
@@ -771,6 +826,7 @@ func NewApp(
 		precisebanktypes.ModuleName,
 		ibcwasmtypes.ModuleName,
 		dasignerstypes.ModuleName,
+		wasm.ModuleName,
 	)
 
 	// Warning: Some init genesis methods must run before others. Ensure the dependencies are understood before modifying this list
@@ -807,6 +863,7 @@ func NewApp(
 		crisistypes.ModuleName,      // runs the invariants at genesis, should run after other modules
 		ibcwasmtypes.ModuleName,
 		dasignerstypes.ModuleName,
+		wasm.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.crisisKeeper)
@@ -862,7 +919,8 @@ func NewApp(
 		AddressFetchers:        fetchers,
 		ExtensionOptionChecker: nil,
 		TxFeeChecker:           nil,
-	}
+		WasmKeeper:             app.WasmKeeper, 
+	} 
 
 	antehandler, err := ante.NewAnteHandler(anteOptions)
 	if err != nil {
@@ -939,6 +997,11 @@ func (app *App) ModuleAccountAddrs() map[string]bool {
 	return modAccAddrs
 }
 
+func (app *App) GetSubspace(moduleName string) paramstypes.Subspace {
+	subspace, _ := app.paramsKeeper.GetSubspace(moduleName)
+	return subspace
+}
+
 // InterfaceRegistry returns the app's InterfaceRegistry.
 func (app *App) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
@@ -992,6 +1055,15 @@ func RegisterAPIRouteRewrites(router *mux.Router) {
 				router.ServeHTTP(w, r)
 			},
 		).Methods("GET")
+	}
+}
+
+func AllCapabilities() []string {
+	return []string{
+		"iterator",
+		"stargate",
+		"cosmwasm_1_1",
+		"cosmwasm_1_2",
 	}
 }
 

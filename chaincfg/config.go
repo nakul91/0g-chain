@@ -5,8 +5,8 @@ import (
 )
 
 const (
-	AppName   = "0gchaind"
-	EnvPrefix = "0GCHAIN"
+	AppName   = "surged"
+	EnvPrefix = "SURGE"
 )
 
 func SetSDKConfig() *sdk.Config {

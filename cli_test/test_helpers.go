@@ -32,7 +32,7 @@ import (
 )
 
 const (
-	denom        = "stake"
+	denom        = "srg"
 	keyFoo       = "foo"
 	keyBar       = "bar"
 	fooDenom     = "footoken"

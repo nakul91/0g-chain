@@ -1,10 +1,10 @@
 ################################################################################
 ###                             Project Info                                 ###
 ################################################################################
-PROJECT_NAME := 0g-chain# unique namespace for project
-BINARY_NAME := 0gchaind
+PROJECT_NAME := Surge# unique namespace for project
+BINARY_NAME := surged
 MAIN_ENTRY := ./cmd/$(BINARY_NAME)
-DOCKER_IMAGE_NAME := 0glabs/$(PROJECT_NAME)
+DOCKER_IMAGE_NAME := surgebuild/$(PROJECT_NAME)
 GO_BIN ?= go
 ARCH := $(shell uname -m)
 WASMVM_VERSION := $(shell $(GO_BIN) list -m github.com/CosmWasm/wasmvm | sed 's/.* //')
@@ -198,14 +198,14 @@ all: install
 
 build: go.sum
 ifeq ($(OS), Windows_NT)
-	$(GO_BIN) build -mod=readonly $(BUILD_FLAGS) -o out/$(shell $(GO_BIN) env GOOS)/$(BINARY_NAME).exe $(MAIN_ENTRY)
+	$(GO_BIN) build -mod=mod $(BUILD_FLAGS) -o out/$(shell $(GO_BIN) env GOOS)/$(BINARY_NAME).exe $(MAIN_ENTRY)
 else
-	$(GO_BIN) build -mod=readonly $(BUILD_FLAGS) -o out/$(shell $(GO_BIN) env GOOS)/$(BINARY_NAME) $(MAIN_ENTRY)
+	$(GO_BIN) build -mod=mod $(BUILD_FLAGS) -o out/$(shell $(GO_BIN) env GOOS)/$(BINARY_NAME) $(MAIN_ENTRY)
 endif
 
 build-release: go.sum
 	wget -q https://github.com/CosmWasm/wasmvm/releases/download/$(WASMVM_VERSION)/libwasmvm_muslc.$(ARCH).a -O /lib/libwasmvm.$(ARCH).a
-	$(GO_BIN) build -mod=readonly $(BUILD_FLAGS) -o out/$(shell $(GO_BIN) env GOOS)/$(BINARY_NAME) $(MAIN_ENTRY)
+	$(GO_BIN) build -mod=mod $(BUILD_FLAGS) -o out/$(shell $(GO_BIN) env GOOS)/$(BINARY_NAME) $(MAIN_ENTRY)
 
 build-linux: go.sum
 	LEDGER_ENABLED=false GOOS=linux GOARCH=amd64 $(MAKE) build
@@ -219,7 +219,7 @@ build-rocksdb-brew:
 	export CGO_LDFLAGS := -L$(shell brew --prefix rocksdb)/lib -lrocksdb -lstdc++ -lm -lz -L$(shell brew --prefix snappy)/lib -L$(shell brew --prefix lz4)/lib -L$(shell brew --prefix zstd)/lib
 
 install: go.sum
-	$(GO_BIN) install -mod=readonly $(BUILD_FLAGS) $(MAIN_ENTRY)
+	$(GO_BIN) install -mod=mod $(BUILD_FLAGS) $(MAIN_ENTRY)
 
 ########################################
 ### Tools & dependencies

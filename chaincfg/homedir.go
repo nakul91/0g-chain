@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	HomeDirName = ".0gchain"
+	HomeDirName = ".surgechain"
 )
 
 var (

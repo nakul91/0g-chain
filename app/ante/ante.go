@@ -15,6 +15,11 @@ import (
 	ibckeeper "github.com/cosmos/ibc-go/v7/modules/core/keeper"
 	evmante "github.com/evmos/ethermint/app/ante"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+	wasmTypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	storetypes "github.com/cosmos/cosmos-sdk/store/types"
+
+	
 )
 
 // HandlerOptions extend the SDK's AnteHandler options by requiring the IBC
@@ -32,6 +37,9 @@ type HandlerOptions struct {
 	AddressFetchers        []AddressFetcher
 	ExtensionOptionChecker authante.ExtensionOptionChecker
 	TxFeeChecker           authante.TxFeeChecker
+	WasmKeeper             wasmkeeper.Keeper
+	WasmConfig            *wasmTypes.WasmConfig
+	TXCounterStoreKey      storetypes.StoreKey
 }
 
 func (options HandlerOptions) Validate() error {
@@ -159,6 +167,10 @@ func newCosmosAnteHandler(options cosmosHandlerOptions) sdk.AnteHandler {
 		sigVerification,
 		authante.NewIncrementSequenceDecorator(options.AccountKeeper), // innermost AnteDecorator
 		ibcante.NewRedundantRelayDecorator(options.IBCKeeper),
+        wasmkeeper.NewLimitSimulationGasDecorator(options.WasmConfig.SimulationGasLimit),
+		wasmkeeper.NewCountTXDecorator(options.TXCounterStoreKey),
+	
+		
 	)
 	return sdk.ChainAnteDecorators(decorators...)
 }

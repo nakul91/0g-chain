@@ -29,8 +29,6 @@ import (
 	"github.com/0glabs/0g-chain/app"
 	"github.com/0glabs/0g-chain/app/params"
 	"github.com/0glabs/0g-chain/chaincfg"
-	"github.com/0glabs/0g-chain/cmd/0gchaind/iavlviewer"
-	"github.com/0glabs/0g-chain/cmd/0gchaind/rocksdb"
 	"github.com/0glabs/0g-chain/crypto/vrf"
 	"github.com/Kava-Labs/opendb"
 )
@@ -144,8 +142,8 @@ func addSubCmds(rootCmd *cobra.Command, encodingConfig params.EncodingConfig, de
 		newQueryCmd(),
 		newTxCmd(),
 		keyCommands(chaincfg.DefaultNodeHome),
-		rocksdb.RocksDBCmd,
+		//rocksdb.RocksDBCmd,
 		newShardCmd(opts),
-		iavlviewer.NewCmd(opts),
+		//iavlviewer.NewCmd(opts),
 	)
 }

@@ -5,11 +5,11 @@ import (
 )
 
 const (
-	StandardDenom = "a0gi"
+	StandardDenom = "srg"
 
-	GasDenom = "ua0gi"
+	GasDenom = "uSrg"
 
-	EvmDenom = "neuron"
+	EvmDenom = "srg"
 
 	BondDenom = EvmDenom
 
