@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	// "path/filepath"
-	// "strings"
+	 "path/filepath"
+	 "strings"
 
 	dbm "github.com/cometbft/cometbft-db"
 	abci "github.com/cometbft/cometbft/abci/types"
@@ -143,9 +143,9 @@ import (
 	validatorvestingtypes "github.com/0glabs/0g-chain/x/validator-vesting/types"
 	"github.com/ethereum/go-ethereum/common"
 
-	// wasm "github.com/CosmWasm/wasmd/x/wasm"
-    // wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-    // wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	wasm "github.com/CosmWasm/wasmd/x/wasm"
+    wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+    wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 )
 
 var (
@@ -192,7 +192,7 @@ var (
 		dasigners.AppModuleBasic{},
 		consensus.AppModuleBasic{},
 		ibcwasm.AppModuleBasic{},
-		//wasm.AppModuleBasic{},
+		wasm.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -287,7 +287,7 @@ type App struct {
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 	ScopedWasmKeeper     capabilitykeeper.ScopedKeeper
 	
-	//WasmKeeper           wasmkeeper.Keeper
+	WasmKeeper           wasmkeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -336,7 +336,7 @@ func NewApp(
 		vestingtypes.StoreKey,
 		consensusparamtypes.StoreKey, crisistypes.StoreKey, precisebanktypes.StoreKey,
 		ibcwasmtypes.StoreKey,
-		//wasm.StoreKey,
+		wasm.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey, evmtypes.TransientKey, feemarkettypes.TransientKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -388,7 +388,7 @@ func NewApp(
 	app.capabilityKeeper = capabilitykeeper.NewKeeper(appCodec, keys[capabilitytypes.StoreKey], memKeys[capabilitytypes.MemStoreKey])
 	scopedIBCKeeper := app.capabilityKeeper.ScopeToModule(ibcexported.ModuleName)
 	scopedTransferKeeper := app.capabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
-	//scopedWasmKeeper := app.capabilityKeeper.ScopeToModule(wasm.ModuleName)
+	scopedWasmKeeper := app.capabilityKeeper.ScopeToModule(wasm.ModuleName)
 	app.capabilityKeeper.Seal()
 
 	// add keepers
@@ -578,44 +578,44 @@ func NewApp(
 	app.ibcKeeper.SetRouter(ibcRouter)
 
 
-	// wasmDir := filepath.Join(homePath, "wasm")
-	// wasmConfig := wasmtypes.WasmConfig{
-	// 	SmartQueryGasLimit:    3000000,  // Example gas limit for smart queries
-	// }
+	wasmDir := filepath.Join(homePath, "wasm")
+	wasmConfig := wasmtypes.WasmConfig{
+		SmartQueryGasLimit:    3000000,  // Example gas limit for smart queries
+	}
 	
 
 	// The last arguments can contain custom message handlers, and custom query handlers,
 	// if we want to allow any custom callbacks
-	//availableCapabilities := strings.Join(AllCapabilities(), ",")
+	availableCapabilities := strings.Join(AllCapabilities(), ",")
 	
-	// Initialize scoped keepers
-	//app.ScopedWasmKeeper = app.capabilityKeeper.ScopeToModule(wasm.ModuleName)
+	//Initialize scoped keepers
+	app.ScopedWasmKeeper = app.capabilityKeeper.ScopeToModule(wasm.ModuleName)
 
 
 
 
-// wasmKeeper := wasmkeeper.NewKeeper(
-//     appCodec, 
-//     keys[wasm.StoreKey], 
-//     app.accountKeeper, 
-//     app.bankKeeper, 
-//     nil, 
-//     distrkeeper.NewQuerier(app.distrKeeper),
-// 	app.packetForwardKeeper,
-//     app.ibcKeeper.ChannelKeeper, 	
-//     &app.ibcKeeper.PortKeeper, 
-//     scopedWasmKeeper, 
-//     app.transferKeeper, 
-//     app.MsgServiceRouter(), 
-//     app.GRPCQueryRouter(), 
-//     wasmDir, 
-//     wasmConfig, 
-// 	availableCapabilities, 
-//     authtypes.NewModuleAddress(govtypes.ModuleName).String(),
-//     // Any additional keeper options
-// )
+wasmKeeper := wasmkeeper.NewKeeper(
+    appCodec, 
+    keys[wasm.StoreKey], 
+    app.accountKeeper, 
+    app.bankKeeper, 
+    nil, 
+    distrkeeper.NewQuerier(app.distrKeeper),
+	app.packetForwardKeeper,
+    app.ibcKeeper.ChannelKeeper, 	
+    &app.ibcKeeper.PortKeeper, 
+    scopedWasmKeeper, 
+    app.transferKeeper, 
+    app.MsgServiceRouter(), 
+    app.GRPCQueryRouter(), 
+    wasmDir, 
+    wasmConfig, 
+	availableCapabilities, 
+    authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+    // Any additional keeper options
+)
 
-//app.WasmKeeper = wasmKeeper
+app.WasmKeeper = wasmKeeper
 
 	app.issuanceKeeper = issuancekeeper.NewKeeper(
 		appCodec,
